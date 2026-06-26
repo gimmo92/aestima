@@ -1,57 +1,53 @@
 "use client";
 
-// =============================================================================
-// AestimaLanding.jsx — Landing page a singola pagina per "aestima"
-// Stack: Next.js (App Router) + Tailwind CSS. Nessuna libreria esterna.
-//
-// Uso:
-//   import AestimaLanding from "@/components/AestimaLanding";
-//   export default function Page() { return <AestimaLanding />; }
-//
-// Palette/accento: cambia ACCENT (classi Tailwind) in un punto solo qui sotto.
-// Form: stato React + validazione base. L'invio ha un // TODO dove collegare
-// il backend/email — nessun endpoint inventato.
-// =============================================================================
-
 import { useState } from "react";
 
-// --- Accento centralizzato: cambia qui per ricolorare CTA, label, ecc. --------
 const ACCENT = {
-  bg: "bg-blue-600",
-  bgHover: "hover:bg-blue-700",
-  text: "text-blue-600",
-  border: "border-blue-600",
-  ring: "focus:border-blue-600 focus:ring-blue-600",
+  text: "text-blue-300",
+  badge: "border border-blue-400/25 bg-blue-500/10 text-blue-200 backdrop-blur-sm",
 };
 
-// --- Logo aestima (wordmark + marchio geometrico segnaposto) ------------------
-// TODO: sostituire con il logo reale (es. <img src="/logo-aestima.svg" />).
-function Logo({ markInner = "bg-white" }) {
+function BackgroundGlow() {
   return (
-    <div className="flex items-center gap-2.5">
-      <span className={`flex h-7 w-7 items-center justify-center rounded-[7px] ${ACCENT.bg}`}>
-        <span className={`h-[11px] w-[11px] rotate-45 rounded-[2px] ${markInner}`} />
-      </span>
-      <span className="text-xl font-semibold tracking-tight text-neutral-900">aestima</span>
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+      <div className="absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-blue-600/20 blur-[120px]" />
+      <div className="absolute top-40 -right-24 h-72 w-72 rounded-full bg-cyan-500/10 blur-[100px]" />
+      <div className="absolute top-[55%] -left-20 h-64 w-64 rounded-full bg-blue-700/15 blur-[90px]" />
+      <div className="grid-overlay absolute inset-0 opacity-60" />
     </div>
   );
 }
 
-// --- Piccoli componenti riutilizzabili ----------------------------------------
-function Eyebrow({ children, className = "" }) {
+function Logo({ markInner = "bg-navy-900" }) {
   return (
-    <div className={`mb-4 font-mono text-[12.5px] font-medium uppercase tracking-[0.14em] ${className}`}>
+    <div className="flex items-center gap-2.5">
+      <span className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-gradient-to-br from-blue-500 to-cyan-500 shadow-glow-sm">
+        <span className={`h-[11px] w-[11px] rotate-45 rounded-[2px] ${markInner}`} />
+      </span>
+      <span className="text-xl font-semibold tracking-tight text-white">aestima</span>
+    </div>
+  );
+}
+
+function Eyebrow({ children }) {
+  return <div className="pill-eyebrow">{children}</div>;
+}
+
+function Bullet() {
+  return (
+    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
+  );
+}
+
+function GlassCard({ children, className = "" }) {
+  return (
+    <div className={`glass glass-hover rounded-2xl ${className}`}>
       {children}
     </div>
   );
 }
 
-function Bullet() {
-  return <span className={`mt-2 h-1.5 w-1.5 flex-none rounded-[2px] ${ACCENT.bg}`} />;
-}
-
 export default function AestimaLanding() {
-  // --- Stato del form ---------------------------------------------------------
   const [form, setForm] = useState({
     nome: "",
     azienda: "",
@@ -63,13 +59,11 @@ export default function AestimaLanding() {
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
-  // Un solo handler per input e select (usa l'attributo name)
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
 
-  // Validazione base lato client
   const handleSubmit = (e) => {
     e.preventDefault();
     const next = {};
@@ -83,146 +77,132 @@ export default function AestimaLanding() {
     if (!form.partenza) next.partenza = "Seleziona un'opzione";
 
     setErrors(next);
-
-    if (Object.keys(next).length === 0) {
-      // TODO: collegare a backend/email — qui va l'invio dei dati del form
-      // es. await fetch("/api/demo", { method: "POST", body: JSON.stringify(form) });
-      setSubmitted(true);
-    }
+    if (Object.keys(next).length === 0) setSubmitted(true);
   };
-
-  // Stile condiviso dei campi
-  const fieldClass =
-    `w-full rounded-[9px] border border-neutral-300 bg-white px-3.5 py-3 text-[15px] ` +
-    `text-neutral-900 outline-none transition focus:ring-1 ${ACCENT.ring}`;
 
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
-    <div className="min-h-screen scroll-smooth bg-white font-sans text-neutral-900 antialiased [scroll-padding-top:88px]">
-      {/* ============ NAV ============ */}
-      <header className="sticky top-0 z-50 border-b border-neutral-200/80 bg-white/85 backdrop-blur-md backdrop-saturate-150">
+    <div className="relative min-h-screen scroll-smooth font-sans text-white antialiased [scroll-padding-top:88px]">
+      <BackgroundGlow />
+
+      {/* NAV */}
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-navy-950/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1140px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8 lg:px-12">
           <Logo />
-          <a
-            href="#demo"
-            className={`inline-flex items-center rounded-[9px] ${ACCENT.bg} ${ACCENT.bgHover} px-5 py-2.5 text-[14.5px] font-semibold text-white transition`}
-          >
+          <a href="#demo" className="btn-primary-sm">
             Richiedi una demo
           </a>
         </div>
       </header>
 
-      {/* ============ HERO ============ */}
-      <section className="border-b border-neutral-100">
-        <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-center gap-10 px-5 py-14 sm:px-8 md:grid-cols-2 md:gap-16 lg:px-12 lg:py-24">
-          <div>
-            <Eyebrow className={ACCENT.text}>
-              Agente AI per la preventivazione · Manifatturiero
-            </Eyebrow>
-            <h1 className="text-[33px] font-semibold leading-[1.04] tracking-tight sm:text-5xl lg:text-[58px]">
-              Dalla richiesta del cliente all'offerta pronta, in automatico
+      {/* HERO */}
+      <section className="section-divider relative">
+        <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-center gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 md:gap-16 lg:px-12 lg:py-28">
+          <div className="relative z-10">
+            <Eyebrow>Agente AI per la preventivazione · Manifatturiero</Eyebrow>
+            <h1 className="text-[34px] font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[58px]">
+              <span className="gradient-text">Dalla richiesta del cliente</span>
+              <br />
+              <span className="text-white">all&apos;offerta pronta, in automatico</span>
             </h1>
-            <p className="mt-5 max-w-[30em] text-[17px] leading-relaxed text-neutral-500 sm:text-lg lg:text-xl">
-              L'agente prepara il preventivo — da un ricambio a catalogo o da un
-              disegno tecnico. L'approvazione finale resta sempre a una persona: la tua.
+            <p className="mt-6 max-w-[30em] text-[17px] leading-relaxed text-slate-400 sm:text-lg lg:text-xl">
+              L&apos;agente prepara il preventivo — da un ricambio a catalogo o da un
+              disegno tecnico. L&apos;approvazione finale resta sempre a una persona: la tua.
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#demo"
-                className={`inline-flex items-center rounded-[9px] ${ACCENT.bg} ${ACCENT.bgHover} px-6 py-3.5 text-[15.5px] font-semibold text-white transition`}
-              >
+            <div className="mt-9 flex flex-wrap gap-3">
+              <a href="#demo" className="btn-primary">
                 Richiedi una demo
               </a>
-              <a
-                href="#funziona"
-                className={`inline-flex items-center rounded-[9px] border border-neutral-300 bg-white px-6 py-3.5 text-[15.5px] font-semibold text-neutral-900 transition hover:${ACCENT.border} hover:${ACCENT.text}`}
-              >
+              <a href="#funziona" className="btn-ghost">
                 Come funziona
               </a>
             </div>
           </div>
 
-          {/* Mock dell'offerta */}
-          <div className="mx-auto w-full max-w-[440px] rounded-2xl border border-neutral-200 bg-white p-5 shadow-[0_24px_50px_-22px_rgba(16,25,40,0.22)] sm:p-6">
-            <div className="mb-5 flex items-center justify-between gap-2.5">
-              <span className="font-mono text-[12.5px] tracking-wide text-neutral-400">
-                OFFERTA 2026-0412
-              </span>
-              <span className={`rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-xs font-semibold ${ACCENT.text}`}>
-                Pronta da approvare
-              </span>
-            </div>
-            <div className="flex flex-col gap-3.5">
-              {[
-                ["Materiali", "34%"],
-                ["Lavorazioni interne", "46%"],
-                ["Lavorazioni esterne", "28%"],
-                ["Componenti", "40%"],
-              ].map(([label, w]) => (
-                <div key={label} className="flex items-center justify-between gap-4">
-                  <span className="font-mono text-[12.5px] text-neutral-500">{label}</span>
-                  <span className="h-[9px] rounded bg-neutral-200" style={{ width: w }} />
-                </div>
-              ))}
-            </div>
-            <div className="my-5 h-px bg-neutral-100" />
-            <div className="mb-5 flex items-center justify-between gap-4">
-              <span className="text-sm font-semibold">Totale offerta</span>
-              <span className="h-3 w-[42%] rounded bg-neutral-300" />
-            </div>
-            <div className="flex gap-2.5">
-              <span className={`flex-1 rounded-lg ${ACCENT.bg} py-2.5 text-center text-sm font-semibold text-white`}>
-                Approva
-              </span>
-              <span className="flex-1 rounded-lg border border-neutral-300 bg-white py-2.5 text-center text-sm font-semibold text-neutral-900">
-                Modifica
-              </span>
-            </div>
-            <p className="mt-4 font-mono text-[11.5px] text-neutral-400">
-              + documento interno di calcolo allegato
-            </p>
+          <div className="relative z-10 mx-auto w-full max-w-[440px]">
+            <div aria-hidden className="absolute -inset-6 rounded-[28px] bg-gradient-to-br from-blue-600/25 to-cyan-500/10 blur-2xl" />
+            <GlassCard className="relative p-5 sm:p-6">
+              <div className="mb-5 flex items-center justify-between gap-2.5">
+                <span className="font-mono text-[12.5px] tracking-wide text-slate-500">
+                  OFFERTA 2026-0412
+                </span>
+                <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${ACCENT.badge}`}>
+                  Pronta da approvare
+                </span>
+              </div>
+              <div className="flex flex-col gap-3.5">
+                {[
+                  ["Materiali", "34%"],
+                  ["Lavorazioni interne", "46%"],
+                  ["Lavorazioni esterne", "28%"],
+                  ["Componenti", "40%"],
+                ].map(([label, w]) => (
+                  <div key={label} className="flex items-center justify-between gap-4">
+                    <span className="font-mono text-[12.5px] text-slate-400">{label}</span>
+                    <span className="bar-gradient" style={{ width: w }} />
+                  </div>
+                ))}
+              </div>
+              <div className="my-5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <div className="mb-5 flex items-center justify-between gap-4">
+                <span className="text-sm font-semibold">Totale offerta</span>
+                <span className="h-3 w-[42%] rounded-full bg-gradient-to-r from-blue-500/60 to-cyan-400/60" />
+              </div>
+              <div className="flex gap-2.5">
+                <span className="flex-1 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 py-2.5 text-center text-sm font-semibold text-white shadow-glow-sm">
+                  Approva
+                </span>
+                <span className="flex-1 rounded-lg border border-white/10 bg-white/[0.04] py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm">
+                  Modifica
+                </span>
+              </div>
+              <p className="mt-4 font-mono text-[11.5px] text-slate-500">
+                + documento interno di calcolo allegato
+              </p>
+            </GlassCard>
           </div>
         </div>
       </section>
 
-      {/* ============ IL PROBLEMA ============ */}
-      <section id="problema" className="border-b border-neutral-100 bg-neutral-50">
-        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow className={ACCENT.text}>Il problema</Eyebrow>
+      {/* IL PROBLEMA */}
+      <section id="problema" className="section-divider relative bg-navy-900/40">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 to-transparent" aria-hidden />
+        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <Eyebrow>Il problema</Eyebrow>
           <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
             Il preventivo manuale ruba ore — e la coda continua a crescere
           </h2>
-          <p className="mt-4 max-w-[42em] text-base leading-relaxed text-neutral-500 sm:text-lg">
+          <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
             Ogni richiesta va interpretata, il pezzo identificato o il disegno
-            letto, costi e tempi calcolati, l'offerta scritta. Intanto le richieste
+            letto, costi e tempi calcolati, l&apos;offerta scritta. Intanto le richieste
             si accumulano più velocemente di quanto riusciate a evaderle.
           </p>
-          <div className="mt-9 grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["01", "Interpretare la richiesta del cliente"],
               ["02", "Identificare il pezzo o leggere il disegno"],
               ["03", "Calcolare costi e tempi di lavorazione"],
               ["04", "Scrivere e formattare l'offerta"],
             ].map(([n, t]) => (
-              <div key={n} className="rounded-xl border border-neutral-200 bg-white p-5">
-                <span className="font-mono text-xs text-neutral-400">{n}</span>
-                <p className="mt-2 text-[15.5px] font-medium leading-snug">{t}</p>
-              </div>
+              <GlassCard key={n} className="p-5">
+                <span className="font-mono text-xs text-blue-300/70">{n}</span>
+                <p className="mt-2 text-[15.5px] font-medium leading-snug text-slate-200">{t}</p>
+              </GlassCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ DUE MODALITÀ, UN AGENTE ============ */}
-      <section className="border-b border-neutral-100">
+      {/* DUE MODALITÀ */}
+      <section className="section-divider relative">
         <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow className={ACCENT.text}>Due modalità, un agente</Eyebrow>
+          <Eyebrow>Due modalità, un agente</Eyebrow>
           <h2 className="mb-10 max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
             Lo stesso agente, qualunque sia il punto di partenza
           </h2>
 
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
             {[
               {
                 tag: "MODALITÀ 01",
@@ -243,8 +223,8 @@ export default function AestimaLanding() {
                 ],
               },
             ].map((m) => (
-              <div key={m.tag} className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8">
-                <span className={`inline-block rounded-md ${ACCENT.bg} px-2.5 py-1 font-mono text-xs tracking-wide text-white`}>
+              <GlassCard key={m.tag} className="p-6 sm:p-8">
+                <span className="inline-block rounded-md bg-gradient-to-r from-blue-600 to-cyan-600 px-2.5 py-1 font-mono text-xs tracking-wide text-white shadow-glow-sm">
                   {m.tag}
                 </span>
                 <h3 className="mt-4 mb-4 text-[22px] font-semibold tracking-tight">{m.title}</h3>
@@ -252,30 +232,30 @@ export default function AestimaLanding() {
                   {m.points.map((p) => (
                     <div key={p} className="flex gap-3">
                       <Bullet />
-                      <p className="text-[15.5px] leading-relaxed text-neutral-700">{p}</p>
+                      <p className="text-[15.5px] leading-relaxed text-slate-300">{p}</p>
                     </div>
                   ))}
                 </div>
-              </div>
+              </GlassCard>
             ))}
           </div>
 
-          {/* Riga che unifica le due modalità */}
-          <div className="mt-4 flex flex-wrap items-center gap-3.5 rounded-2xl bg-neutral-900 p-6 sm:p-7">
-            <span className={`h-2.5 w-2.5 flex-none rounded-[3px] ${ACCENT.bg}`} />
-            <p className="text-base font-medium leading-snug text-white sm:text-lg">
-              Qualunque sia il punto di partenza, ottieni un'offerta pronta da approvare.
+          <div className="glass-strong mt-5 flex flex-wrap items-center gap-3.5 rounded-2xl border-blue-400/20 bg-gradient-to-r from-blue-950/50 to-cyan-950/30 p-6 sm:p-7">
+            <span className="h-2.5 w-2.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
+            <p className="text-base font-medium leading-snug sm:text-lg">
+              Qualunque sia il punto di partenza, ottieni un&apos;offerta pronta da approvare.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ============ COME FUNZIONA ============ */}
-      <section id="funziona" className="border-b border-neutral-100 bg-neutral-50">
-        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow className={ACCENT.text}>Come funziona</Eyebrow>
+      {/* COME FUNZIONA */}
+      <section id="funziona" className="section-divider relative bg-navy-900/40">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent" aria-hidden />
+        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <Eyebrow>Come funziona</Eyebrow>
           <h2 className="mb-10 max-w-[14em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Dalla mail all'offerta, in quattro passaggi
+            Dalla mail all&apos;offerta, in quattro passaggi
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
@@ -284,47 +264,52 @@ export default function AestimaLanding() {
               ["STEP 03", "Calcola costi e tempi", "Sui tuoi dati: materiali, lavorazioni e condizioni cliente."],
               ["STEP 04", "Genera l'offerta", "Offerta pronta + documento interno con gli elementi di calcolo, per il controllo umano."],
             ].map(([step, title, desc]) => (
-              <div key={step} className="rounded-2xl border border-neutral-200 bg-white p-6">
+              <GlassCard key={step} className="p-6">
                 <div className={`mb-4 font-mono text-[13px] font-medium ${ACCENT.text}`}>{step}</div>
                 <h3 className="mb-2 text-lg font-semibold tracking-tight">{title}</h3>
-                <p className="text-[15px] leading-relaxed text-neutral-500">{desc}</p>
-              </div>
+                <p className="text-[15px] leading-relaxed text-slate-400">{desc}</p>
+              </GlassCard>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ COSA CAMBIA ============ */}
-      <section id="vantaggi" className="border-b border-neutral-100">
+      {/* COSA CAMBIA */}
+      <section id="vantaggi" className="section-divider relative">
         <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow className={ACCENT.text}>Cosa cambia</Eyebrow>
+          <Eyebrow>Cosa cambia</Eyebrow>
           <h2 className="mb-10 max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
             Lo stesso team, molte più offerte
           </h2>
-          <div className="grid grid-cols-1 overflow-hidden rounded-2xl border border-neutral-200 sm:grid-cols-2">
-            {[
-              ["Da ore a minuti", "Il tempo per preparare un preventivo si misura in minuti, non più in ore."],
-              ["Meno errori", "Calcoli coerenti e tracciabili, sempre con gli stessi criteri."],
-              ["Più richieste evase", "La coda si smaltisce con le stesse persone, senza nuovi inserimenti."],
-              ["Migliora nel tempo", "Ogni offerta approvata affina i criteri di calcolo del sistema."],
-            ].map(([title, desc], i) => (
-              <div
-                key={title}
-                className={`p-6 sm:p-8 ${i % 2 === 0 ? "sm:border-r" : ""} ${i < 2 ? "border-b" : ""} border-neutral-100`}
-              >
-                <h3 className="mb-2.5 text-[19px] font-semibold tracking-tight">{title}</h3>
-                <p className="text-[15px] leading-relaxed text-neutral-500">{desc}</p>
-              </div>
-            ))}
+          <div className="glass overflow-hidden rounded-2xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2">
+              {[
+                ["Da ore a minuti", "Il tempo per preparare un preventivo si misura in minuti, non più in ore."],
+                ["Meno errori", "Calcoli coerenti e tracciabili, sempre con gli stessi criteri."],
+                ["Più richieste evase", "La coda si smaltisce con le stesse persone, senza nuovi inserimenti."],
+                ["Migliora nel tempo", "Ogni offerta approvata affina i criteri di calcolo del sistema."],
+              ].map(([title, desc], i) => (
+                <div
+                  key={title}
+                  className={`p-6 sm:p-8 ${i % 2 === 0 ? "sm:border-r sm:border-white/[0.06]" : ""} ${i < 2 ? "border-b border-white/[0.06]" : ""}`}
+                >
+                  <h3 className="mb-2.5 text-[19px] font-semibold tracking-tight">{title}</h3>
+                  <p className="text-[15px] leading-relaxed text-slate-400">{desc}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ============ COSTRUITO SUI TUOI DATI ============ */}
-      <section className="bg-neutral-900 text-white">
-        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow className="text-blue-300">Costruito sui tuoi dati</Eyebrow>
-          <h2 className="mb-11 max-w-[17em] text-[27px] font-semibold leading-tight tracking-tight text-white sm:text-4xl lg:text-[42px]">
+      {/* COSTRUITO SUI TUOI DATI */}
+      <section className="section-divider relative overflow-hidden">
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-navy-800 via-navy-900 to-blue-950" />
+        <div aria-hidden className="absolute -right-20 top-0 h-80 w-80 rounded-full bg-blue-600/15 blur-[100px]" />
+        <div aria-hidden className="absolute -left-10 bottom-0 h-64 w-64 rounded-full bg-cyan-500/10 blur-[80px]" />
+        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <Eyebrow>Costruito sui tuoi dati</Eyebrow>
+          <h2 className="mb-11 max-w-[17em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
             Lavora sui tuoi numeri, dentro la tua infrastruttura
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
@@ -333,23 +318,26 @@ export default function AestimaLanding() {
               ["On-premise", "Possibilità di installazione sui tuoi server, dentro il perimetro aziendale."],
               ["Riservatezza", "Nessun dato viene usato per addestrare modelli esterni."],
             ].map(([title, desc]) => (
-              <div key={title}>
-                <div className="mb-4 h-px bg-white/15" />
+              <div key={title} className="glass glass-hover rounded-2xl p-6">
+                <div className="mb-4 h-px bg-gradient-to-r from-blue-400/40 to-transparent" />
                 <h3 className="mb-2.5 text-lg font-semibold">{title}</h3>
-                <p className="text-[15px] leading-relaxed text-neutral-400">{desc}</p>
+                <p className="text-[15px] leading-relaxed text-slate-400">{desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ FORM DEMO ============ */}
-      <section id="demo" className="border-t border-neutral-100 bg-neutral-50">
-        <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-start gap-10 px-5 py-16 sm:px-8 md:grid-cols-2 md:gap-16 lg:px-12 lg:py-28">
+      {/* FORM DEMO */}
+      <section id="demo" className="section-divider relative">
+        <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent" />
+        <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-start gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 md:gap-16 lg:px-12 lg:py-28">
           <div>
-            <Eyebrow className={ACCENT.text}>Richiedi una demo</Eyebrow>
+            <Eyebrow>Richiedi una demo</Eyebrow>
             <h2 className="mb-5 max-w-[13em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-              Vediamo aestima sui vostri preventivi
+              <span className="gradient-text-accent">Vediamo aestima</span>
+              <br />
+              <span className="text-white">sui vostri preventivi</span>
             </h2>
             <div className="flex max-w-[30em] flex-col gap-3.5">
               {[
@@ -359,147 +347,155 @@ export default function AestimaLanding() {
               ].map((t) => (
                 <div key={t} className="flex gap-3">
                   <Bullet />
-                  <p className="text-base leading-relaxed text-neutral-700">{t}</p>
+                  <p className="text-base leading-relaxed text-slate-300">{t}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Card form */}
-          <div className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-[0_24px_50px_-26px_rgba(16,25,40,0.2)] sm:p-9">
-            {submitted ? (
-              <div className="px-1.5 py-6 text-center">
-                <div className="mx-auto mb-5 flex h-13 w-13 items-center justify-center rounded-full bg-blue-50">
-                  <span className={`h-2.5 w-[18px] -translate-y-px rotate-[-45deg] border-b-[3px] border-l-[3px] ${ACCENT.border}`} />
+          <div className="relative">
+            <div aria-hidden className="absolute -inset-4 rounded-[28px] bg-gradient-to-br from-blue-600/20 to-cyan-500/10 blur-2xl" />
+            <GlassCard className="relative p-6 sm:p-9">
+              {submitted ? (
+                <div className="px-1.5 py-6 text-center">
+                  <div className="mx-auto mb-5 flex h-13 w-13 items-center justify-center rounded-full border border-blue-400/20 bg-blue-500/10 shadow-glow-sm">
+                    <span className="h-2.5 w-[18px] -translate-y-px rotate-[-45deg] border-b-[3px] border-l-[3px] border-cyan-400" />
+                  </div>
+                  <h3 className="mb-2.5 text-[22px] font-semibold tracking-tight">Richiesta ricevuta</h3>
+                  <p className="text-[15.5px] leading-relaxed text-slate-400">
+                    Ti ricontattiamo a breve per fissare la demo. Grazie.
+                  </p>
                 </div>
-                <h3 className="mb-2.5 text-[22px] font-semibold tracking-tight">Richiesta ricevuta</h3>
-                <p className="text-[15.5px] leading-relaxed text-neutral-500">
-                  Ti ricontattiamo a breve per fissare la demo. Grazie.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
-                {/* Nome */}
-                <label className="flex flex-col gap-1.5">
-                  <span className="text-[13.5px] font-medium text-neutral-700">Nome e cognome</span>
-                  <input name="nome" value={form.nome} onChange={handleChange} type="text" placeholder="Mario Rossi" className={fieldClass} />
-                  {errors.nome && <span className="text-[12.5px] text-red-600">{errors.nome}</span>}
-                </label>
+              ) : (
+                <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+                  {[
+                    ["nome", "Nome e cognome", "text", "Mario Rossi"],
+                    ["azienda", "Azienda", "text", "Nome azienda"],
+                  ].map(([name, label, type, placeholder]) => (
+                    <label key={name} className="flex flex-col gap-1.5">
+                      <span className="text-[13.5px] font-medium text-slate-300">{label}</span>
+                      <input
+                        name={name}
+                        value={form[name]}
+                        onChange={handleChange}
+                        type={type}
+                        placeholder={placeholder}
+                        className="field-dark"
+                      />
+                      {errors[name] && <span className="text-[12.5px] text-red-400">{errors[name]}</span>}
+                    </label>
+                  ))}
 
-                {/* Azienda */}
-                <label className="flex flex-col gap-1.5">
-                  <span className="text-[13.5px] font-medium text-neutral-700">Azienda</span>
-                  <input name="azienda" value={form.azienda} onChange={handleChange} type="text" placeholder="Nome azienda" className={fieldClass} />
-                  {errors.azienda && <span className="text-[12.5px] text-red-600">{errors.azienda}</span>}
-                </label>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {[
+                      ["ruolo", "Ruolo", "Resp. ufficio tecnico"],
+                      ["email", "Email aziendale", "nome@azienda.it"],
+                    ].map(([name, label, placeholder]) => (
+                      <label key={name} className="flex flex-col gap-1.5">
+                        <span className="text-[13.5px] font-medium text-slate-300">{label}</span>
+                        <input
+                          name={name}
+                          value={form[name]}
+                          onChange={handleChange}
+                          type={name === "email" ? "email" : "text"}
+                          placeholder={placeholder}
+                          className="field-dark"
+                        />
+                        {errors[name] && <span className="text-[12.5px] text-red-400">{errors[name]}</span>}
+                      </label>
+                    ))}
+                  </div>
 
-                {/* Ruolo + Email */}
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[13.5px] font-medium text-neutral-700">Ruolo</span>
-                    <input name="ruolo" value={form.ruolo} onChange={handleChange} type="text" placeholder="Resp. ufficio tecnico" className={fieldClass} />
-                    {errors.ruolo && <span className="text-[12.5px] text-red-600">{errors.ruolo}</span>}
+                    <span className="text-[13.5px] font-medium text-slate-300">
+                      Quante richieste / preventivi gestite a settimana?
+                    </span>
+                    <select name="volume" value={form.volume} onChange={handleChange} className="field-dark appearance-none">
+                      <option value="">Seleziona…</option>
+                      <option value="<10">Meno di 10</option>
+                      <option value="10-30">10 – 30</option>
+                      <option value="30-80">30 – 80</option>
+                      <option value=">80">Oltre 80</option>
+                    </select>
+                    {errors.volume && <span className="text-[12.5px] text-red-400">{errors.volume}</span>}
                   </label>
+
                   <label className="flex flex-col gap-1.5">
-                    <span className="text-[13.5px] font-medium text-neutral-700">Email aziendale</span>
-                    <input name="email" value={form.email} onChange={handleChange} type="email" placeholder="nome@azienda.it" className={fieldClass} />
-                    {errors.email && <span className="text-[12.5px] text-red-600">{errors.email}</span>}
+                    <span className="text-[13.5px] font-medium text-slate-300">
+                      Partite più da ricambi a catalogo o da disegni su commessa?
+                    </span>
+                    <select name="partenza" value={form.partenza} onChange={handleChange} className="field-dark appearance-none">
+                      <option value="">Seleziona…</option>
+                      <option value="ricambi">Soprattutto ricambi a catalogo</option>
+                      <option value="disegni">Soprattutto disegni su commessa</option>
+                      <option value="entrambi">Più o meno in egual misura</option>
+                    </select>
+                    {errors.partenza && <span className="text-[12.5px] text-red-400">{errors.partenza}</span>}
                   </label>
-                </div>
 
-                {/* Domanda di qualifica 1 */}
-                <label className="flex flex-col gap-1.5">
-                  <span className="text-[13.5px] font-medium text-neutral-700">
-                    Quante richieste / preventivi gestite a settimana?
-                  </span>
-                  <select name="volume" value={form.volume} onChange={handleChange} className={`${fieldClass} appearance-none`}>
-                    <option value="">Seleziona…</option>
-                    <option value="<10">Meno di 10</option>
-                    <option value="10-30">10 – 30</option>
-                    <option value="30-80">30 – 80</option>
-                    <option value=">80">Oltre 80</option>
-                  </select>
-                  {errors.volume && <span className="text-[12.5px] text-red-600">{errors.volume}</span>}
-                </label>
-
-                {/* Domanda di qualifica 2 */}
-                <label className="flex flex-col gap-1.5">
-                  <span className="text-[13.5px] font-medium text-neutral-700">
-                    Partite più da ricambi a catalogo o da disegni su commessa?
-                  </span>
-                  <select name="partenza" value={form.partenza} onChange={handleChange} className={`${fieldClass} appearance-none`}>
-                    <option value="">Seleziona…</option>
-                    <option value="ricambi">Soprattutto ricambi a catalogo</option>
-                    <option value="disegni">Soprattutto disegni su commessa</option>
-                    <option value="entrambi">Più o meno in egual misura</option>
-                  </select>
-                  {errors.partenza && <span className="text-[12.5px] text-red-600">{errors.partenza}</span>}
-                </label>
-
-                <button
-                  type="submit"
-                  className={`mt-1 rounded-[9px] ${ACCENT.bg} ${ACCENT.bgHover} py-3.5 text-[15.5px] font-semibold text-white transition`}
-                >
-                  Richiedi una demo
-                </button>
-                <p className="text-center text-xs leading-relaxed text-neutral-400">
-                  Inviando accetti di essere ricontattato per fissare la demo.
-                </p>
-              </form>
-            )}
+                  <button type="submit" className="btn-primary mt-1 w-full">
+                    Richiedi una demo
+                  </button>
+                  <p className="text-center text-xs leading-relaxed text-slate-500">
+                    Inviando accetti di essere ricontattato per fissare la demo.
+                  </p>
+                </form>
+              )}
+            </GlassCard>
           </div>
         </div>
       </section>
 
-      {/* ============ FOOTER ============ */}
-      <footer className="bg-[#eef2f6]">
+      {/* FOOTER */}
+      <footer className="relative border-t border-white/[0.06] bg-navy-950/80 backdrop-blur-xl">
         <div className="mx-auto grid max-w-[1140px] grid-cols-1 gap-10 px-5 py-12 sm:grid-cols-2 sm:px-8 lg:px-12 lg:py-18">
           <div>
             <div className="mb-6">
-              <Logo markInner="bg-[#eef2f6]" />
+              <Logo markInner="bg-navy-950" />
             </div>
             <div className="mb-6 flex flex-col gap-3">
-              <a href="#" className={`text-[15.5px] ${ACCENT.text} hover:underline`}>Privacy Policy</a>
-              <a href="#" className={`text-[15.5px] ${ACCENT.text} hover:underline`}>Termini e condizioni</a>
-              <a href="#" className={`text-[15.5px] ${ACCENT.text} hover:underline`}>GDPR e Sicurezza dei dati</a>
+              {["Privacy Policy", "Termini e condizioni", "GDPR e Sicurezza dei dati"].map((link) => (
+                <a key={link} href="#" className="text-[15.5px] text-blue-300 transition hover:text-cyan-300 hover:underline">
+                  {link}
+                </a>
+              ))}
             </div>
             <a
               href="#"
               aria-label="LinkedIn"
-              className={`inline-flex h-6 w-6 items-center justify-center rounded-[5px] ${ACCENT.bg} text-[11px] font-bold text-white`}
+              className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] bg-gradient-to-br from-blue-600 to-cyan-600 text-[11px] font-bold text-white shadow-glow-sm"
             >
               in
             </a>
           </div>
 
-          <div className="text-neutral-700">
+          <div className="text-slate-300">
             <div className="mb-4.5 flex items-center gap-2.5 text-[15.5px]">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`flex-none ${ACCENT.text}`}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="flex-none text-cyan-400">
                 <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" />
                 <circle cx="12" cy="9" r="2.5" />
               </svg>
               <span>Via Nino Bixio 11, 20159, Milano</span>
             </div>
             <div className="mb-5 flex items-center gap-2.5 text-[15.5px]">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={`flex-none ${ACCENT.text}`}>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="flex-none text-cyan-400">
                 <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
               </svg>
               <span>+ 39 346 3060372</span>
             </div>
-            <p className="mb-5 max-w-[26em] text-[15px] leading-relaxed">
+            <p className="mb-5 max-w-[26em] text-[15px] leading-relaxed text-slate-500">
               aestima è un marchio di PEOPLEFIRST SRL P.IVA 03981510120 , Cap. Soc. 10.000€.
             </p>
-            <p className="mb-1.5 text-[15.5px] font-semibold text-neutral-900">Orari</p>
+            <p className="mb-1.5 text-[15.5px] font-semibold text-white">Orari</p>
             <p className="text-[15.5px]">Lun – Sab: 9 – 18</p>
           </div>
         </div>
       </footer>
 
-      {/* Scroll to top */}
       <button
         onClick={scrollTop}
         aria-label="Torna su"
-        className={`fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full ${ACCENT.bg} ${ACCENT.bgHover} shadow-lg transition`}
+        className="fixed bottom-6 right-6 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 shadow-glow transition hover:from-blue-500 hover:to-cyan-500"
       >
         <span className="h-2.5 w-2.5 translate-y-0.5 rotate-45 border-l-2 border-t-2 border-white" />
       </button>

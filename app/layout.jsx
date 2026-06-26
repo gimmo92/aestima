@@ -21,8 +21,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="it">
-      <body className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
+    <html lang="it" className="dark">
+      <body className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} page-bg font-sans text-white antialiased`}>
         {children}
       </body>
     </html>

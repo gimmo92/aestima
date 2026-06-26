@@ -1,3 +1,81 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  select option {
+    background-color: #0d1e38;
+    color: #fff;
+  }
+}
+
+@layer components {
+  .page-bg {
+    background-color: #071222;
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% -15%, rgba(37, 99, 235, 0.28), transparent 55%),
+      radial-gradient(ellipse 55% 45% at 100% 10%, rgba(6, 182, 212, 0.14), transparent 50%),
+      radial-gradient(ellipse 45% 35% at 0% 40%, rgba(59, 130, 246, 0.1), transparent 50%),
+      radial-gradient(ellipse 70% 40% at 50% 100%, rgba(15, 33, 64, 0.9), transparent 60%);
+  }
+
+  .grid-overlay {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, black 20%, transparent 75%);
+  }
+
+  .glass {
+    @apply border border-white/[0.08] bg-white/[0.04] shadow-glass backdrop-blur-xl;
+  }
+
+  .glass-strong {
+    @apply border border-white/[0.1] bg-white/[0.06] shadow-glass-lg backdrop-blur-2xl;
+  }
+
+  .glass-hover {
+    @apply transition duration-300 hover:border-blue-400/25 hover:bg-white/[0.06] hover:shadow-glow-sm;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-br from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent;
+  }
+
+  .gradient-text-accent {
+    @apply bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-300 bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-[10px] bg-gradient-to-r from-blue-600 to-cyan-600 px-6 py-3.5 text-[15px] font-semibold text-white shadow-[0_4px_24px_rgba(37,99,235,0.35)] transition duration-300 hover:from-blue-500 hover:to-cyan-500 hover:shadow-[0_6px_32px_rgba(37,99,235,0.45)];
+  }
+
+  .btn-primary-sm {
+    @apply inline-flex items-center justify-center rounded-[10px] bg-gradient-to-r from-blue-600 to-cyan-600 px-5 py-2.5 text-[14.5px] font-semibold text-white shadow-[0_4px_20px_rgba(37,99,235,0.3)] transition duration-300 hover:from-blue-500 hover:to-cyan-500;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center rounded-[10px] border border-white/10 bg-white/[0.04] px-6 py-3.5 text-[15px] font-semibold text-white backdrop-blur-md transition duration-300 hover:border-blue-400/30 hover:bg-white/[0.08] hover:text-blue-100;
+  }
+
+  .pill-eyebrow {
+    @apply mb-5 inline-flex items-center rounded-full border border-blue-400/20 bg-blue-500/10 px-3.5 py-1.5 font-mono text-[11.5px] font-medium uppercase tracking-[0.16em] text-blue-300 backdrop-blur-sm;
+  }
+
+  .section-divider {
+    @apply border-b border-white/[0.06];
+  }
+
+  .field-dark {
+    @apply w-full rounded-[10px] border border-white/10 bg-navy-850/80 px-3.5 py-3 text-[15px] text-white outline-none backdrop-blur-sm transition placeholder:text-slate-500 focus:border-blue-400/50 focus:ring-1 focus:ring-blue-400/40;
+  }
+
+  .bar-gradient {
+    @apply h-[9px] rounded-full bg-gradient-to-r from-blue-600/80 to-cyan-500/80;
+  }
+}
