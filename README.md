@@ -1,11 +1,18 @@
 # Landing page aestima — Next.js + Tailwind CSS
 
-## File
-- `AestimaLanding.jsx` — il componente completo (client component, `"use client"`). Mettilo in `components/`.
-- `page.jsx` — esempio di pagina che lo monta. Mettilo in `app/`.
+## Struttura
+- `components/AestimaLanding.jsx` — landing page completa (client component).
+- `app/page.jsx` — pagina che monta il componente.
+- `app/layout.jsx` — layout root con font IBM Plex.
 
 ## Requisiti
-- Next.js (App Router) + Tailwind CSS già configurato. Nessuna libreria esterna.
+- Next.js (App Router) + Tailwind CSS. Nessuna libreria esterna.
+
+## Sviluppo locale
+```bash
+npm install
+npm run dev
+```
 - Solo classi Tailwind di default (più qualche valore arbitrario tipo `text-[42px]`).
 
 ## Note
