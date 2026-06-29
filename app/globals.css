@@ -78,4 +78,9 @@
   .bar-gradient {
     @apply h-[9px] rounded-full bg-gradient-to-r from-blue-600/80 to-cyan-500/80;
   }
+
+  .logo-partner {
+    @apply h-8 w-auto max-w-[132px] object-contain opacity-45 grayscale transition duration-300 hover:opacity-75 sm:h-10 sm:max-w-[148px];
+    filter: grayscale(100%) brightness(0) invert(1);
+  }
 }

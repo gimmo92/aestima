@@ -16,7 +16,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata = {
   title: "aestima — Agente AI per la preventivazione",
   description:
-    "Dalla richiesta del cliente all'offerta pronta, in automatico. Agente AI per la preventivazione nel manifatturiero.",
+    "Dal disegno tecnico all'offerta pronta, in automatico. Agente AI per la preventivazione da CAD e PDF nel manifatturiero.",
 };
 
 export default function RootLayout({ children }) {

@@ -7,6 +7,31 @@ const ACCENT = {
   badge: "border border-blue-400/25 bg-blue-500/10 text-blue-200 backdrop-blur-sm",
 };
 
+const PARTNER_LOGOS = [
+  { src: "/logos/tsg.png", alt: "TSG" },
+  { src: "/logos/emmegi.png", alt: "EMMEGI Heat Exchangers" },
+  { src: "/logos/rossi.png", alt: "Rossi" },
+  { src: "/logos/isoclima.png", alt: "Isoclima" },
+  { src: "/logos/idealtec.png", alt: "Idealtec" },
+];
+
+function PartnerLogoBand() {
+  return (
+    <section aria-label="Aziende clienti" className="section-divider relative border-t border-white/[0.06] bg-navy-950/50 py-10 sm:py-12">
+      <div className="mx-auto max-w-[1140px] px-5 sm:px-8 lg:px-12">
+        <p className="mb-8 text-center font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
+          Lavoriamo con
+        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-14 lg:gap-x-16">
+          {PARTNER_LOGOS.map((logo) => (
+            <img key={logo.alt} src={logo.src} alt={logo.alt} className="logo-partner" loading="lazy" />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function BackgroundGlow() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -85,7 +110,7 @@ function HeroSoftwareMockup() {
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
             </div>
-            <span className="font-mono text-[11px] text-slate-500">aestima — generazione preventivo</span>
+            <span className="font-mono text-[11px] text-slate-500">aestima — preventivo da disegno tecnico</span>
           </div>
           <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${ACCENT.badge}`}>
             Elaborazione completata
@@ -100,27 +125,27 @@ function HeroSoftwareMockup() {
             </p>
             <div className="space-y-2.5">
               <FileChip
-                type="pdf"
-                name="richiesta_cliente.pdf"
-                meta="PDF · 2.4 MB · allegato email"
-                accent="bg-gradient-to-br from-rose-500/90 to-orange-500/80"
-              />
-              <FileChip
                 type="cad"
                 name="disegno_pezzo_v3.step"
-                meta="CAD · 8.1 MB · STEP / disegno tecnico"
-                accent="bg-gradient-to-br from-blue-600 to-cyan-600"
+                meta="CAD · 8.1 MB · STEP · disegno tecnico"
+                accent="bg-gradient-to-br from-blue-600 to-cyan-600 ring-1 ring-cyan-400/30"
+              />
+              <FileChip
+                type="pdf"
+                name="scheda_richiesta.pdf"
+                meta="PDF · 2.4 MB · specifiche cliente (opzionale)"
+                accent="bg-gradient-to-br from-slate-600/90 to-slate-700/80"
               />
             </div>
 
-            <div className="mt-4 rounded-xl border border-dashed border-white/10 bg-white/[0.02] px-3 py-3 text-center">
-              <p className="text-[11.5px] text-slate-500">Trascina PDF o file CAD</p>
-              <p className="mt-0.5 font-mono text-[10px] text-slate-600">.pdf · .dwg · .step · .dxf</p>
+            <div className="mt-4 rounded-xl border border-dashed border-cyan-400/20 bg-cyan-500/[0.04] px-3 py-3 text-center">
+              <p className="text-[11.5px] text-slate-400">Carica il disegno tecnico del pezzo</p>
+              <p className="mt-0.5 font-mono text-[10px] text-slate-500">.step · .dwg · .dxf · .iges · + PDF</p>
             </div>
 
             <div className="mt-4 flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-              <span className="text-[11.5px] text-emerald-300">Pezzo identificato · costi calcolati</span>
+              <span className="text-[11.5px] text-emerald-300">Disegno interpretato · massa, lavorazioni e costi calcolati</span>
             </div>
           </div>
 
@@ -233,7 +258,7 @@ export default function AestimaLanding() {
     ruolo: "",
     email: "",
     volume: "",
-    partenza: "",
+    formato: "",
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -253,7 +278,7 @@ export default function AestimaLanding() {
     else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
       next.email = "Inserisci un'email valida";
     if (!form.volume) next.volume = "Seleziona un'opzione";
-    if (!form.partenza) next.partenza = "Seleziona un'opzione";
+    if (!form.formato) next.formato = "Seleziona un'opzione";
 
     setErrors(next);
     if (Object.keys(next).length === 0) setSubmitted(true);
@@ -279,15 +304,16 @@ export default function AestimaLanding() {
       <section className="section-divider relative">
         <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-center gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 md:gap-16 lg:px-12 lg:py-28">
           <div className="relative z-10">
-            <Eyebrow>Agente AI per la preventivazione · Manifatturiero</Eyebrow>
+            <Eyebrow>Preventivo da disegno tecnico · Manifatturiero</Eyebrow>
             <h1 className="text-[34px] font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[58px]">
-              <span className="gradient-text">Dalla richiesta del cliente</span>
+              <span className="gradient-text">Dal disegno tecnico</span>
               <br />
               <span className="text-white">all&apos;offerta pronta, in automatico</span>
             </h1>
             <p className="mt-6 max-w-[30em] text-[17px] leading-relaxed text-slate-400 sm:text-lg lg:text-xl">
-              L&apos;agente prepara il preventivo — da un ricambio a catalogo o da un
-              disegno tecnico. L&apos;approvazione finale resta sempre a una persona: la tua.
+              Carichi il file CAD o il PDF del pezzo: l&apos;agente legge il disegno, calcola
+              materiali e lavorazioni e genera il preventivo su carta intestata.
+              L&apos;approvazione finale resta sempre a te.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <a href="#demo" className="btn-primary">
@@ -303,7 +329,19 @@ export default function AestimaLanding() {
             <HeroSoftwareMockup />
           </div>
         </div>
+
+        <div className="relative z-10 mx-auto max-w-[1140px] px-5 pb-14 sm:px-8 lg:px-12 lg:pb-20">
+          <div className="glass-strong flex flex-col items-center justify-center gap-1 rounded-2xl border-cyan-400/15 bg-gradient-to-r from-blue-950/40 via-navy-900/60 to-cyan-950/30 px-6 py-5 text-center sm:flex-row sm:gap-3 sm:py-6">
+            <p className="text-[16px] font-medium leading-snug text-slate-300 sm:text-lg">
+              Risparmia fino al{" "}
+              <span className="gradient-text-accent text-[22px] font-bold sm:text-2xl">95%</span>
+              {" "}del tempo dedicato alla generazione delle offerte
+            </p>
+          </div>
+        </div>
       </section>
+
+      <PartnerLogoBand />
 
       {/* IL PROBLEMA */}
       <section id="problema" className="section-divider relative bg-navy-900/40">
@@ -314,15 +352,15 @@ export default function AestimaLanding() {
             Il preventivo manuale ruba ore — e la coda continua a crescere
           </h2>
           <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
-            Ogni richiesta va interpretata, il pezzo identificato o il disegno
-            letto, costi e tempi calcolati, l&apos;offerta scritta. Intanto le richieste
-            si accumulano più velocemente di quanto riusciate a evaderle.
+            Ogni commessa parte da un disegno da interpretare: quote, materiali, lavorazioni
+            interne ed esterne, tempi e sfridi. Poi l&apos;offerta va scritta e formattata.
+            Intanto le richieste si accumulano più velocemente di quanto riusciate a evaderle.
           </p>
           <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["01", "Interpretare la richiesta del cliente"],
-              ["02", "Identificare il pezzo o leggere il disegno"],
-              ["03", "Calcolare costi e tempi di lavorazione"],
+              ["01", "Leggere e interpretare il disegno tecnico"],
+              ["02", "Calcolare materiali, sfridi e tempi di lavorazione"],
+              ["03", "Stimare lavorazioni interne ed esterne"],
               ["04", "Scrivere e formattare l'offerta"],
             ].map(([n, t]) => (
               <GlassCard key={n} className="p-5">
@@ -334,36 +372,45 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      {/* DUE MODALITÀ */}
+      {/* COSA FA SUL DISEGNO */}
       <section className="section-divider relative">
         <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow>Due modalità, un agente</Eyebrow>
+          <Eyebrow>Preventivo da disegno tecnico</Eyebrow>
           <h2 className="mb-10 max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Lo stesso agente, qualunque sia il punto di partenza
+            Tutto ciò che serve per quotare un pezzo su commessa
           </h2>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
             {[
               {
-                tag: "MODALITÀ 01",
-                title: "Da ricambio esistente",
+                tag: "LETTURA",
+                title: "Interpreta il disegno",
                 points: [
-                  "Identifica il pezzo anche da una descrizione vaga o da un numero di serie.",
-                  "Recupera componenti e costi da catalogo e distinta base.",
-                  "Calcola il prezzo applicando le condizioni del cliente.",
+                  "Legge file CAD e PDF del pezzo da produrre.",
+                  "Estrae quote, materiali, tolleranze e vincoli.",
+                  "Capisce lavorazioni richieste dal disegno.",
                 ],
               },
               {
-                tag: "MODALITÀ 02",
-                title: "Da disegno tecnico",
+                tag: "CALCOLO",
+                title: "Stima costi e tempi",
                 points: [
-                  "Legge il disegno del pezzo da produrre.",
-                  "Calcola massa e sfridi, stima i tempi di lavorazione.",
-                  "Ricava il costo da materiali, lavorazioni interne ed esterne.",
+                  "Calcola massa, sfridi e fabbisogno materiale.",
+                  "Stima tempi di lavorazione interna ed esterna.",
+                  "Applica i tuoi listini e le condizioni cliente.",
+                ],
+              },
+              {
+                tag: "OUTPUT",
+                title: "Genera l'offerta",
+                points: [
+                  "Produce il preventivo su carta intestata.",
+                  "Allega il documento interno di calcolo.",
+                  "Consegna tutto pronto per l'approvazione umana.",
                 ],
               },
             ].map((m) => (
-              <GlassCard key={m.tag} className="p-6 sm:p-8">
+              <GlassCard key={m.tag} className="border-cyan-400/15 p-6 sm:p-8">
                 <span className="inline-block rounded-md bg-gradient-to-r from-blue-600 to-cyan-600 px-2.5 py-1 font-mono text-xs tracking-wide text-white shadow-glow-sm">
                   {m.tag}
                 </span>
@@ -383,7 +430,7 @@ export default function AestimaLanding() {
           <div className="glass-strong mt-5 flex flex-wrap items-center gap-3.5 rounded-2xl border-blue-400/20 bg-gradient-to-r from-blue-950/50 to-cyan-950/30 p-6 sm:p-7">
             <span className="h-2.5 w-2.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
             <p className="text-base font-medium leading-snug sm:text-lg">
-              Qualunque sia il punto di partenza, ottieni un&apos;offerta pronta da approvare.
+              Dal disegno tecnico all&apos;offerta su carta intestata — pronta da approvare, con tracciabilità del calcolo.
             </p>
           </div>
         </div>
@@ -395,14 +442,14 @@ export default function AestimaLanding() {
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <Eyebrow>Come funziona</Eyebrow>
           <h2 className="mb-10 max-w-[14em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Dalla mail all&apos;offerta, in quattro passaggi
+            Dal disegno all&apos;offerta, in quattro passaggi
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              ["STEP 01", "Richiesta in arrivo", "Via mail o form, con l'eventuale upload del disegno tecnico."],
-              ["STEP 02", "Identifica o legge", "L'agente riconosce il ricambio o interpreta il disegno del pezzo."],
-              ["STEP 03", "Calcola costi e tempi", "Sui tuoi dati: materiali, lavorazioni e condizioni cliente."],
-              ["STEP 04", "Genera l'offerta", "Offerta pronta + documento interno con gli elementi di calcolo, per il controllo umano."],
+              ["STEP 01", "Upload del disegno", "Carichi il file CAD o PDF del pezzo da quotare, con eventuali note cliente."],
+              ["STEP 02", "Legge il disegno", "L'agente interpreta quote, materiali, lavorazioni e vincoli del disegno tecnico."],
+              ["STEP 03", "Calcola costi e tempi", "Massa, sfridi, lavorazioni interne ed esterne — sui tuoi listini e condizioni."],
+              ["STEP 04", "Genera l'offerta", "Preventivo su carta intestata + documento interno di calcolo, per il controllo umano."],
             ].map(([step, title, desc]) => (
               <GlassCard key={step} className="p-6">
                 <div className={`mb-4 font-mono text-[13px] font-medium ${ACCENT.text}`}>{step}</div>
@@ -481,8 +528,8 @@ export default function AestimaLanding() {
             </h2>
             <div className="flex max-w-[30em] flex-col gap-3.5">
               {[
-                "30 minuti, sui vostri casi reali.",
-                "Vi mostriamo entrambe le modalità: ricambio e disegno.",
+                "30 minuti, sui vostri disegni tecnici reali.",
+                "Vi mostriamo il flusso completo: CAD → preventivo su carta intestata.",
                 "Nessun impegno.",
               ].map((t) => (
                 <div key={t} className="flex gap-3">
@@ -562,15 +609,16 @@ export default function AestimaLanding() {
 
                   <label className="flex flex-col gap-1.5">
                     <span className="text-[13.5px] font-medium text-slate-300">
-                      Partite più da ricambi a catalogo o da disegni su commessa?
+                      In che formato ricevete i disegni più spesso?
                     </span>
-                    <select name="partenza" value={form.partenza} onChange={handleChange} className="field-dark appearance-none">
+                    <select name="formato" value={form.formato} onChange={handleChange} className="field-dark appearance-none">
                       <option value="">Seleziona…</option>
-                      <option value="ricambi">Soprattutto ricambi a catalogo</option>
-                      <option value="disegni">Soprattutto disegni su commessa</option>
-                      <option value="entrambi">Più o meno in egual misura</option>
+                      <option value="step">STEP / IGES</option>
+                      <option value="dwg">DWG / DXF</option>
+                      <option value="pdf">PDF del disegno</option>
+                      <option value="mix">Mix di formati</option>
                     </select>
-                    {errors.partenza && <span className="text-[12.5px] text-red-400">{errors.partenza}</span>}
+                    {errors.formato && <span className="text-[12.5px] text-red-400">{errors.formato}</span>}
                   </label>
 
                   <button type="submit" className="btn-primary mt-1 w-full">
