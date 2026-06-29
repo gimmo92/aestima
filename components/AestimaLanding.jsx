@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+const CALENDLY_URL = "https://calendly.com/gbasso-syyz/demo-aestima";
+
 const ACCENT = {
   text: "text-blue-300",
   badge: "border border-blue-400/25 bg-blue-500/10 text-blue-200 backdrop-blur-sm",
@@ -61,6 +63,189 @@ function Eyebrow({ children }) {
 function Bullet() {
   return (
     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
+  );
+}
+
+const AGENT_CATEGORIES = [
+  {
+    id: "asportazione",
+    title: "Asportazione di truciolo",
+    processes: [
+      "Fresatura",
+      "Tornitura",
+      "Alesatura",
+      "Foratura / maschiatura / filettatura",
+      "Brocciatura",
+      "Piallatura / stozzatura",
+      "Segatura / troncatura",
+    ],
+  },
+  {
+    id: "rettifica",
+    title: "Rettifica e finitura di precisione",
+    processes: [
+      "Rettifica tonda",
+      "Rettifica tangenziale (in piano)",
+      "Rettifica a coordinate",
+      "Rettifica senza centri (centerless)",
+      "Lappatura / levigatura / superfinitura",
+      "Honing",
+    ],
+  },
+  {
+    id: "taglio",
+    title: "Taglio ed elettroerosione",
+    processes: [
+      "Elettroerosione a filo (WEDM)",
+      "Elettroerosione a tuffo (sinker EDM)",
+      "Taglio laser",
+      "Taglio a getto d'acqua (waterjet)",
+      "Taglio al plasma",
+    ],
+  },
+  {
+    id: "deformazione",
+    title: "Deformazione plastica",
+    processes: [
+      "Piegatura",
+      "Punzonatura / tranciatura",
+      "Stampaggio (a freddo / a caldo)",
+      "Imbutitura",
+      "Calandratura",
+      "Estrusione",
+      "Coniatura",
+    ],
+  },
+  {
+    id: "saldatura",
+    title: "Giunzione e saldatura",
+    processes: [
+      "Saldatura (TIG, MIG/MAG, laser, a filo)",
+      "Brasatura / saldobrasatura",
+      "Incollaggio strutturale",
+    ],
+  },
+  {
+    id: "trattamenti",
+    title: "Trattamenti termici e superficiali",
+    processes: [
+      "Tempra, bonifica, nitrurazione, cementazione (termici)",
+      "Zincatura, anodizzazione, nichelatura, cromatura (galvanici)",
+      "Verniciatura / verniciatura a polvere",
+      "Sabbiatura, pallinatura, brillantatura, burattatura",
+    ],
+  },
+  {
+    id: "additiva",
+    title: "Fabbricazione additiva",
+    processes: [
+      "Stampa 3D polimeri (PA, SLS, FDM, SLA)",
+      "Stampa 3D metalli (DMLS / SLM)",
+    ],
+  },
+  {
+    id: "controllo",
+    title: "Controllo e collaudo",
+    processes: ["Controllo dimensionale / metrologia (CMM)"],
+  },
+];
+
+function AgentCategoryIcon({ id }) {
+  const iconClass = "text-cyan-300";
+  const icons = {
+    asportazione: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <path d="M4 18h16M7 14l3-8 3 5 4-9" />
+        <circle cx="17" cy="7" r="2" />
+      </svg>
+    ),
+    rettifica: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <circle cx="12" cy="12" r="7" />
+        <path d="M12 5v3M12 16v3M5 12h3M16 12h3" />
+      </svg>
+    ),
+    taglio: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <path d="M13 3L4 14h7l-1 7 9-11h-7l1-7z" />
+      </svg>
+    ),
+    deformazione: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <path d="M4 18h16M6 14c3-6 9-6 12 0" />
+      </svg>
+    ),
+    saldatura: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <path d="M8 18c2-4 4-8 4-12 2 4 4 8 4 12M4 18h16" />
+      </svg>
+    ),
+    trattamenti: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <path d="M12 3c2 4 2 8 0 12-2-4-2-8 0-12z" />
+        <path d="M8 21h8" />
+      </svg>
+    ),
+    additiva: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <path d="M4 18h16M6 15h4M6 11h8M6 7h12" />
+      </svg>
+    ),
+    controllo: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className={iconClass}>
+        <path d="M4 7h16M4 12h10M4 17h6" />
+        <circle cx="18" cy="17" r="3" />
+      </svg>
+    ),
+  };
+
+  return (
+    <div className="flex h-11 w-11 flex-none items-center justify-center rounded-xl border border-cyan-400/20 bg-gradient-to-br from-blue-600/20 to-cyan-600/10 shadow-glow-sm">
+      {icons[id]}
+    </div>
+  );
+}
+
+function AiAgentsSection() {
+  return (
+    <section id="agenti" className="section-divider relative">
+      <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+        <Eyebrow>8 agenti AI</Eyebrow>
+        <h2 className="mb-4 max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+          Un agente specializzato per ogni famiglia di lavorazione
+        </h2>
+        <p className="mb-10 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
+          Dal disegno tecnico, aestima attiva l&apos;agente giusto per stimare tempi, costi e
+          processi — con la precisione di chi conosce quella lavorazione.
+        </p>
+
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          {AGENT_CATEGORIES.map((category, index) => (
+            <GlassCard key={category.id} className="flex h-full flex-col p-5 sm:p-6">
+              <div className="mb-4 flex items-start gap-3">
+                <AgentCategoryIcon id={category.id} />
+                <div className="min-w-0 pt-1">
+                  <span className="font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
+                    Agente {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="mt-1 text-[16px] font-semibold leading-snug tracking-tight text-white">
+                    {category.title}
+                  </h3>
+                </div>
+              </div>
+              <ul className="mt-auto flex flex-col gap-2 border-t border-white/[0.06] pt-4">
+                {category.processes.map((process) => (
+                  <li key={process} className="flex gap-2.5 text-[13.5px] leading-snug text-slate-300">
+                    <Bullet />
+                    <span>{process}</span>
+                  </li>
+                ))}
+              </ul>
+            </GlassCard>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -262,13 +447,15 @@ export default function AestimaLanding() {
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((f) => ({ ...f, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const next = {};
     if (!form.nome.trim()) next.nome = "Campo obbligatorio";
@@ -281,7 +468,31 @@ export default function AestimaLanding() {
     if (!form.formato) next.formato = "Seleziona un'opzione";
 
     setErrors(next);
-    if (Object.keys(next).length === 0) setSubmitted(true);
+    setSubmitError("");
+
+    if (Object.keys(next).length > 0) return;
+
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/demo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        throw new Error(payload.error || "Invio non riuscito");
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(
+        error.message || "Invio non riuscito. Riprova o prenota direttamente su Calendly."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
@@ -294,7 +505,7 @@ export default function AestimaLanding() {
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-navy-950/70 backdrop-blur-xl">
         <div className="mx-auto flex max-w-[1140px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8 lg:px-12">
           <Logo />
-          <a href="#demo" className="btn-primary-sm">
+          <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-primary-sm">
             Richiedi una demo
           </a>
         </div>
@@ -316,7 +527,7 @@ export default function AestimaLanding() {
               L&apos;approvazione finale resta sempre a te.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
-              <a href="#demo" className="btn-primary">
+              <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                 Richiedi una demo
               </a>
               <a href="#funziona" className="btn-ghost">
@@ -461,33 +672,7 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      {/* COSA CAMBIA */}
-      <section id="vantaggi" className="section-divider relative">
-        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow>Cosa cambia</Eyebrow>
-          <h2 className="mb-10 max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Lo stesso team, molte più offerte
-          </h2>
-          <div className="glass overflow-hidden rounded-2xl">
-            <div className="grid grid-cols-1 sm:grid-cols-2">
-              {[
-                ["Da ore a minuti", "Il tempo per preparare un preventivo si misura in minuti, non più in ore."],
-                ["Meno errori", "Calcoli coerenti e tracciabili, sempre con gli stessi criteri."],
-                ["Più richieste evase", "La coda si smaltisce con le stesse persone, senza nuovi inserimenti."],
-                ["Migliora nel tempo", "Ogni offerta approvata affina i criteri di calcolo del sistema."],
-              ].map(([title, desc], i) => (
-                <div
-                  key={title}
-                  className={`p-6 sm:p-8 ${i % 2 === 0 ? "sm:border-r sm:border-white/[0.06]" : ""} ${i < 2 ? "border-b border-white/[0.06]" : ""}`}
-                >
-                  <h3 className="mb-2.5 text-[19px] font-semibold tracking-tight">{title}</h3>
-                  <p className="text-[15px] leading-relaxed text-slate-400">{desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <AiAgentsSection />
 
       {/* COSTRUITO SUI TUOI DATI */}
       <section className="section-divider relative overflow-hidden">
@@ -621,11 +806,22 @@ export default function AestimaLanding() {
                     {errors.formato && <span className="text-[12.5px] text-red-400">{errors.formato}</span>}
                   </label>
 
-                  <button type="submit" className="btn-primary mt-1 w-full">
-                    Richiedi una demo
+                  <button type="submit" disabled={submitting} className="btn-primary mt-1 w-full disabled:cursor-not-allowed disabled:opacity-60">
+                    {submitting ? "Invio in corso…" : "Richiedi una demo"}
                   </button>
+                  {submitError && (
+                    <p className="text-center text-[12.5px] leading-relaxed text-red-400">
+                      {submitError}{" "}
+                      <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="text-blue-300 underline">
+                        Prenota su Calendly
+                      </a>
+                    </p>
+                  )}
                   <p className="text-center text-xs leading-relaxed text-slate-500">
-                    Inviando accetti di essere ricontattato per fissare la demo.
+                    Inviando accetti di essere ricontattato per fissare la demo.{" "}
+                    <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="text-blue-300/80 underline hover:text-blue-300">
+                      Oppure scegli data e ora su Calendly
+                    </a>
                   </p>
                 </form>
               )}
