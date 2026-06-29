@@ -9,7 +9,7 @@ function validate(data) {
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
     errors.email = "Email non valida";
   if (!data.volume) errors.volume = "Campo obbligatorio";
-  if (!data.formato) errors.formato = "Campo obbligatorio";
+  if (!data.senzaCodice) errors.senzaCodice = "Campo obbligatorio";
   return errors;
 }
 
@@ -21,8 +21,8 @@ function buildEmailHtml(data) {
       <tr><td><strong>Azienda</strong></td><td>${data.azienda}</td></tr>
       <tr><td><strong>Ruolo</strong></td><td>${data.ruolo}</td></tr>
       <tr><td><strong>Email</strong></td><td>${data.email}</td></tr>
-      <tr><td><strong>Volume settimanale</strong></td><td>${data.volume}</td></tr>
-      <tr><td><strong>Formato disegni</strong></td><td>${data.formato}</td></tr>
+      <tr><td><strong>Richieste ricambi / settimana</strong></td><td>${data.volume}</td></tr>
+      <tr><td><strong>Richieste senza codice</strong></td><td>${data.senzaCodice}</td></tr>
     </table>
   `;
 }
@@ -69,7 +69,7 @@ async function sendViaFormSubmit(data) {
       ruolo: data.ruolo,
       email: data.email,
       volume: data.volume,
-      formato: data.formato,
+      senzaCodice: data.senzaCodice,
     }),
   });
 
