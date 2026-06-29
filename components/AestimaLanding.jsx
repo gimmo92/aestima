@@ -47,6 +47,185 @@ function GlassCard({ children, className = "" }) {
   );
 }
 
+function FileChip({ type, name, meta, accent }) {
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
+      <div className={`flex h-10 w-10 flex-none items-center justify-center rounded-lg ${accent}`}>
+        {type === "pdf" ? (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-white">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <path d="M14 2v6h6M10 13h4M10 17h4M10 9h1" />
+          </svg>
+        ) : (
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-white">
+            <path d="M4 19h16M6 16l3-9 3 6 2-4 4 7" />
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+          </svg>
+        )}
+      </div>
+      <div className="min-w-0">
+        <p className="truncate text-[13px] font-medium text-white">{name}</p>
+        <p className="font-mono text-[10.5px] text-slate-500">{meta}</p>
+      </div>
+    </div>
+  );
+}
+
+function HeroSoftwareMockup() {
+  return (
+    <div className="relative mx-auto w-full max-w-[560px]">
+      <div aria-hidden className="absolute -inset-8 rounded-[32px] bg-gradient-to-br from-blue-600/25 to-cyan-500/10 blur-3xl" />
+
+      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-navy-900/90 shadow-glass-lg backdrop-blur-2xl">
+        {/* Title bar */}
+        <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.03] px-4 py-3">
+          <div className="flex items-center gap-3">
+            <div className="flex gap-1.5">
+              <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
+              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+            </div>
+            <span className="font-mono text-[11px] text-slate-500">aestima — generazione preventivo</span>
+          </div>
+          <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${ACCENT.badge}`}>
+            Elaborazione completata
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_auto_1.15fr]">
+          {/* Input panel */}
+          <div className="border-b border-white/[0.06] p-4 lg:border-b-0 lg:border-r">
+            <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
+              Input
+            </p>
+            <div className="space-y-2.5">
+              <FileChip
+                type="pdf"
+                name="richiesta_cliente.pdf"
+                meta="PDF · 2.4 MB · allegato email"
+                accent="bg-gradient-to-br from-rose-500/90 to-orange-500/80"
+              />
+              <FileChip
+                type="cad"
+                name="disegno_pezzo_v3.step"
+                meta="CAD · 8.1 MB · STEP / disegno tecnico"
+                accent="bg-gradient-to-br from-blue-600 to-cyan-600"
+              />
+            </div>
+
+            <div className="mt-4 rounded-xl border border-dashed border-white/10 bg-white/[0.02] px-3 py-3 text-center">
+              <p className="text-[11.5px] text-slate-500">Trascina PDF o file CAD</p>
+              <p className="mt-0.5 font-mono text-[10px] text-slate-600">.pdf · .dwg · .step · .dxf</p>
+            </div>
+
+            <div className="mt-4 flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+              <span className="text-[11.5px] text-emerald-300">Pezzo identificato · costi calcolati</span>
+            </div>
+          </div>
+
+          {/* Flow arrow */}
+          <div className="hidden items-center justify-center px-2 lg:flex">
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex h-9 w-9 items-center justify-center rounded-full border border-blue-400/25 bg-blue-500/10 shadow-glow-sm">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyan-300">
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
+              </div>
+              <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500">AI</span>
+            </div>
+          </div>
+
+          {/* Flow arrow — mobile */}
+          <div className="flex items-center justify-center border-b border-white/[0.06] py-3 lg:hidden">
+            <div className="flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-3 py-1">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyan-300">
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+              <span className="font-mono text-[10px] uppercase tracking-wider text-blue-300">Elaborazione AI</span>
+            </div>
+          </div>
+
+          {/* Output — carta intestata */}
+          <div className="relative bg-white/[0.02] p-4">
+            <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
+              Output · carta intestata
+            </p>
+
+            <div className="overflow-hidden rounded-xl border border-white/10 bg-white shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
+              {/* Intestazione aziendale */}
+              <div className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white px-4 py-3">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-cyan-600">
+                        <span className="h-2 w-2 rotate-45 rounded-[1px] bg-white" />
+                      </span>
+                      <span className="text-[13px] font-bold tracking-tight text-slate-900">Officina Meccanica Rossi Srl</span>
+                    </div>
+                    <p className="mt-1 text-[9px] leading-relaxed text-slate-500">
+                      Via Industria 12 · 20100 Milano · P.IVA 01234567890
+                    </p>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-mono text-[8px] uppercase tracking-wider text-slate-400">Preventivo</p>
+                    <p className="font-mono text-[11px] font-semibold text-slate-800">PRV-2026-0412</p>
+                    <p className="text-[9px] text-slate-500">26/06/2026</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Corpo documento */}
+              <div className="px-4 py-3 text-slate-800">
+                <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">Cliente</p>
+                <p className="text-[11px] font-medium text-slate-900">Automotive Components SpA</p>
+
+                <div className="my-3 h-px bg-slate-200" />
+
+                <div className="space-y-1.5">
+                  {[
+                    ["Flangia CNC · disegno v3", "€ 4.820,00"],
+                    ["Materiali · acciaio 316", "€ 1.240,00"],
+                    ["Lavorazioni interne", "€ 5.890,00"],
+                    ["Lavorazioni esterne", "€ 500,00"],
+                  ].map(([label, price]) => (
+                    <div key={label} className="flex items-center justify-between gap-2 text-[10px]">
+                      <span className="truncate text-slate-600">{label}</span>
+                      <span className="font-mono font-medium text-slate-800">{price}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="my-3 h-px bg-slate-200" />
+
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-semibold text-slate-900">Totale offerta</span>
+                  <span className="font-mono text-[13px] font-bold text-blue-700">€ 12.450,00</span>
+                </div>
+
+                <div className="mt-3 flex gap-2">
+                  <span className="flex-1 rounded-md bg-gradient-to-r from-blue-600 to-cyan-600 py-1.5 text-center text-[10px] font-semibold text-white">
+                    Approva
+                  </span>
+                  <span className="flex-1 rounded-md border border-slate-200 py-1.5 text-center text-[10px] font-semibold text-slate-700">
+                    Esporta PDF
+                  </span>
+                </div>
+              </div>
+
+              <div className="border-t border-slate-100 bg-slate-50 px-4 py-2">
+                <p className="font-mono text-[8.5px] text-slate-400">
+                  Documento generato da aestima · calcolo interno allegato
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function AestimaLanding() {
   const [form, setForm] = useState({
     nome: "",
@@ -120,47 +299,8 @@ export default function AestimaLanding() {
             </div>
           </div>
 
-          <div className="relative z-10 mx-auto w-full max-w-[440px]">
-            <div aria-hidden className="absolute -inset-6 rounded-[28px] bg-gradient-to-br from-blue-600/25 to-cyan-500/10 blur-2xl" />
-            <GlassCard className="relative p-5 sm:p-6">
-              <div className="mb-5 flex items-center justify-between gap-2.5">
-                <span className="font-mono text-[12.5px] tracking-wide text-slate-500">
-                  OFFERTA 2026-0412
-                </span>
-                <span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${ACCENT.badge}`}>
-                  Pronta da approvare
-                </span>
-              </div>
-              <div className="flex flex-col gap-3.5">
-                {[
-                  ["Materiali", "34%"],
-                  ["Lavorazioni interne", "46%"],
-                  ["Lavorazioni esterne", "28%"],
-                  ["Componenti", "40%"],
-                ].map(([label, w]) => (
-                  <div key={label} className="flex items-center justify-between gap-4">
-                    <span className="font-mono text-[12.5px] text-slate-400">{label}</span>
-                    <span className="bar-gradient" style={{ width: w }} />
-                  </div>
-                ))}
-              </div>
-              <div className="my-5 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-              <div className="mb-5 flex items-center justify-between gap-4">
-                <span className="text-sm font-semibold">Totale offerta</span>
-                <span className="h-3 w-[42%] rounded-full bg-gradient-to-r from-blue-500/60 to-cyan-400/60" />
-              </div>
-              <div className="flex gap-2.5">
-                <span className="flex-1 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 py-2.5 text-center text-sm font-semibold text-white shadow-glow-sm">
-                  Approva
-                </span>
-                <span className="flex-1 rounded-lg border border-white/10 bg-white/[0.04] py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm">
-                  Modifica
-                </span>
-              </div>
-              <p className="mt-4 font-mono text-[11.5px] text-slate-500">
-                + documento interno di calcolo allegato
-              </p>
-            </GlassCard>
+          <div className="relative z-10">
+            <HeroSoftwareMockup />
           </div>
         </div>
       </section>
