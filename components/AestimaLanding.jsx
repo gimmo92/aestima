@@ -9,26 +9,20 @@ const ACCENT = {
   badge: "border border-blue-400/25 bg-blue-500/10 text-blue-200 backdrop-blur-sm",
 };
 
-const PARTNER_LOGOS = [
-  { src: "/logos/tsg.png", alt: "TSG" },
-  { src: "/logos/emmegi.png", alt: "EMMEGI Heat Exchangers" },
-  { src: "/logos/rossi.png", alt: "Rossi" },
-  { src: "/logos/isoclima.png", alt: "Isoclima" },
-  { src: "/logos/idealtec.png", alt: "Idealtec" },
-];
-
-function PartnerLogoBand() {
+function IndustryBand() {
   return (
-    <section aria-label="Aziende clienti" className="section-divider relative border-t border-white/[0.06] bg-navy-950/50 py-10 sm:py-12">
-      <div className="mx-auto max-w-[1140px] px-5 sm:px-8 lg:px-12">
-        <p className="mb-8 text-center font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
-          Lavoriamo con
+    <section
+      aria-label="Settori di riferimento"
+      className="section-divider relative border-t border-white/[0.06] bg-navy-950/50 py-10 sm:py-12"
+    >
+      <div className="mx-auto max-w-[1140px] px-5 text-center sm:px-8 lg:px-12">
+        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
+          Pensato per il manifatturiero
         </p>
-        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-14 lg:gap-x-16">
-          {PARTNER_LOGOS.map((logo) => (
-            <img key={logo.alt} src={logo.src} alt={logo.alt} className="logo-partner" loading="lazy" />
-          ))}
-        </div>
+        <p className="mx-auto mt-3 max-w-[36em] text-[15px] leading-relaxed text-slate-400">
+          Costruttori di macchine e impianti, distributori ricambi, service
+          after-sales — flussi con distinte, magazzino e fornitori.
+        </p>
       </div>
     </section>
   );
@@ -184,7 +178,9 @@ function HeroSoftwareMockup() {
 
             <div className="mt-4 flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-              <span className="text-[11.5px] text-emerald-300">Ricambio identificato dalla distinta · prezzo calcolato</span>
+              <span className="text-[11.5px] text-emerald-300">
+                Ricambio identificato · giacenza verificata · prezzo calcolato
+              </span>
             </div>
           </div>
 
@@ -244,6 +240,14 @@ function HeroSoftwareMockup() {
                 <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">Ricambio identificato</p>
                 <p className="text-[11px] font-medium text-slate-900">Assy. valvola VP-204 · cod. RIC-88412</p>
                 <p className="mt-1 font-mono text-[9px] text-slate-500">Macchina MX-450 · n. serie 12345 · distinta rev. C</p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[8px] font-semibold text-emerald-800">
+                    Disponibile a magazzino · 2 pz
+                  </span>
+                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[8px] font-semibold text-amber-800">
+                    Da ordinare · GS-18
+                  </span>
+                </div>
 
                 <div className="my-3 h-px bg-slate-200" />
 
@@ -261,6 +265,10 @@ function HeroSoftwareMockup() {
                 </div>
 
                 <div className="my-3 h-px bg-slate-200" />
+
+                <p className="mb-2 text-[9px] leading-relaxed text-amber-700">
+                  Bozza richiesta fornitore pronta per GS-18 — l&apos;operatore decide e invia.
+                </p>
 
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-semibold text-slate-900">Totale offerta</span>
@@ -298,6 +306,7 @@ export default function AestimaLanding() {
     email: "",
     volume: "",
     senzaCodice: "",
+    magazzinoFornitori: "",
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
@@ -320,6 +329,7 @@ export default function AestimaLanding() {
       next.email = "Inserisci un'email valida";
     if (!form.volume) next.volume = "Seleziona un'opzione";
     if (!form.senzaCodice) next.senzaCodice = "Seleziona un'opzione";
+    if (!form.magazzinoFornitori) next.magazzinoFornitori = "Seleziona un'opzione";
 
     setErrors(next);
     setSubmitError("");
@@ -396,7 +406,7 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      <PartnerLogoBand />
+      <IndustryBand />
 
       {/* IL PROBLEMA */}
       <section id="problema" className="section-divider relative bg-navy-900/40">
@@ -409,15 +419,20 @@ export default function AestimaLanding() {
           <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
             Il cliente chiede un ricambio senza dare il codice: solo una descrizione vaga, una foto,
             o il numero di serie. Qualcuno deve risalire alla macchina, trovare la distinta,
-            identificare il componente giusto, controllare il prezzo e scrivere l&apos;offerta.
-            Sono ore per ogni richiesta, e gli ordini si perdono quando l&apos;offerta arriva troppo tardi.
+            identificare il componente giusto, verificare se è disponibile a magazzino e, se manca,
+            fare la richiesta al fornitore — prima ancora di controllare il prezzo e scrivere
+            l&apos;offerta. Non è solo preparare il preventivo: è orchestrare identificazione,
+            magazzino e eventuale riordino, saltando tra sistemi diversi. Sono ore per ogni richiesta,
+            e gli ordini si perdono quando l&apos;offerta arriva troppo tardi.
           </p>
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               ["01", "Interpretare la richiesta vaga del cliente"],
               ["02", "Risalire alla macchina e alla distinta"],
               ["03", "Identificare il componente corretto"],
-              ["04", "Verificare il prezzo e scrivere l'offerta"],
+              ["04", "Verificare se è disponibile a magazzino"],
+              ["05", "Se manca, fare la richiesta al fornitore"],
+              ["06", "Controllare il prezzo e scrivere l'offerta"],
             ].map(([n, t]) => (
               <GlassCard key={n} className="p-5">
                 <span className="font-mono text-xs text-blue-300/70">{n}</span>
@@ -448,12 +463,12 @@ export default function AestimaLanding() {
                 ],
               },
               {
-                tag: "PREZZO",
-                title: "Calcola il prezzo",
+                tag: "GIACENZA",
+                title: "Verifica magazzino e prezzo",
                 points: [
-                  "Recupera il costo dal listino ricambi.",
-                  "Lo ricostruisce secondo le tue regole, se serve.",
-                  "Applica condizioni commerciali e margini.",
+                  "Controlla la giacenza a magazzino sui tuoi dati.",
+                  "Se il pezzo non c'è, prepara la bozza di richiesta al fornitore — non la invia in automatico.",
+                  "Recupera il prezzo dal listino e applica condizioni e margini. L'operatore decide e invia.",
                 ],
               },
               {
@@ -486,7 +501,9 @@ export default function AestimaLanding() {
           <div className="glass-strong mt-5 flex flex-wrap items-center gap-3.5 rounded-2xl border-blue-400/20 bg-gradient-to-r from-blue-950/50 to-cyan-950/30 p-6 sm:p-7">
             <span className="h-2.5 w-2.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
             <p className="text-base font-medium leading-snug sm:text-lg">
-              Dalla richiesta di ricambio all&apos;offerta su carta intestata — pronta da approvare dal tecnico, con tracciabilità.
+              Dalla richiesta di ricambio all&apos;offerta su carta intestata — con verifica
+              giacenza e bozza fornitore quando serve. Pronta da approvare dal tecnico, con
+              tracciabilità.
             </p>
           </div>
         </div>
@@ -498,14 +515,15 @@ export default function AestimaLanding() {
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <Eyebrow>Come funziona</Eyebrow>
           <h2 className="mb-10 max-w-[14em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Dalla mail all&apos;offerta, in quattro passaggi
+            Dalla mail all&apos;offerta, in cinque passaggi
           </h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
               ["STEP 01", "Arriva la richiesta", "Descrizione, foto o numero di serie — via mail o form."],
               ["STEP 02", "Identifica il ricambio", "L'agente risale alla macchina e propone il componente dalla distinta."],
-              ["STEP 03", "Recupera il prezzo", "Listino ricambi e regole commerciali sui tuoi dati."],
-              ["STEP 04", "Genera l'offerta", "Preventivo su carta intestata + documento interno, per il controllo del tecnico."],
+              ["STEP 03", "Verifica la giacenza", "Controlla la disponibilità a magazzino. Se manca, prepara la bozza di richiesta al fornitore — l'operatore decide e invia."],
+              ["STEP 04", "Recupera il prezzo", "Listino ricambi e regole commerciali sui tuoi dati."],
+              ["STEP 05", "Genera l'offerta", "Preventivo su carta intestata + documento interno, per il controllo del tecnico."],
             ].map(([step, title, desc]) => (
               <GlassCard key={step} className="p-6">
                 <div className={`mb-4 font-mono text-[13px] font-medium ${ACCENT.text}`}>{step}</div>
@@ -531,7 +549,7 @@ export default function AestimaLanding() {
           </h2>
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
             {[
-              ["Integrazione", "Si collega al gestionale o a un DB con distinte e configurazioni macchina, anagrafica clienti, condizioni commerciali e listini ricambi."],
+              ["Integrazione", "Si collega al gestionale o a un DB con distinte e configurazioni macchina, anagrafica clienti, listini ricambi, giacenze di magazzino e anagrafica fornitori."],
               ["On-premise", "Possibilità di installazione sui tuoi server, dentro il perimetro aziendale."],
               ["Riservatezza", "Nessun dato viene usato per addestrare modelli esterni."],
             ].map(([title, desc]) => (
@@ -559,7 +577,7 @@ export default function AestimaLanding() {
             <div className="flex max-w-[30em] flex-col gap-3.5">
               {[
                 "30 minuti, sui vostri casi reali di after-sales.",
-                "Vi mostriamo il flusso: richiesta vaga → ricambio identificato → offerta.",
+                "Vi mostriamo il flusso: richiesta vaga → ricambio identificato → giacenza → offerta.",
                 "Nessun impegno. L'approvazione resta al vostro tecnico.",
               ].map((t) => (
                 <div key={t} className="flex gap-3">
@@ -649,6 +667,26 @@ export default function AestimaLanding() {
                       <option value="raramente">Raramente</option>
                     </select>
                     {errors.senzaCodice && <span className="text-[12.5px] text-red-400">{errors.senzaCodice}</span>}
+                  </label>
+
+                  <label className="flex flex-col gap-1.5">
+                    <span className="text-[13.5px] font-medium text-slate-300">
+                      Nel processo ricambi dovete anche verificare il magazzino e ordinare i pezzi mancanti dai fornitori?
+                    </span>
+                    <select
+                      name="magazzinoFornitori"
+                      value={form.magazzinoFornitori}
+                      onChange={handleChange}
+                      className="field-dark appearance-none"
+                    >
+                      <option value="">Seleziona…</option>
+                      <option value="si">Sì</option>
+                      <option value="no">No</option>
+                      <option value="a-volte">A volte</option>
+                    </select>
+                    {errors.magazzinoFornitori && (
+                      <span className="text-[12.5px] text-red-400">{errors.magazzinoFornitori}</span>
+                    )}
                   </label>
 
                   <button type="submit" disabled={submitting} className="btn-primary mt-1 w-full disabled:cursor-not-allowed disabled:opacity-60">

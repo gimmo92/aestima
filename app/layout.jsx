@@ -17,6 +17,10 @@ export const metadata = {
   title: "aestima — Agente AI per il preventivo ricambi",
   description:
     "Dalla richiesta di ricambio all'offerta pronta, in automatico. Agente AI per l'after-sales di costruttori di macchine e impianti.",
+  icons: {
+    icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
+    shortcut: [{ url: "/icon.svg", type: "image/svg+xml" }],
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { CALENDLY_URL } from "@/lib/site";
+import { CALENDLY_URL, LEGAL_LINKS } from "@/lib/site";
+import { ContactInfo } from "@/components/ContactBlocks";
 
 export function BackgroundGlow() {
   return (
@@ -27,10 +28,11 @@ export function SiteHeader({ active = null }) {
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-navy-950/70 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1140px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8 lg:px-12">
-        <div className="flex items-center gap-6 sm:gap-8">
-          <Link href="/" className="shrink-0">
-            <Logo />
-          </Link>
+        <Link href="/" className="shrink-0">
+          <Logo />
+        </Link>
+
+        <div className="flex items-center gap-4 sm:gap-6">
           <nav aria-label="Navigazione principale">
             <Link
               href="/risorse"
@@ -44,15 +46,15 @@ export function SiteHeader({ active = null }) {
               Risorse
             </Link>
           </nav>
+          <a
+            href={CALENDLY_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary-sm shrink-0"
+          >
+            Richiedi una demo
+          </a>
         </div>
-        <a
-          href={CALENDLY_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary-sm shrink-0"
-        >
-          Richiedi una demo
-        </a>
       </div>
     </header>
   );
@@ -67,17 +69,21 @@ export function SiteFooter() {
             <Logo markInner="bg-navy-950" />
           </div>
           <div className="mb-6 flex flex-col gap-3">
-            {["Privacy Policy", "Termini e condizioni", "GDPR e Sicurezza dei dati"].map(
-              (link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="text-[15.5px] text-blue-300 transition hover:text-cyan-300 hover:underline"
-                >
-                  {link}
-                </a>
-              )
-            )}
+            {LEGAL_LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-[15.5px] text-blue-300 transition hover:text-cyan-300 hover:underline"
+              >
+                {label}
+              </Link>
+            ))}
+            <Link
+              href="/contatti"
+              className="text-[15.5px] text-blue-300 transition hover:text-cyan-300 hover:underline"
+            >
+              Contatti
+            </Link>
           </div>
           <a
             href="#"
@@ -88,43 +94,7 @@ export function SiteFooter() {
           </a>
         </div>
 
-        <div className="text-slate-300">
-          <div className="mb-4.5 flex items-center gap-2.5 text-[15.5px]">
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="flex-none text-cyan-400"
-            >
-              <path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z" />
-              <circle cx="12" cy="9" r="2.5" />
-            </svg>
-            <span>Via Nino Bixio 11, 20159, Milano</span>
-          </div>
-          <div className="mb-5 flex items-center gap-2.5 text-[15.5px]">
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              className="flex-none text-cyan-400"
-            >
-              <path d="M5 4h3l2 5-2.5 1.5a11 11 0 0 0 5 5L16 13l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z" />
-            </svg>
-            <span>+ 39 346 3060372</span>
-          </div>
-          <p className="mb-5 max-w-[26em] text-[15.5px] leading-relaxed text-slate-500">
-            aestima è un marchio di PEOPLEFIRST SRL P.IVA 03981510120 , Cap. Soc.
-            10.000€.
-          </p>
-          <p className="mb-1.5 text-[15.5px] font-semibold text-white">Orari</p>
-          <p className="text-[15.5px]">Lun – Sab: 9 – 18</p>
-        </div>
+        <ContactInfo linkAddress />
       </div>
     </footer>
   );
