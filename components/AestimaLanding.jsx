@@ -415,7 +415,7 @@ export default function AestimaLanding() {
         <div className="relative z-10 mx-auto max-w-[1140px] px-5 pb-14 sm:px-8 lg:px-12 lg:pb-20">
           <div className="glass-strong flex flex-col items-center justify-center gap-1 rounded-2xl border-cyan-400/15 bg-gradient-to-r from-blue-950/40 via-navy-900/60 to-cyan-950/30 px-6 py-5 text-center sm:flex-row sm:gap-3 sm:py-6">
             <p className="text-[16px] font-medium leading-snug text-slate-300 sm:text-lg">
-              Riduci i tempi di risposta sulle richieste di ricambi
+              Riduci fino al 90% i tempi di risposta sulle richieste di ricambi
             </p>
           </div>
         </div>
