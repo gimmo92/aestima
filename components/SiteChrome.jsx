@@ -138,13 +138,6 @@ export function SiteFooter() {
               Contatti
             </Link>
           </div>
-          <a
-            href="#"
-            aria-label="LinkedIn"
-            className="inline-flex h-7 w-7 items-center justify-center rounded-[6px] bg-gradient-to-br from-blue-600 to-cyan-600 text-[11px] font-bold text-white shadow-glow-sm"
-          >
-            in
-          </a>
         </div>
 
         <ContactInfo linkAddress />

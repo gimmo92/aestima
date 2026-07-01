@@ -10,27 +10,29 @@ const ACCENT = {
 };
 
 /* Statistiche della sezione problema — icona + numero + didascalia */
+const svgProps = {
+  width: 30,
+  height: 30,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 1.6,
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  "aria-hidden": true,
+};
+
 const PROBLEM_STATS = [
   {
     stat: "1+ ora",
     caption:
       "per identificare il pezzo e ricostruire il prezzo, a ogni richiesta",
     icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <rect x="3" y="3" width="12" height="14" rx="1.5" />
+      <svg {...svgProps}>
+        <rect x="3" y="3" width="12" height="13" rx="1.5" />
         <path d="M6 7h6M6 10h4" />
-        <circle cx="16" cy="15" r="4" />
-        <path d="M19 18l2.5 2.5" />
+        <circle cx="15.5" cy="15" r="4" />
+        <path d="M18.5 18l2.5 2.5" />
       </svg>
     ),
   },
@@ -38,20 +40,9 @@ const PROBLEM_STATS = [
     stat: "50% del tempo",
     caption: "a saltare tra gestionale, magazzino e fornitori",
     icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M3 8l9 6 9-6" />
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="M3 19l6-6M21 19l-6-6" />
+      <svg {...svgProps}>
+        <path d="M4 7h11M4 7l3-3M4 7l3 3" />
+        <path d="M20 17H9M20 17l-3-3M20 17l-3 3" />
       </svg>
     ),
   },
@@ -59,21 +50,30 @@ const PROBLEM_STATS = [
     stat: "Ordini persi",
     caption: "quando l'offerta arriva troppo tardi",
     icon: (
-      <svg
-        width="28"
-        height="28"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
+      <svg {...svgProps}>
         <circle cx="12" cy="12" r="9" />
         <path d="M12 7v5l3 2" />
       </svg>
     ),
+  },
+];
+
+/* Statistiche risultati — numero grande + titolo + didascalia */
+const RESULTS_STATS = [
+  {
+    stat: "fino al 90%",
+    title: "Tempi di risposta ridotti",
+    caption: "sul tempo per rispondere alle richieste di ricambi",
+  },
+  {
+    stat: "da ore a minuti",
+    title: "Per ogni preventivo",
+    caption: "dall'arrivo della richiesta all'offerta pronta da approvare",
+  },
+  {
+    stat: "+ richieste evase",
+    title: "Con lo stesso team",
+    caption: "più offerte gestite senza aggiungere persone",
   },
 ];
 
@@ -615,6 +615,35 @@ export default function AestimaLanding() {
                 <h3 className="mb-2 text-lg font-semibold tracking-tight">{title}</h3>
                 <p className="text-[15px] leading-relaxed text-slate-400">{desc}</p>
               </GlassCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* I RISULTATI */}
+      <section className="section-divider relative">
+        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+          <div className="flex justify-center">
+            <Eyebrow>I risultati</Eyebrow>
+          </div>
+          <div className="mt-8 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-0">
+            {RESULTS_STATS.map((r, i) => (
+              <div
+                key={r.stat}
+                className={`flex flex-col items-center px-4 text-center sm:px-8 ${
+                  i > 0 ? "sm:border-l sm:border-white/[0.08]" : ""
+                }`}
+              >
+                <p className="gradient-text-accent text-[38px] font-semibold leading-none tracking-tight sm:text-[46px] lg:text-[52px]">
+                  {r.stat}
+                </p>
+                <p className="mt-5 text-[13px] font-semibold uppercase tracking-[0.14em] text-slate-200">
+                  {r.title}
+                </p>
+                <p className="mt-2.5 max-w-[18em] text-[15px] leading-relaxed text-slate-400">
+                  {r.caption}
+                </p>
+              </div>
             ))}
           </div>
         </div>
