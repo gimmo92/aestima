@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CALENDLY_URL, LEGAL_LINKS, NAV_LINKS } from "@/lib/site";
 import { ContactInfo } from "@/components/ContactBlocks";
+import { SECTORS } from "@/lib/sectors";
 
 export function BackgroundGlow() {
   return (
@@ -37,6 +38,46 @@ export function SiteHeader({ active = null }) {
             aria-label="Navigazione principale"
             className="flex items-center gap-4 sm:gap-5"
           >
+            {/* Menu Settori a tendina — hover/focus, nessun JS */}
+            <div className="group relative">
+              <Link
+                href="/settori"
+                className={`inline-flex items-center gap-1 text-[14.5px] font-medium transition ${
+                  active === "settori"
+                    ? "text-cyan-300"
+                    : "text-slate-300 hover:text-white"
+                }`}
+                aria-current={active === "settori" ? "page" : undefined}
+              >
+                Settori
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.2"
+                  className="mt-0.5 transition group-hover:rotate-180"
+                  aria-hidden="true"
+                >
+                  <path d="M6 9l6 6 6-6" />
+                </svg>
+              </Link>
+              <div className="invisible absolute left-0 top-full z-50 pt-3 opacity-0 transition duration-150 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
+                <div className="w-[280px] overflow-hidden rounded-xl border border-white/10 bg-navy-900/95 p-2 shadow-glass-lg backdrop-blur-2xl">
+                  {SECTORS.map((sector) => (
+                    <Link
+                      key={sector.slug}
+                      href={`/settori/${sector.slug}`}
+                      className="block rounded-lg px-3 py-2.5 text-[14px] font-medium text-slate-300 transition hover:bg-white/[0.06] hover:text-cyan-300"
+                    >
+                      {sector.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             {NAV_LINKS.map(({ href, label, id }) => (
               <Link
                 key={href}
@@ -84,6 +125,12 @@ export function SiteFooter() {
                 {label}
               </Link>
             ))}
+            <Link
+              href="/settori"
+              className="text-[15.5px] text-blue-300 transition hover:text-cyan-300 hover:underline"
+            >
+              Settori
+            </Link>
             <Link
               href="/contatti"
               className="text-[15.5px] text-blue-300 transition hover:text-cyan-300 hover:underline"
