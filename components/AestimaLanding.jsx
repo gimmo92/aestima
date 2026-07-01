@@ -9,20 +9,35 @@ const ACCENT = {
   badge: "border border-blue-400/25 bg-blue-500/10 text-blue-200 backdrop-blur-sm",
 };
 
-function IndustryBand() {
+const PARTNER_LOGOS = [
+  { src: "/logos/tsg.png", alt: "TSG" },
+  { src: "/logos/emmegi.png", alt: "EMMEGI Heat Exchangers" },
+  { src: "/logos/rossi.png", alt: "Rossi" },
+  { src: "/logos/isoclima.png", alt: "Isoclima" },
+  { src: "/logos/idealtec.png", alt: "Idealtec" },
+];
+
+function PartnerLogoBand() {
   return (
     <section
-      aria-label="Settori di riferimento"
+      aria-label="Aziende clienti"
       className="section-divider relative border-t border-white/[0.06] bg-navy-950/50 py-10 sm:py-12"
     >
-      <div className="mx-auto max-w-[1140px] px-5 text-center sm:px-8 lg:px-12">
-        <p className="font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
-          Pensato per il manifatturiero
+      <div className="mx-auto max-w-[1140px] px-5 sm:px-8 lg:px-12">
+        <p className="mb-8 text-center font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
+          Lavoriamo con
         </p>
-        <p className="mx-auto mt-3 max-w-[36em] text-[15px] leading-relaxed text-slate-400">
-          Costruttori di macchine e impianti, distributori ricambi, service
-          after-sales — flussi con distinte, magazzino e fornitori.
-        </p>
+        <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-14 lg:gap-x-16">
+          {PARTNER_LOGOS.map((logo) => (
+            <img
+              key={logo.alt}
+              src={logo.src}
+              alt={logo.alt}
+              className="logo-partner"
+              loading="lazy"
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -406,7 +421,7 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      <IndustryBand />
+      <PartnerLogoBand />
 
       {/* IL PROBLEMA */}
       <section id="problema" className="section-divider relative bg-navy-900/40">
