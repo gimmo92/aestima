@@ -9,6 +9,74 @@ const ACCENT = {
   badge: "border border-blue-400/25 bg-blue-500/10 text-blue-200 backdrop-blur-sm",
 };
 
+/* Statistiche della sezione problema — icona + numero + didascalia */
+const PROBLEM_STATS = [
+  {
+    stat: "1+ ora",
+    caption:
+      "per identificare il pezzo e ricostruire il prezzo, a ogni richiesta",
+    icon: (
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <rect x="3" y="3" width="12" height="14" rx="1.5" />
+        <path d="M6 7h6M6 10h4" />
+        <circle cx="16" cy="15" r="4" />
+        <path d="M19 18l2.5 2.5" />
+      </svg>
+    ),
+  },
+  {
+    stat: "50% del tempo",
+    caption: "a saltare tra gestionale, magazzino e fornitori",
+    icon: (
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M3 8l9 6 9-6" />
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <path d="M3 19l6-6M21 19l-6-6" />
+      </svg>
+    ),
+  },
+  {
+    stat: "Ordini persi",
+    caption: "quando l'offerta arriva troppo tardi",
+    icon: (
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 7v5l3 2" />
+      </svg>
+    ),
+  },
+];
+
 const PARTNER_LOGOS = [
   { src: "/logos/tsg.png", alt: "TSG" },
   { src: "/logos/emmegi.png", alt: "EMMEGI Heat Exchangers" },
@@ -427,32 +495,34 @@ export default function AestimaLanding() {
       <section id="problema" className="section-divider relative bg-navy-900/40">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 to-transparent" aria-hidden />
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow>Il problema</Eyebrow>
-          <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Ogni richiesta ricambi ruba ore — e gli ordini si perdono
-          </h2>
-          <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
-            Il cliente chiede un ricambio senza dare il codice: solo una descrizione vaga, una foto,
-            o il numero di serie. Qualcuno deve risalire alla macchina, trovare la distinta,
-            identificare il componente giusto, verificare se è disponibile a magazzino e, se manca,
-            fare la richiesta al fornitore — prima ancora di controllare il prezzo e scrivere
-            l&apos;offerta. Non è solo preparare il preventivo: è orchestrare identificazione,
-            magazzino e eventuale riordino, saltando tra sistemi diversi. Sono ore per ogni richiesta,
-            e gli ordini si perdono quando l&apos;offerta arriva troppo tardi.
-          </p>
-          <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              ["01", "Interpretare la richiesta vaga del cliente"],
-              ["02", "Risalire alla macchina e alla distinta"],
-              ["03", "Identificare il componente corretto"],
-              ["04", "Verificare se è disponibile a magazzino"],
-              ["05", "Se manca, fare la richiesta al fornitore"],
-              ["06", "Controllare il prezzo e scrivere l'offerta"],
-            ].map(([n, t]) => (
-              <GlassCard key={n} className="p-5">
-                <span className="font-mono text-xs text-blue-300/70">{n}</span>
-                <p className="mt-2 text-[15.5px] font-medium leading-snug text-slate-200">{t}</p>
-              </GlassCard>
+          <div className="mx-auto max-w-[46em] text-center">
+            <div className="flex justify-center">
+              <Eyebrow>Il problema</Eyebrow>
+            </div>
+            <h2 className="mx-auto max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+              Ogni richiesta ricambi ruba ore — e gli ordini si perdono
+            </h2>
+            <p className="mx-auto mt-4 max-w-[40em] text-base leading-relaxed text-slate-400 sm:text-lg">
+              Chi gestisce i ricambi perde gran parte del tempo così:
+            </p>
+          </div>
+
+          <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-6">
+            {PROBLEM_STATS.map((stat) => (
+              <div
+                key={stat.stat}
+                className="flex flex-col items-center px-2 text-center"
+              >
+                <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-400/20 bg-blue-500/10 text-cyan-300 shadow-glow-sm">
+                  {stat.icon}
+                </div>
+                <p className="text-[26px] font-semibold leading-tight tracking-tight text-white sm:text-[28px]">
+                  {stat.stat}
+                </p>
+                <p className="mt-2 max-w-[16em] text-[15px] leading-relaxed text-slate-400">
+                  {stat.caption}
+                </p>
+              </div>
             ))}
           </div>
         </div>
