@@ -4,6 +4,7 @@ import {
   SiteFooter,
   SiteHeader,
 } from "@/components/SiteChrome";
+import { formatArticleDate, getPublishedArticles } from "@/lib/articles";
 import { CALENDLY_URL } from "@/lib/site";
 
 export const metadata = {
@@ -12,48 +13,24 @@ export const metadata = {
     "Guide e approfondimenti su preventivazione ricambi, distinte, magazzino e integrazione dati per l'after-sales manifatturiero.",
 };
 
-const RESOURCES = [
+const COMING_SOON = [
   {
     category: "Processo",
     title: "Dalla richiesta ricambi all'offerta: cosa automatizzare",
     excerpt:
       "Identificazione del pezzo, verifica giacenza, bozza richiesta fornitore e offerta: dove il sistema propone e dove resta il controllo del tecnico.",
-    status: "In arrivo",
   },
   {
     category: "Dati",
     title: "Checklist dati per ricambi e distinte macchina",
     excerpt:
       "Listini, configurazioni, condizioni cliente e anagrafica fornitori: cosa serve per generare un preventivo coerente col gestionale.",
-    status: "In arrivo",
   },
   {
     category: "Magazzino",
     title: "Giacenze e riordino: preparare senza inviare in automatico",
     excerpt:
       "Come collegare le giacenze e preparare la bozza di richiesta al fornitore — l'operatore decide e invia.",
-    status: "In arrivo",
-  },
-  {
-    category: "Integrazione",
-    title: "ERP, magazzino e fornitori: collegare le fonti",
-    excerpt:
-      "Collegamenti al gestionale senza duplicare dati: clienti, listini ricambi, giacenze e anagrafiche fornitori.",
-    status: "In arrivo",
-  },
-  {
-    category: "Sicurezza",
-    title: "On-premise e dati proprietari",
-    excerpt:
-      "Installazione in sede, confini dei dati usati dal sistema e cosa non viene usato per addestrare modelli esterni.",
-    status: "In arrivo",
-  },
-  {
-    category: "FAQ",
-    title: "Domande frequenti da service e ufficio ricambi",
-    excerpt:
-      "Tempi di implementazione, ruoli coinvolti, approvazione delle offerte e gestione delle eccezioni nel flusso quotidiano.",
-    status: "In arrivo",
   },
 ];
 
@@ -64,6 +41,8 @@ function GlassCard({ children, className = "" }) {
 }
 
 export default function RisorsePage() {
+  const published = getPublishedArticles();
+
   return (
     <div className="relative min-h-screen scroll-smooth font-sans text-white antialiased [scroll-padding-top:88px]">
       <BackgroundGlow />
@@ -84,10 +63,54 @@ export default function RisorsePage() {
           </div>
         </section>
 
+        {published.length > 0 && (
+          <section className="section-divider relative bg-navy-900/40">
+            <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
+              <h2 className="mb-8 text-[22px] font-semibold text-white sm:text-2xl">
+                Articoli
+              </h2>
+              <ul className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                {published.map((article) => (
+                  <li key={article.slug}>
+                    <GlassCard className="flex h-full flex-col p-6">
+                      <div className="flex items-start justify-between gap-3">
+                        <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
+                          {article.category}
+                        </span>
+                        <span className="shrink-0 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2.5 py-0.5 text-[11px] font-medium text-emerald-300">
+                          Pubblicato
+                        </span>
+                      </div>
+                      <h3 className="mt-4 text-[18px] font-semibold leading-snug text-white">
+                        {article.title}
+                      </h3>
+                      <p className="mt-3 flex-1 text-[15px] leading-relaxed text-slate-400">
+                        {article.excerpt}
+                      </p>
+                      <p className="mt-3 text-[13px] text-slate-500">
+                        {formatArticleDate(article.date)}
+                      </p>
+                      <Link
+                        href={article.url}
+                        className="mt-4 inline-flex text-[14px] font-medium text-blue-300 transition hover:text-cyan-300"
+                      >
+                        Leggi articolo →
+                      </Link>
+                    </GlassCard>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        )}
+
         <section className="section-divider relative bg-navy-900/40">
           <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-20">
+            <h2 className="mb-8 text-[22px] font-semibold text-white sm:text-2xl">
+              In arrivo
+            </h2>
             <ul className="grid grid-cols-1 gap-5 md:grid-cols-2">
-              {RESOURCES.map((resource) => (
+              {COMING_SOON.map((resource) => (
                 <li key={resource.title}>
                   <GlassCard className="flex h-full flex-col p-6">
                     <div className="flex items-start justify-between gap-3">
@@ -95,18 +118,15 @@ export default function RisorsePage() {
                         {resource.category}
                       </span>
                       <span className="shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 text-[11px] font-medium text-slate-400">
-                        {resource.status}
+                        In arrivo
                       </span>
                     </div>
-                    <h2 className="mt-4 text-[18px] font-semibold leading-snug text-white">
+                    <h3 className="mt-4 text-[18px] font-semibold leading-snug text-white">
                       {resource.title}
-                    </h2>
+                    </h3>
                     <p className="mt-3 flex-1 text-[15px] leading-relaxed text-slate-400">
                       {resource.excerpt}
                     </p>
-                    <span className="mt-4 text-[13px] font-medium text-slate-500">
-                      Contenuto in preparazione
-                    </span>
                   </GlassCard>
                 </li>
               ))}

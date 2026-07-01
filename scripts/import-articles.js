@@ -128,6 +128,7 @@ function processMarkdownFile(filePath) {
     extractDescription(content, title);
 
   const keyword = frontmatter.keyword || frontmatter.keywords || "";
+  const category = frontmatter.category || "Articolo";
   const parsedDate = frontmatter.date ? new Date(frontmatter.date) : null;
   const date =
     parsedDate && !Number.isNaN(parsedDate.getTime())
@@ -146,6 +147,7 @@ function processMarkdownFile(filePath) {
     slug,
     metaDescription,
     keyword,
+    category,
     date,
     contentHtml,
     sourceFile: filename,
@@ -277,10 +279,11 @@ function main() {
   fs.writeFileSync(
     path.join(OUTPUT_DIR, "articles-manifest.json"),
     JSON.stringify(
-      articles.map(({ title, slug, metaDescription, date, sourceFile }) => ({
+      articles.map(({ title, slug, metaDescription, category, date, sourceFile }) => ({
         title,
         slug,
         metaDescription,
+        category,
         date: date.toISOString(),
         sourceFile,
         url: `/blog/${slug}.html`,
