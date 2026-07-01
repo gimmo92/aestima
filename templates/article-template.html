@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{TITLE}} | aestima</title>
+    <meta name="description" content="{{META_DESCRIPTION}}" />
+    {{KEYWORD_META}}
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+    <link rel="stylesheet" href="/styles/blog.css" />
+  </head>
+  <body>
+    <div class="page-layout">
+      {{HEADER}}
+      <main>
+        <section class="hero page-wrap">
+          <span class="pill">Blog</span>
+          <h1>{{TITLE}}</h1>
+          <p class="hero__meta">{{DATE_LABEL}}</p>
+        </section>
+        <section class="article-shell page-wrap">
+          <article class="article-card">
+            <div class="article-body">{{CONTENT}}</div>
+          </article>
+          <a class="back-link page-wrap" href="/blog/">← Tutti gli articoli</a>
+        </section>
+      </main>
+      {{FOOTER}}
+    </div>
+  </body>
+</html>

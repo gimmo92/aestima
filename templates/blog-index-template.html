@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blog | aestima</title>
+    <meta
+      name="description"
+      content="Articoli su preventivazione ricambi, after-sales, compliance e operatività manifatturiera."
+    />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="{{CANONICAL_URL}}" />
+    <link rel="stylesheet" href="/styles/blog.css" />
+  </head>
+  <body>
+    <div class="page-layout">
+      {{HEADER}}
+      <main>
+        <section class="hero hero--index page-wrap">
+          <span class="pill">Blog</span>
+          <h1>Articoli e approfondimenti</h1>
+          <p class="hero__meta">
+            After-sales, ricambi, tracciabilità e processi operativi nel
+            manifatturiero.
+          </p>
+        </section>
+        <section class="article-shell page-wrap">
+          <ul class="article-list">{{ARTICLE_LIST}}</ul>
+        </section>
+      </main>
+      {{FOOTER}}
+    </div>
+  </body>
+</html>
