@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CALENDLY_URL, LEGAL_LINKS } from "@/lib/site";
+import { CALENDLY_URL, LEGAL_LINKS, NAV_LINKS } from "@/lib/site";
 import { ContactInfo } from "@/components/ContactBlocks";
 
 export function BackgroundGlow() {
@@ -33,18 +33,24 @@ export function SiteHeader({ active = null }) {
         </Link>
 
         <div className="flex items-center gap-4 sm:gap-6">
-          <nav aria-label="Navigazione principale">
-            <Link
-              href="/risorse"
-              className={`text-[14.5px] font-medium transition ${
-                active === "risorse"
-                  ? "text-cyan-300"
-                  : "text-slate-300 hover:text-white"
-              }`}
-              aria-current={active === "risorse" ? "page" : undefined}
-            >
-              Risorse
-            </Link>
+          <nav
+            aria-label="Navigazione principale"
+            className="flex items-center gap-4 sm:gap-5"
+          >
+            {NAV_LINKS.map(({ href, label, id }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`text-[14.5px] font-medium transition ${
+                  active === id
+                    ? "text-cyan-300"
+                    : "text-slate-300 hover:text-white"
+                }`}
+                aria-current={active === id ? "page" : undefined}
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
           <a
             href={CALENDLY_URL}

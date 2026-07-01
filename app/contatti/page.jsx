@@ -16,7 +16,7 @@ export default function ContattiPage() {
   return (
     <div className="relative min-h-screen scroll-smooth font-sans text-white antialiased [scroll-padding-top:88px]">
       <BackgroundGlow />
-      <SiteHeader />
+      <SiteHeader active="contatti" />
 
       <main>
         <section className="section-divider relative">
