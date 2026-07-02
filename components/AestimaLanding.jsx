@@ -85,6 +85,22 @@ const PARTNER_LOGOS = [
   { src: "/logos/idealtec.png", alt: "Idealtec" },
 ];
 
+/* Gestionali / ERP più diffusi nelle PMI manifatturiere italiane */
+const ERP_INTEGRATIONS = [
+  "TeamSystem",
+  "Zucchetti",
+  "SAP Business One",
+  "Microsoft Dynamics 365 Business Central",
+  "Mago4",
+  "Arca Evolution",
+  "Passepartout Mexal",
+  "Gamma",
+  "Sistemi (e/)",
+  "Danea Easyfatt",
+  "Galileo",
+  "Oracle NetSuite",
+];
+
 function PartnerLogoBand() {
   return (
     <section
@@ -121,52 +137,6 @@ function Bullet() {
   );
 }
 
-
-function PerChiESection() {
-  return (
-    <section id="per-chi" className="section-divider relative bg-navy-900/40">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent" aria-hidden />
-      <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-        <Eyebrow>Per chi è</Eyebrow>
-        <h2 className="mb-10 max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-          Pensato per chi gestisce ricambi ogni giorno
-        </h2>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          {[
-            {
-              title: "Costruttori di macchine e impianti",
-              points: [
-                "Parco installato ampio, richieste ricambi continue da clienti e service.",
-                "Ufficio ricambi o assistenza che fatica a rispondere in tempi utili.",
-                "Distinte e configurazioni macchina da consultare a ogni richiesta.",
-              ],
-            },
-            {
-              title: "Distributori di componenti industriali",
-              points: [
-                "Clienti che chiedono un pezzo senza codice, solo con descrizione o contesto.",
-                "Listini, condizioni e margini da applicare in modo coerente.",
-                "Offerte da preparare velocemente, senza perdere ordini per lentezza.",
-              ],
-            },
-          ].map((item) => (
-            <GlassCard key={item.title} className="p-6 sm:p-8">
-              <h3 className="mb-4 text-[22px] font-semibold tracking-tight">{item.title}</h3>
-              <div className="flex flex-col gap-3.5">
-                {item.points.map((p) => (
-                  <div key={p} className="flex gap-3">
-                    <Bullet />
-                    <p className="text-[15.5px] leading-relaxed text-slate-300">{p}</p>
-                  </div>
-                ))}
-              </div>
-            </GlassCard>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function GlassCard({ children, className = "" }) {
   return (
@@ -649,8 +619,6 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      <PerChiESection />
-
       {/* COSTRUITO SUI TUOI DATI */}
       <section className="section-divider relative overflow-hidden">
         <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-navy-800 via-navy-900 to-blue-950" />
@@ -674,6 +642,36 @@ export default function AestimaLanding() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* INTEGRAZIONI GESTIONALI */}
+      <section id="integrazioni" className="section-divider relative bg-navy-900/40">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 to-transparent" aria-hidden />
+        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
+          <Eyebrow>Integrazioni</Eyebrow>
+          <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+            Si collega ai gestionali che usi già
+          </h2>
+          <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
+            L&apos;agente legge distinte, listini, giacenze e anagrafiche direttamente dal tuo
+            ERP o da un database alimentato dai tuoi dati — senza cambiare i tuoi processi.
+            Tra i gestionali più diffusi nel manifatturiero italiano:
+          </p>
+          <div className="mt-10 flex flex-wrap gap-3">
+            {ERP_INTEGRATIONS.map((name) => (
+              <span
+                key={name}
+                className="rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[14.5px] font-medium text-slate-200 backdrop-blur-sm transition hover:border-blue-400/30 hover:text-white"
+              >
+                {name}
+              </span>
+            ))}
+          </div>
+          <p className="mt-8 text-[14.5px] leading-relaxed text-slate-500">
+            Non vedi il tuo gestionale? Ci integriamo anche via API, export/import o database
+            dedicato. <span className="text-slate-300">Chiedici del tuo caso in demo.</span>
+          </p>
         </div>
       </section>
 
