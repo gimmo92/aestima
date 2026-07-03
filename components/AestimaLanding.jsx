@@ -58,22 +58,93 @@ const PROBLEM_STATS = [
   },
 ];
 
+/* Agenti AI della suite post-vendita */
+const AGENTS = [
+  {
+    tag: "TICKETING",
+    title: "Ticketing AI",
+    lead: "Riceve e smista ogni richiesta in arrivo.",
+    points: [
+      "Trasforma mail, form e telefonate in ticket strutturati.",
+      "Classifica per macchina, cliente, urgenza e tipo di intervento.",
+      "Instrada la richiesta alla persona giusta — niente si perde per strada.",
+    ],
+    icon: (
+      <svg {...svgProps}>
+        <path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z" />
+        <path d="M12 8v8" strokeDasharray="1.5 2.5" />
+      </svg>
+    ),
+  },
+  {
+    tag: "OFFERTE",
+    title: "Agente offerte",
+    lead: "Dalla richiesta di ricambio all'offerta pronta.",
+    points: [
+      "Identifica il pezzo anche senza codice, da descrizione o numero di serie.",
+      "Verifica la giacenza e, se manca, prepara la bozza di richiesta al fornitore.",
+      "Genera il preventivo su carta intestata — l'approvazione resta al tecnico.",
+    ],
+    icon: (
+      <svg {...svgProps}>
+        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+        <path d="M14 3v5h5M9 13h6M9 17h4" />
+      </svg>
+    ),
+  },
+  {
+    tag: "PROATTIVO",
+    title: "Agente sul parco installato",
+    lead: "Suggerisce le azioni giuste sul parco macchine del cliente.",
+    points: [
+      "Analizza lo storico del cliente e delle macchine installate.",
+      "Segnala ricambi da proporre: usura, manutenzione programmata, revisioni.",
+      "Trasforma il post-vendita da reattivo a proattivo.",
+    ],
+    icon: (
+      <svg {...svgProps}>
+        <circle cx="12" cy="12" r="2.5" />
+        <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
+        <path d="M7 7l1.8 1.8M15.2 15.2L17 17M17 7l-1.8 1.8M8.8 15.2L7 17" />
+      </svg>
+    ),
+  },
+  {
+    tag: "PRICING",
+    title: "Ottimizzazione del pricing",
+    lead: "Il prezzo giusto, su ogni offerta.",
+    points: [
+      "Suggerisce il prezzo in base a storico, marginalità e condizioni cliente.",
+      "Tiene conto di disponibilità, urgenza e valore del ricambio.",
+      "Protegge il margine senza far perdere l'ordine.",
+    ],
+    icon: (
+      <svg {...svgProps}>
+        <path d="M4 12l8-8 8 8-8 8z" />
+        <path d="M10 10l4 4M14 10l-4 4" />
+      </svg>
+    ),
+  },
+];
+
 /* Statistiche risultati — numero grande + titolo + didascalia */
 const RESULTS_STATS = [
   {
+    stat: "+30%",
+    title: "Ordini ricambi",
+    caption:
+      "più ordini chiusi: rispondi in tempo e proponi in modo proattivo sul parco cliente",
+  },
+  {
+    stat: "−80%",
+    title: "Ordini persi",
+    caption:
+      "meno occasioni perse per offerte arrivate troppo tardi o dimenticate",
+  },
+  {
     stat: "fino al 90%",
-    title: "Tempi di risposta ridotti",
-    caption: "sul tempo per rispondere alle richieste di ricambi",
-  },
-  {
-    stat: "da ore a minuti",
-    title: "Per ogni preventivo",
-    caption: "dall'arrivo della richiesta all'offerta pronta da approvare",
-  },
-  {
-    stat: "+ richieste evase",
-    title: "Con lo stesso team",
-    caption: "più offerte gestite senza aggiungere persone",
+    title: "Tempi di risposta",
+    caption: "dalla richiesta all'offerta pronta, grazie all'automazione",
   },
 ];
 
@@ -190,7 +261,7 @@ function HeroSoftwareMockup() {
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
             </div>
-            <span className="font-mono text-[11px] text-slate-500">aestima — preventivo ricambi after-sales</span>
+            <span className="font-mono text-[11px] text-slate-500">aestima — agente offerte · post-vendita</span>
           </div>
           <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${ACCENT.badge}`}>
             Elaborazione completata
@@ -424,23 +495,23 @@ export default function AestimaLanding() {
       <section className="section-divider relative">
         <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-center gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 md:gap-16 lg:px-12 lg:py-28">
           <div className="relative z-10">
-            <Eyebrow>Preventivo ricambi · After-sales</Eyebrow>
+            <Eyebrow>Piattaforma AI · Post-vendita</Eyebrow>
             <h1 className="text-[34px] font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[58px]">
-              <span className="gradient-text">Dalla richiesta di ricambio</span>
+              <span className="gradient-text">Agenti AI</span>
               <br />
-              <span className="text-white">all&apos;offerta pronta, in automatico</span>
+              <span className="text-white">per il tuo post-vendita</span>
             </h1>
             <p className="mt-6 max-w-[30em] text-[17px] leading-relaxed text-slate-400 sm:text-lg lg:text-xl">
-              Il cliente chiede un ricambio anche senza codice — solo con una descrizione o il
-              numero di serie. L&apos;agente identifica il pezzo dalla macchina e prepara il
-              preventivo sulle tue regole. L&apos;approvazione finale resta al tecnico.
+              Dai ticket in arrivo alle offerte pronte, dalle azioni proattive sul parco
+              installato all&apos;ottimizzazione del pricing. Una squadra di agenti che lavora
+              sui tuoi dati — l&apos;approvazione resta sempre alle tue persone.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                 Richiedi una demo
               </a>
-              <a href="#funziona" className="btn-ghost">
-                Come funziona
+              <a href="#agenti" className="btn-ghost">
+                Gli agenti
               </a>
             </div>
           </div>
@@ -453,7 +524,7 @@ export default function AestimaLanding() {
         <div className="relative z-10 mx-auto max-w-[1140px] px-5 pb-14 sm:px-8 lg:px-12 lg:pb-20">
           <div className="glass-strong flex flex-col items-center justify-center gap-1 rounded-2xl border-cyan-400/15 bg-gradient-to-r from-blue-950/40 via-navy-900/60 to-cyan-950/30 px-6 py-5 text-center sm:flex-row sm:gap-3 sm:py-6">
             <p className="text-[16px] font-medium leading-snug text-slate-300 sm:text-lg">
-              Riduci fino al 90% i tempi di risposta sulle richieste di ricambi
+              Più ordini chiusi e meno occasioni perse, con il post-vendita automatizzato
             </p>
           </div>
         </div>
@@ -470,10 +541,11 @@ export default function AestimaLanding() {
               <Eyebrow>Il problema</Eyebrow>
             </div>
             <h2 className="mx-auto max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-              Ogni richiesta ricambi ruba ore — e gli ordini si perdono
+              Il post-vendita ruba ore — e le occasioni si perdono
             </h2>
             <p className="mx-auto mt-4 max-w-[40em] text-base leading-relaxed text-slate-400 sm:text-lg">
-              Chi gestisce i ricambi perde gran parte del tempo così:
+              Tra richieste da smistare, ricambi da identificare e prezzi da decidere, il team
+              perde gran parte del tempo così:
             </p>
           </div>
 
@@ -498,54 +570,40 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      {/* COSA FA L'AGENTE */}
-      <section className="section-divider relative">
+      {/* GLI AGENTI AI */}
+      <section id="agenti" className="section-divider relative">
         <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow>Cosa fa l&apos;agente</Eyebrow>
-          <h2 className="mb-10 max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Dal numero di serie all&apos;offerta, con le tue regole
+          <Eyebrow>Gli agenti AI</Eyebrow>
+          <h2 className="mb-4 max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+            Una squadra di agenti per l&apos;after-sales
           </h2>
+          <p className="mb-10 max-w-[44em] text-base leading-relaxed text-slate-400 sm:text-lg">
+            Ogni agente presidia un pezzo del processo post-vendita e lavora insieme agli altri
+            sui tuoi dati. Le tue persone restano al centro: decidono e approvano.
+          </p>
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {[
-              {
-                tag: "IDENTIFICA",
-                title: "Identifica il ricambio",
-                points: [
-                  "Parte dal numero di serie o dalla descrizione del cliente.",
-                  "Risale alla distinta e alla configurazione della macchina.",
-                  "Propone il componente corretto anche da una richiesta vaga.",
-                ],
-              },
-              {
-                tag: "GIACENZA",
-                title: "Verifica magazzino e prezzo",
-                points: [
-                  "Controlla la giacenza a magazzino sui tuoi dati.",
-                  "Se il pezzo non c'è, prepara la bozza di richiesta al fornitore — non la invia in automatico.",
-                  "Recupera il prezzo dal listino e applica condizioni e margini. L'operatore decide e invia.",
-                ],
-              },
-              {
-                tag: "OFFERTA",
-                title: "Genera l'offerta",
-                points: [
-                  "Produce il preventivo su carta intestata.",
-                  "Pronto per l'approvazione del tecnico.",
-                  "Con tracciabilità del calcolo interno.",
-                ],
-              },
-            ].map((m) => (
-              <GlassCard key={m.tag} className="border-cyan-400/15 p-6 sm:p-8">
-                <span className="inline-block rounded-md bg-gradient-to-r from-blue-600 to-cyan-600 px-2.5 py-1 font-mono text-xs tracking-wide text-white shadow-glow-sm">
-                  {m.tag}
-                </span>
-                <h3 className="mt-4 mb-4 text-[22px] font-semibold tracking-tight">{m.title}</h3>
-                <div className="flex flex-col gap-3.5">
-                  {m.points.map((p) => (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+            {AGENTS.map((a) => (
+              <GlassCard key={a.tag} className="border-cyan-400/15 p-6 sm:p-8">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 flex-none items-center justify-center rounded-xl border border-blue-400/20 bg-blue-500/10 text-cyan-300 shadow-glow-sm">
+                    {a.icon}
+                  </div>
+                  <div>
+                    <span className="inline-block rounded-md bg-gradient-to-r from-blue-600 to-cyan-600 px-2.5 py-1 font-mono text-[11px] tracking-wide text-white shadow-glow-sm">
+                      {a.tag}
+                    </span>
+                    <h3 className="mt-1.5 text-[21px] font-semibold tracking-tight">{a.title}</h3>
+                  </div>
+                </div>
+                <p className="mt-4 text-[15.5px] font-medium leading-relaxed text-slate-200">
+                  {a.lead}
+                </p>
+                <div className="mt-4 flex flex-col gap-3">
+                  {a.points.map((p) => (
                     <div key={p} className="flex gap-3">
                       <Bullet />
-                      <p className="text-[15.5px] leading-relaxed text-slate-300">{p}</p>
+                      <p className="text-[15px] leading-relaxed text-slate-400">{p}</p>
                     </div>
                   ))}
                 </div>
@@ -556,9 +614,8 @@ export default function AestimaLanding() {
           <div className="glass-strong mt-5 flex flex-wrap items-center gap-3.5 rounded-2xl border-blue-400/20 bg-gradient-to-r from-blue-950/50 to-cyan-950/30 p-6 sm:p-7">
             <span className="h-2.5 w-2.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
             <p className="text-base font-medium leading-snug sm:text-lg">
-              Dalla richiesta di ricambio all&apos;offerta su carta intestata — con verifica
-              giacenza e bozza fornitore quando serve. Pronta da approvare dal tecnico, con
-              tracciabilità.
+              Dai ticket in arrivo all&apos;offerta approvata, fino alle azioni proattive sul
+              parco cliente — un&apos;unica piattaforma, sempre con il controllo delle tue persone.
             </p>
           </div>
         </div>
@@ -570,15 +627,15 @@ export default function AestimaLanding() {
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <Eyebrow>Come funziona</Eyebrow>
           <h2 className="mb-10 max-w-[14em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Dalla mail all&apos;offerta, in cinque passaggi
+            Gli agenti lavorano insieme, in cinque passaggi
           </h2>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
-              ["STEP 01", "Arriva la richiesta", "Descrizione, foto o numero di serie — via mail o form."],
-              ["STEP 02", "Identifica il ricambio", "L'agente risale alla macchina e propone il componente dalla distinta."],
-              ["STEP 03", "Verifica la giacenza", "Controlla la disponibilità a magazzino. Se manca, prepara la bozza di richiesta al fornitore — l'operatore decide e invia."],
-              ["STEP 04", "Recupera il prezzo", "Listino ricambi e regole commerciali sui tuoi dati."],
-              ["STEP 05", "Genera l'offerta", "Preventivo su carta intestata + documento interno, per il controllo del tecnico."],
+              ["STEP 01", "Arriva la richiesta", "Il Ticketing AI trasforma mail, form e telefonate in ticket strutturati e li smista."],
+              ["STEP 02", "Identifica il ricambio", "L'agente offerte risale alla macchina, propone il componente dalla distinta e verifica la giacenza."],
+              ["STEP 03", "Ottimizza il prezzo", "L'ottimizzazione pricing propone il prezzo migliore su storico, margini e condizioni cliente."],
+              ["STEP 04", "Offerta pronta", "Preventivo su carta intestata + calcolo interno. Il tecnico approva e invia."],
+              ["STEP 05", "Azioni proattive", "L'agente sul parco installato suggerisce i prossimi ricambi e interventi da proporre al cliente."],
             ].map(([step, title, desc]) => (
               <GlassCard key={step} className="p-6">
                 <div className={`mb-4 font-mono text-[13px] font-medium ${ACCENT.text}`}>{step}</div>
@@ -593,10 +650,19 @@ export default function AestimaLanding() {
       {/* I RISULTATI */}
       <section className="section-divider relative">
         <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-          <div className="flex justify-center">
-            <Eyebrow>I risultati</Eyebrow>
+          <div className="mx-auto max-w-[42em] text-center">
+            <div className="flex justify-center">
+              <Eyebrow>I risultati</Eyebrow>
+            </div>
+            <h2 className="mx-auto max-w-[15em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+              Più ordini, meno occasioni perse
+            </h2>
+            <p className="mx-auto mt-4 max-w-[38em] text-base leading-relaxed text-slate-400 sm:text-lg">
+              Con il post-vendita automatizzato rispondi più in fretta, non lasci scappare
+              richieste e proponi al momento giusto.
+            </p>
           </div>
-          <div className="mt-8 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-0">
+          <div className="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-0">
             {RESULTS_STATS.map((r, i) => (
               <div
                 key={r.stat}
@@ -684,13 +750,13 @@ export default function AestimaLanding() {
             <h2 className="mb-5 max-w-[13em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
               <span className="gradient-text-accent">Vediamo aestima</span>
               <br />
-              <span className="text-white">sui vostri ricambi</span>
+              <span className="text-white">sul vostro post-vendita</span>
             </h2>
             <div className="flex max-w-[30em] flex-col gap-3.5">
               {[
                 "30 minuti, sui vostri casi reali di after-sales.",
-                "Vi mostriamo il flusso: richiesta vaga → ricambio identificato → giacenza → offerta.",
-                "Nessun impegno. L'approvazione resta al vostro tecnico.",
+                "Vi mostriamo gli agenti al lavoro: dal ticket all'offerta, fino alle azioni sul parco cliente.",
+                "Nessun impegno. L'approvazione resta sempre alle vostre persone.",
               ].map((t) => (
                 <div key={t} className="flex gap-3">
                   <Bullet />
