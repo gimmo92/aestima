@@ -154,6 +154,7 @@ const PARTNER_LOGOS = [
   { src: "/logos/rossi.png", alt: "Rossi" },
   { src: "/logos/isoclima.png", alt: "Isoclima" },
   { src: "/logos/idealtec.png", alt: "Idealtec" },
+  { src: "/logos/toptaglio.png", alt: "Toptaglio" },
 ];
 
 /* Gestionali / ERP più diffusi nelle PMI manifatturiere italiane */
