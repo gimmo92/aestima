@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/import-articles.js",
     "build": "next build",
     "start": "next start",
     "import-articles": "node scripts/import-articles.js"
