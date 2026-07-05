@@ -3,89 +3,164 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Blog | aestima</title>
-    <meta
-      name="description"
-      content="Articoli su preventivazione ricambi, after-sales, compliance e operatività manifatturiera."
-    />
-    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
-    <link rel="canonical" href="https://aestima.it/blog/" />
-    <link rel="stylesheet" href="/styles/blog.css" />
+    <title>Blog · aestima</title>
+    <meta name="description" content="Articoli e approfondimenti di aestima." />
+    <link rel="canonical" href="https://aestima.it/blog/index.html" />
+
+    <!-- INCOLLA QUI CSS/header/footer del sito -->
+
+    <style>
+      /* Stile minimale di default — sostituibile con il CSS del sito */
+      :root {
+        color-scheme: light dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        line-height: 1.5;
+      }
+      .wrap {
+        max-width: 820px;
+        margin: 0 auto;
+        padding: 2.5rem 1.25rem;
+      }
+      h1 {
+        font-size: 1.9rem;
+        margin: 0 0 1.75rem;
+      }
+      .post-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+      }
+      .post-card {
+        display: flex;
+        gap: 1rem;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid rgba(128, 128, 128, 0.25);
+        border-radius: 12px;
+        padding: 1rem;
+        transition: border-color 0.2s ease;
+      }
+      .post-card:hover {
+        border-color: rgba(128, 128, 128, 0.55);
+      }
+      .post-card img {
+        width: 128px;
+        height: 84px;
+        object-fit: cover;
+        border-radius: 8px;
+        flex: none;
+      }
+      .post-card h2 {
+        font-size: 1.15rem;
+        margin: 0 0 0.35rem;
+      }
+      .post-card time {
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+      .post-card p {
+        margin: 0.4rem 0 0;
+        font-size: 0.95rem;
+        opacity: 0.85;
+      }
+      .empty {
+        opacity: 0.7;
+      }
+      @media (max-width: 520px) {
+        .post-card {
+          flex-direction: column;
+        }
+        .post-card img {
+          width: 100%;
+          height: 170px;
+        }
+      }
+    </style>
   </head>
   <body>
-    <div class="page-layout">
-      <header class="site-header">
-  <div class="site-header__inner">
-    <a href="/" class="logo">
-      <span class="logo__mark" aria-hidden="true"><span></span></span>
-      <span class="logo__text">aestima</span>
-    </a>
-    <nav class="site-nav" aria-label="Navigazione principale">
-      <a href="/settori">Settori</a>
-      <a href="/risorse">Risorse</a>
-      <a href="/contatti">Contatti</a>
-      <a href="/blog/" class="is-active" aria-current="page">Blog</a>
-      <a
-        href="https://calendly.com/gbasso-syyz/demo-aestima"
-        class="btn-demo"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Richiedi una demo</a
-      >
-    </nav>
-  </div>
-</header>
+    <!-- INCOLLA QUI header del sito (opzionale) -->
 
-      <main>
-        <section class="hero hero--index page-wrap">
-          <span class="pill">Blog</span>
-          <h1>Articoli e approfondimenti</h1>
-          <p class="hero__meta">
-            After-sales, ricambi, tracciabilità e processi operativi nel
-            manifatturiero.
-          </p>
-        </section>
-        <section class="article-shell page-wrap">
-          <ul class="article-list"><li>
-        <a href="/blog/carta-intestata-preventivo-2026-evita-errori-comuni.html">
-          <span class="article-list__title">Carta intestata preventivo 2026: evita errori comuni</span>
-          <span class="article-list__date">2 luglio 2026</span>
-        </a>
-      </li>
-<li>
-        <a href="/blog/compliance-audit-la-guida-essenziale-per-il-2026.html">
-          <span class="article-list__title">Compliance audit: La guida essenziale per il 2026</span>
-          <span class="article-list__date">1 luglio 2026</span>
-        </a>
-      </li></ul>
-        </section>
-      </main>
-      <footer class="site-footer">
-  <div class="site-footer__inner">
-    <div>
-      <a href="/" class="logo">
-        <span class="logo__mark" aria-hidden="true"><span></span></span>
-        <span class="logo__text">aestima</span>
-      </a>
-      <div class="footer-links">
-        <a href="/privacy-policy">Privacy Policy</a>
-        <a href="/termini-e-condizioni">Termini e condizioni</a>
-        <a href="/gdpr-sicurezza-dati">GDPR e Sicurezza dei dati</a>
-        <a href="/contatti">Contatti</a>
-      </div>
+    <div class="wrap">
+      <h1>Blog</h1>
+      <ul class="post-list" id="post-list">
+        <li class="empty">Caricamento…</li>
+      </ul>
     </div>
-    <div class="footer-contact">
-      <p>Via Nino Bixio 11, 20159, Milano</p>
-      <p><a href="tel:+393463060372">+ 39 346 3060372</a></p>
-      <p>
-        aestima è un marchio di PEOPLEFIRST SRL P.IVA 03981510120 , Cap. Soc.
-        10.000€.
-      </p>
-      <p><strong>Orari</strong><br />Lun – Sab: 9 – 18</p>
-    </div>
-  </div>
-</footer>
 
-    </div>
+    <!-- INCOLLA QUI footer del sito (opzionale) -->
+
+    <script>
+      (async function () {
+        var list = document.getElementById("post-list");
+
+        function escapeHtml(s) {
+          return String(s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
+        function formatDate(d) {
+          if (!d) return "";
+          var date = new Date(d);
+          if (isNaN(date.getTime())) return "";
+          return date.toLocaleDateString("it-IT", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          });
+        }
+
+        try {
+          var res = await fetch("/blog/posts.json", { cache: "no-store" });
+          var posts = await res.json();
+
+          if (!Array.isArray(posts) || posts.length === 0) {
+            list.innerHTML = '<li class="empty">Nessun articolo pubblicato.</li>';
+            return;
+          }
+
+          posts.sort(function (a, b) {
+            return new Date(b.date || 0) - new Date(a.date || 0);
+          });
+
+          list.innerHTML = posts
+            .map(function (p) {
+              var url = p.url || "/blog/" + p.slug + ".html";
+              var img = p.image
+                ? '<img src="' + encodeURI(p.image) + '" alt="" loading="lazy" />'
+                : "";
+              var date = formatDate(p.date);
+              return (
+                '<li><a class="post-card" href="' +
+                encodeURI(url) +
+                '">' +
+                img +
+                "<div>" +
+                "<h2>" +
+                escapeHtml(p.title || "") +
+                "</h2>" +
+                (date ? "<time>" + date + "</time>" : "") +
+                (p.description ? "<p>" + escapeHtml(p.description) + "</p>" : "") +
+                "</div></a></li>"
+              );
+            })
+            .join("");
+        } catch (e) {
+          list.innerHTML =
+            '<li class="empty">Impossibile caricare gli articoli.</li>';
+        }
+      })();
+    </script>
   </body>
 </html>
