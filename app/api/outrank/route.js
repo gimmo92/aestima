@@ -136,9 +136,13 @@ export async function POST(request) {
 
     return Response.json({ published });
   } catch (err) {
-    console.error("[outrank] error:", err);
+    // Catch globale: logga lo stack e lo ritorna nel body per debug.
+    console.error("[outrank] error stack:", err?.stack || err);
     return Response.json(
-      { error: err?.message || "Internal Error" },
+      {
+        error: err?.message || "Internal Error",
+        stack: err?.stack || String(err),
+      },
       { status: 500 }
     );
   }
