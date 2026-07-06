@@ -199,40 +199,62 @@ function githubHeaders(token) {
   };
 }
 
-// GET del file: { sha, content } se esiste, null se 404.
+// GET del file per recuperare lo "sha".
+// 404 = caso VALIDO e atteso (il file non esiste ancora) → ritorna null.
+// Solo gli altri status di errore vengono rilanciati.
 async function githubGetFile(path) {
   const { token, repo, branch } = githubConfig();
   const url = `${GITHUB_API}/repos/${repo}/contents/${encodePath(
     path
   )}?ref=${encodeURIComponent(branch)}`;
+
+  console.log(`[outrank] GET ${path} (branch ${branch})`);
   const resp = await fetch(url, { headers: githubHeaders(token) });
-  if (resp.status === 404) return null;
+  console.log(`[outrank] GET ${path} → status ${resp.status}`);
+
+  if (resp.status === 404) {
+    console.log(`[outrank] GET ${path} → 404: file nuovo, si procede alla creazione`);
+    return null;
+  }
   if (!resp.ok) {
-    throw new Error(`GitHub GET ${path}: ${resp.status} ${await resp.text()}`);
+    const errBody = await resp.text();
+    console.error(`[outrank] GET ${path} FALLITA ${resp.status}: ${errBody}`);
+    throw new Error(`GitHub GET ${path}: ${resp.status} ${errBody}`);
   }
   return resp.json();
 }
 
-// PUT del file: crea o aggiorna (passando lo sha se esiste già).
+// PUT del file: crea (senza sha) o aggiorna (con sha) su GitHub.
 async function commitFile(path, contentString, message) {
   const { token, repo, branch } = githubConfig();
+
   const existing = await githubGetFile(path);
+  const sha = existing?.sha; // undefined se il file non esisteva (404)
+  console.log(
+    `[outrank] sha per ${path}: ${sha ? `${sha} (update)` : "nessuno (create)"}`
+  );
 
   const body = {
     message,
     content: Buffer.from(contentString, "utf8").toString("base64"),
     branch,
   };
-  if (existing?.sha) body.sha = existing.sha;
+  // Includi lo sha SOLO in update, altrimenti omettilo (create).
+  if (sha) body.sha = sha;
 
   const url = `${GITHUB_API}/repos/${repo}/contents/${encodePath(path)}`;
+  console.log(`[outrank] PUT ${path} (${sha ? "update" : "create"})`);
   const resp = await fetch(url, {
     method: "PUT",
     headers: githubHeaders(token),
     body: JSON.stringify(body),
   });
+  console.log(`[outrank] PUT ${path} → status ${resp.status}`);
+
   if (!resp.ok) {
-    throw new Error(`GitHub PUT ${path}: ${resp.status} ${await resp.text()}`);
+    const errBody = await resp.text();
+    console.error(`[outrank] PUT ${path} FALLITA ${resp.status}: ${errBody}`);
+    throw new Error(`GitHub PUT ${path}: ${resp.status} ${errBody}`);
   }
   return resp.json();
 }
