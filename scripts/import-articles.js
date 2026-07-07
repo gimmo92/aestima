@@ -97,6 +97,55 @@ function formatDateIT(date) {
   }).format(date);
 }
 
+function extractFirstMarkdownImage(markdown) {
+  const match = markdown.match(/!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/);
+  if (!match) return null;
+  return { alt: match[1].trim(), url: match[2].trim() };
+}
+
+function resolveFeaturedImage(frontmatter, content, title) {
+  const fromFrontmatter =
+    frontmatter.featured_image ||
+    frontmatter.image ||
+    frontmatter.image_url ||
+    frontmatter.cover_image ||
+    frontmatter.og_image ||
+    "";
+
+  if (fromFrontmatter) {
+    return {
+      url: String(fromFrontmatter).trim(),
+      alt: frontmatter.featured_image_alt || title || "",
+    };
+  }
+
+  const firstImage = extractFirstMarkdownImage(content);
+  if (firstImage?.url) return firstImage;
+
+  return null;
+}
+
+function stripFeaturedImageFromBody(markdown, imageUrl) {
+  if (!imageUrl) return markdown;
+  const escaped = imageUrl.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return markdown
+    .replace(new RegExp(`!\\[[^\\]]*\\]\\(${escaped}\\)\\s*\\n?`, "i"), "")
+    .trim();
+}
+
+function buildFeaturedImageHtml(featured) {
+  if (!featured?.url) return "";
+  return `<figure class="featured-image">
+  <img src="${escapeAttr(featured.url)}" alt="${escapeAttr(featured.alt || "")}" class="featured-image__img" loading="eager" decoding="async" />
+</figure>`;
+}
+
+function buildOgImageMeta(featured) {
+  if (!featured?.url) return "";
+  return `<meta property="og:image" content="${escapeAttr(featured.url)}" />
+    <meta name="twitter:card" content="summary_large_image" />`;
+}
+
 function applyTemplate(template, vars) {
   return Object.entries(vars).reduce(
     (html, [key, value]) => html.split(`{{${key}}}`).join(value ?? ""),
@@ -140,6 +189,14 @@ function processMarkdownFile(filePath) {
     markdownBody = stripLeadingH1(markdownBody);
   }
 
+  const featured = resolveFeaturedImage(frontmatter, markdownBody, title);
+  if (featured?.url) {
+    const firstInBody = extractFirstMarkdownImage(markdownBody);
+    if (firstInBody?.url === featured.url) {
+      markdownBody = stripFeaturedImageFromBody(markdownBody, featured.url);
+    }
+  }
+
   const contentHtml = marked.parse(markdownBody);
 
   return {
@@ -150,6 +207,8 @@ function processMarkdownFile(filePath) {
     category,
     date,
     contentHtml,
+    featuredImage: featured?.url || "",
+    featuredImageAlt: featured?.alt || title,
     sourceFile: filename,
   };
 }
@@ -167,10 +226,20 @@ function writeArticlePage(article, template, header, footer) {
     TITLE: escapeHtml(article.title),
     META_DESCRIPTION: escapeAttr(article.metaDescription),
     KEYWORD_META: keywordMeta,
+    OG_IMAGE_META: buildOgImageMeta(
+      article.featuredImage
+        ? { url: article.featuredImage, alt: article.featuredImageAlt }
+        : null
+    ),
     CANONICAL_URL: `${SITE_URL}/blog/${article.slug}.html`,
     HEADER: header,
     FOOTER: footer,
     DATE_LABEL: formatDateIT(article.date),
+    FEATURED_IMAGE: buildFeaturedImageHtml(
+      article.featuredImage
+        ? { url: article.featuredImage, alt: article.featuredImageAlt }
+        : null
+    ),
     CONTENT: article.contentHtml,
   });
 
@@ -181,14 +250,20 @@ function writeArticlePage(article, template, header, footer) {
 
 function writeIndexPage(articles, template, header, footer) {
   const listHtml = articles
-    .map(
-      (article) => `<li>
-        <a href="/blog/${article.slug}.html">
-          <span class="article-list__title">${escapeHtml(article.title)}</span>
-          <span class="article-list__date">${formatDateIT(article.date)}</span>
+    .map((article) => {
+      const thumb = article.featuredImage
+        ? `<img class="article-list__thumb" src="${escapeAttr(article.featuredImage)}" alt="${escapeAttr(article.featuredImageAlt || article.title)}" loading="lazy" />`
+        : "";
+      return `<li>
+        <a href="/blog/${article.slug}.html" class="article-list__link">
+          ${thumb}
+          <div class="article-list__body">
+            <span class="article-list__title">${escapeHtml(article.title)}</span>
+            <span class="article-list__date">${formatDateIT(article.date)}</span>
+          </div>
         </a>
-      </li>`
-    )
+      </li>`;
+    })
     .join("\n");
 
   const html = applyTemplate(template, {
@@ -279,15 +354,28 @@ function main() {
   fs.writeFileSync(
     path.join(OUTPUT_DIR, "articles-manifest.json"),
     JSON.stringify(
-      articles.map(({ title, slug, metaDescription, category, date, sourceFile }) => ({
-        title,
-        slug,
-        metaDescription,
-        category,
-        date: date.toISOString(),
-        sourceFile,
-        url: `/blog/${slug}.html`,
-      })),
+      articles.map(
+        ({
+          title,
+          slug,
+          metaDescription,
+          category,
+          date,
+          sourceFile,
+          featuredImage,
+          featuredImageAlt,
+        }) => ({
+          title,
+          slug,
+          metaDescription,
+          category,
+          date: date.toISOString(),
+          sourceFile,
+          featuredImage: featuredImage || "",
+          featuredImageAlt: featuredImageAlt || title,
+          url: `/blog/${slug}.html`,
+        })
+      ),
       null,
       2
     ),

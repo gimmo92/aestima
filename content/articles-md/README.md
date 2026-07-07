@@ -9,6 +9,7 @@ slug: mio-slug-url
 meta_description: "Descrizione per SEO"
 keyword: "parola chiave, ricambi"
 date: 2026-06-26
+image: "https://example.com/immagine.jpg"
 keep_h1: false
 ---
 ```

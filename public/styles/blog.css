@@ -181,6 +181,23 @@ a:hover {
   padding: 3rem 0 4rem;
 }
 
+.featured-image {
+  max-width: var(--article);
+  margin: 0 auto 1.5rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.featured-image__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .article-card {
   max-width: var(--article);
   margin: 0 auto;
@@ -297,13 +314,43 @@ a:hover {
 }
 
 .article-list a {
-  display: block;
-  padding: 1.25rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+  padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1rem;
   background: rgba(255, 255, 255, 0.04);
   text-decoration: none;
   transition: border-color 0.2s, background 0.2s;
+  overflow: hidden;
+}
+
+.article-list__thumb {
+  width: 120px;
+  min-height: 84px;
+  flex: none;
+  object-fit: cover;
+  border-radius: 0.625rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.article-list__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+@media (max-width: 520px) {
+  .article-list a {
+    flex-direction: column;
+  }
+
+  .article-list__thumb {
+    width: 100%;
+    height: 160px;
+  }
 }
 
 .article-list a:hover {

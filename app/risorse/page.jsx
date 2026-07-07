@@ -72,7 +72,18 @@ export default function RisorsePage() {
               <ul className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 {published.map((article) => (
                   <li key={article.slug}>
-                    <GlassCard className="flex h-full flex-col p-6">
+                    <GlassCard className="flex h-full flex-col overflow-hidden p-0">
+                      {article.featuredImage ? (
+                        <div className="relative aspect-[16/9] w-full overflow-hidden border-b border-white/[0.06]">
+                          <img
+                            src={article.featuredImage}
+                            alt={article.featuredImageAlt || article.title}
+                            className="h-full w-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : null}
+                      <div className="flex flex-1 flex-col p-6">
                       <div className="flex items-start justify-between gap-3">
                         <span className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
                           {article.category}
@@ -96,6 +107,7 @@ export default function RisorsePage() {
                       >
                         Leggi articolo →
                       </Link>
+                      </div>
                     </GlassCard>
                   </li>
                 ))}

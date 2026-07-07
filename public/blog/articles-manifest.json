@@ -1,11 +1,79 @@
 [
   {
+    "title": "Virtual Reality Modeling Language: Guida per l'After-Sales",
+    "slug": "virtual-reality-modeling-language",
+    "metaDescription": "Scopri cos'è il Virtual Reality Modeling Language (VRML), la sua evoluzione in X3D e glTF e come i suoi principi si applicano oggi all'after-sales.",
+    "category": "Articolo",
+    "date": "2026-07-07T06:32:35.974Z",
+    "sourceFile": "virtual-reality-modeling-language",
+    "featuredImage": "https://cdnimg.co/21ee738e-aee1-441a-92ef-ad661aee18d9/094b93be-c737-4b0a-a943-bfe1a27ea6bb/virtual-reality-modeling-language-reading-group.jpg",
+    "featuredImageAlt": "Virtual Reality Modeling Language: Guida per l'After-Sales",
+    "url": "/blog/virtual-reality-modeling-language.html"
+  },
+  {
+    "title": "Sample Article Title for Testing",
+    "slug": "sample-article-title-for-testing",
+    "metaDescription": "A sample article for testing webhook integration with Outrank",
+    "category": "Articolo",
+    "date": "2026-07-06T09:07:48.625Z",
+    "sourceFile": "sample-article-title-for-testing",
+    "featuredImage": "https://via.placeholder.com/800x600/4F46E5/FFFFFF?text=Test+Article+Image",
+    "featuredImageAlt": "Sample Article Title for Testing",
+    "url": "/blog/sample-article-title-for-testing.html"
+  },
+  {
+    "title": "Offerte ricambi auto: la guida per preventivi B2B veloci",
+    "slug": "offerte-ricambi-auto",
+    "metaDescription": "Gestisci le offerte ricambi auto senza stress. La nostra guida per l'after-sales B2B spiega come eliminare errori e ritardi con l'automazione AI.",
+    "category": "Articolo",
+    "date": "2026-07-06T06:35:47.516Z",
+    "sourceFile": "offerte-ricambi-auto",
+    "featuredImage": "https://cdnimg.co/21ee738e-aee1-441a-92ef-ad661aee18d9/110ff063-5154-41c5-a810-97e10f2e3095/car-spare-parts-offers-automotive-parts.jpg",
+    "featuredImageAlt": "Offerte ricambi auto: la guida per preventivi B2B veloci",
+    "url": "/blog/offerte-ricambi-auto.html"
+  },
+  {
+    "title": "Software gestione magazzino ricambi: La guida completa 2026",
+    "slug": "software-gestione-magazzino-ricambi",
+    "metaDescription": "Scopri come un software gestione magazzino ricambi trasforma l'after-sales. Dalla gestione scorte all'AI per i preventivi, la guida per costruttori.",
+    "category": "Articolo",
+    "date": "2026-07-05T06:53:43.703Z",
+    "sourceFile": "software-gestione-magazzino-ricambi",
+    "featuredImage": "https://cdnimg.co/21ee738e-aee1-441a-92ef-ad661aee18d9/bb3669a5-dcb4-4969-b507-4d245019706d/spare-parts-inventory-management-software-warehouse-management.jpg",
+    "featuredImageAlt": "Software gestione magazzino ricambi: La guida completa 2026",
+    "url": "/blog/software-gestione-magazzino-ricambi.html"
+  },
+  {
+    "title": "Gestione Distinte Base: La Guida Pratica per il 2026",
+    "slug": "gestione-distinte-base",
+    "metaDescription": "Scopri cos'è la gestione distinte base, le migliori pratiche e come l'AI rivoluziona l'after-sales. La guida per ottimizzare processi e preventivi.",
+    "category": "Articolo",
+    "date": "2026-07-04T06:52:47.881Z",
+    "sourceFile": "gestione-distinte-base",
+    "featuredImage": "https://cdnimg.co/21ee738e-aee1-441a-92ef-ad661aee18d9/1d65a4b6-d35d-4135-9cd5-e232ca1b0ea1/bill-of-materials-management-mechanical-engineering.jpg",
+    "featuredImageAlt": "Gestione Distinte Base: La Guida Pratica per il 2026",
+    "url": "/blog/gestione-distinte-base.html"
+  },
+  {
+    "title": "Ricambi macchine industriali: la guida per l'after-sales",
+    "slug": "ricambi-macchine-industriali",
+    "metaDescription": "Guida completa ai ricambi macchine industriali per uffici after-sales. Impara a identificare parti senza codice, ottimizzare preventivi e usare l'AI.",
+    "category": "Articolo",
+    "date": "2026-07-03T07:44:52.598Z",
+    "sourceFile": "ricambi-macchine-industriali",
+    "featuredImage": "https://cdnimg.co/21ee738e-aee1-441a-92ef-ad661aee18d9/ade2da8c-a65f-460f-8e07-c58a16bf6ae9/industrial-machinery-spare-parts-automotive-illustration.jpg",
+    "featuredImageAlt": "Ricambi macchine industriali: la guida per l'after-sales",
+    "url": "/blog/ricambi-macchine-industriali.html"
+  },
+  {
     "title": "Carta intestata preventivo 2026: evita errori comuni",
     "slug": "carta-intestata-preventivo-2026-evita-errori-comuni",
     "metaDescription": "La scena è familiare a molte aziende manifatturiere. Arriva un'email con una foto sfocata del componente, una telefonata del cliente che “non ha il codice ma è qu…",
     "category": "Articolo",
     "date": "2026-07-02T08:22:37.427Z",
     "sourceFile": "carta-intestata-preventivo-2026-evita-errori-comuni",
+    "featuredImage": "https://cdnimg.co/21ee738e-aee1-441a-92ef-ad661aee18d9/c4ee5f9f-1603-4722-a900-8c62101bde61/letterhead-quote-estimate-elements.jpg",
+    "featuredImageAlt": "Infografica che elenca i sette elementi obbligatori fondamentali per redigere un preventivo professionale chiaro e completo.",
     "url": "/blog/carta-intestata-preventivo-2026-evita-errori-comuni.html"
   },
   {
@@ -15,6 +83,8 @@
     "category": "Articolo",
     "date": "2026-07-01T07:35:39.507Z",
     "sourceFile": "compliance-audit-la-guida-essenziale-per-il-2026",
+    "featuredImage": "https://cdnimg.co/21ee738e-aee1-441a-92ef-ad661aee18d9/db0aee48-d8e7-4cdf-bef4-598fe57802e6/compliance-audit-infographic.jpg",
+    "featuredImageAlt": "Schema grafico che spiega cos'è un compliance audit, i suoi obiettivi principali e i vantaggi aziendali correlati.",
     "url": "/blog/compliance-audit-la-guida-essenziale-per-il-2026.html"
   }
 ]
