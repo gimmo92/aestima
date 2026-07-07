@@ -520,13 +520,13 @@ export default function AestimaLanding() {
                 </p>
                 <p className="mt-1 text-[14px] leading-relaxed text-slate-300">
                   I tecnici inviano note vocali, foto e testo da WhatsApp: il sistema genera
-                  il rapportino di intervento in automatico, pronto da revisionare.
+                  rapportini di intervento e offerte ricambi in automatico, pronti da revisionare.
                 </p>
                 <a
                   href="#rapportini-whatsapp"
                   className="mt-2 inline-flex text-[13.5px] font-medium text-emerald-300 transition hover:text-emerald-200"
                 >
-                  Scopri i rapportini →
+                  Rapportini e offerte →
                 </a>
               </div>
             </div>
@@ -563,20 +563,22 @@ export default function AestimaLanding() {
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <Eyebrow>Rapportini · WhatsApp</Eyebrow>
+              <Eyebrow>WhatsApp · Rapportini e offerte</Eyebrow>
               <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-                Rapportini di intervento generati in automatico
+                Rapportini e offerte ricambi, generati in automatico
               </h2>
               <p className="mt-4 max-w-[38em] text-base leading-relaxed text-slate-400 sm:text-lg">
-                Il tecnico non compila moduli a fine giornata. Manda messaggi, foto o note vocali
-                su WhatsApp durante l&apos;intervento: il sistema struttura il rapportino con
-                cliente, macchina, attività svolte e materiali usati. Tu lo controlli e approvi
-                prima dell&apos;archiviazione.
+                Il tecnico non compila moduli a fine giornata e non torna in ufficio per
+                preparare l&apos;offerta. Manda messaggi, foto o note vocali su WhatsApp durante
+                l&apos;intervento: il sistema struttura il rapportino e, quando serve, propone
+                anche l&apos;offerta ricambi con prezzo e disponibilità. Tu controlli e approvi
+                prima dell&apos;archiviazione o dell&apos;invio al cliente.
               </p>
               <div className="mt-8 flex flex-col gap-3.5">
                 {[
                   "Integrazione WhatsApp Business: niente app nuova per il team in campo.",
                   "Trascrizione e sintesi di vocali, foto e messaggi in un rapportino coerente.",
+                  "Richiesta ricambio da WhatsApp → identificazione pezzo, giacenza e offerta pronta da approvare.",
                   "Collegamento a cliente, commessa e parco macchine già presenti nei tuoi dati.",
                 ].map((t) => (
                   <div key={t} className="flex gap-3">
@@ -611,17 +613,26 @@ export default function AestimaLanding() {
                   <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-emerald-600/25 px-3 py-2.5 text-[12.5px] text-slate-400">
                     🎤 Nota vocale · 0:42
                   </div>
+                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-emerald-600/25 px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-200">
+                    Cliente chiede anche preventivo per valvola VP-204 — stessa macchina.
+                  </div>
                   <div className="flex items-center gap-2 rounded-lg border border-cyan-400/20 bg-cyan-500/[0.06] px-3 py-2">
                     <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-glow-sm" />
-                    <span className="text-[11.5px] text-cyan-200">Rapportino generato · in attesa di approvazione</span>
+                    <span className="text-[11.5px] text-cyan-200">
+                      Rapportino + offerta generate · in attesa di approvazione
+                    </span>
                   </div>
                 </div>
 
                 <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-3">
                   <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500">Output</p>
                   <p className="mt-1 text-[13px] font-medium text-white">Rapportino INT-2026-0847</p>
-                  <p className="mt-0.5 text-[11.5px] text-slate-400">
-                    Attività, materiali, tempi e firma tecnico — pronto per il gestionale
+                  <p className="text-[11.5px] text-slate-400">
+                    Attività, materiali, tempi — pronto per il gestionale
+                  </p>
+                  <p className="mt-2 text-[13px] font-medium text-white">Offerta PRV-2026-0413</p>
+                  <p className="text-[11.5px] text-slate-400">
+                    Ricambio identificato, giacenza verificata, prezzo su carta intestata
                   </p>
                 </div>
               </GlassCard>
