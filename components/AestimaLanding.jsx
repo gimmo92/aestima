@@ -534,25 +534,26 @@ export default function AestimaLanding() {
               </div>
             </div>
 
-            <div className="flex items-start gap-3 rounded-xl border border-emerald-400/20 bg-emerald-500/[0.07] px-4 py-3.5">
-              <div className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-emerald-500/15 text-emerald-300">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.435 9.884-9.883 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
+            <div className="flex items-start gap-3 rounded-xl border border-cyan-400/20 bg-cyan-500/[0.07] px-4 py-3.5">
+              <div className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-300">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M12 3a7 7 0 0 0-4 12.7V21l3.6-1.8A7 7 0 1 0 12 3z" />
+                  <path d="M9 10h.01M12 10h.01M15 10h.01" />
                 </svg>
               </div>
               <div>
-                <p className="text-[14.5px] font-semibold text-emerald-200">
-                  Integrazione WhatsApp
+                <p className="text-[14.5px] font-semibold text-cyan-200">
+                  Chatbot customer care
                 </p>
                 <p className="mt-1 text-[14px] leading-relaxed text-slate-300">
-                  I tecnici inviano note vocali, foto e testo da WhatsApp: il sistema genera
-                  rapportini di intervento e offerte ricambi in automatico, pronti da revisionare.
+                  Automatizza le richieste di assistenza e impara dalle soluzioni efficaci,
+                  costruendo una knowledge base che migliora ad ogni interazione.
                 </p>
                 <a
-                  href="#rapportini-whatsapp"
-                  className="mt-2 inline-flex text-[13.5px] font-medium text-emerald-300 transition hover:text-emerald-200"
+                  href="#chatbot-customer-care"
+                  className="mt-2 inline-flex text-[13.5px] font-medium text-cyan-300 transition hover:text-cyan-200"
                 >
-                  Rapportini e offerte →
+                  Customer care che impara →
                 </a>
               </div>
             </div>
@@ -663,85 +664,105 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      {/* RAPPORTINI WHATSAPP */}
-      <section id="rapportini-whatsapp" className="section-divider relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/15 via-transparent to-transparent" aria-hidden />
+      {/* CHATBOT CUSTOMER CARE */}
+      <section id="chatbot-customer-care" className="section-divider relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/15 via-transparent to-transparent" aria-hidden />
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <div>
-              <Eyebrow>WhatsApp · Rapportini e offerte</Eyebrow>
-              <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-                Rapportini e offerte ricambi, generati in automatico
-              </h2>
-              <p className="mt-4 max-w-[38em] text-base leading-relaxed text-slate-400 sm:text-lg">
-                Il tecnico non compila moduli a fine giornata e non torna in ufficio per
-                preparare l&apos;offerta. Manda messaggi, foto o note vocali su WhatsApp durante
-                l&apos;intervento: il sistema struttura il rapportino e, quando serve, propone
-                anche l&apos;offerta ricambi con prezzo e disponibilità. Tu controlli e approvi
-                prima dell&apos;archiviazione o dell&apos;invio al cliente.
-              </p>
-              <div className="mt-8 flex flex-col gap-3.5">
-                {[
-                  "Integrazione WhatsApp Business: niente app nuova per il team in campo.",
-                  "Trascrizione e sintesi di vocali, foto e messaggi in un rapportino coerente.",
-                  "Richiesta ricambio da WhatsApp → identificazione pezzo, giacenza e offerta pronta da approvare.",
-                  "Collegamento a cliente, commessa e parco macchine già presenti nei tuoi dati.",
-                ].map((t) => (
-                  <div key={t} className="flex gap-3">
-                    <Bullet />
-                    <p className="text-[15px] leading-relaxed text-slate-300">{t}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="mb-12 lg:mb-16">
+            <Eyebrow>Chatbot customer care</Eyebrow>
+            <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+              Un chatbot che risponde, e impara mentre lo fa
+            </h2>
+            <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
+              Automatizza le richieste di customer care e impara dalle soluzioni efficaci
+              proposte, costruendo una knowledge base che riusa per rispondere sempre più
+              velocemente alle richieste future.
+            </p>
+          </div>
 
+          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-10">
             <div className="relative">
-              <div aria-hidden className="absolute -inset-6 rounded-[28px] bg-gradient-to-br from-emerald-600/15 to-cyan-500/10 blur-2xl" />
-              <GlassCard className="relative overflow-hidden border-emerald-400/15 p-0">
-                <div className="border-b border-white/[0.06] bg-emerald-500/[0.08] px-4 py-3">
+              <div aria-hidden className="absolute -inset-6 rounded-[28px] bg-gradient-to-br from-blue-600/15 to-cyan-500/10 blur-2xl" />
+              <GlassCard className="relative overflow-hidden border-blue-400/15 p-0">
+                <div className="flex items-center justify-between border-b border-white/[0.06] bg-blue-500/[0.08] px-4 py-3">
                   <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-300">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.435 9.884-9.883 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z" />
-                      </svg>
+                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-600">
+                      <span className="h-2 w-2 rotate-45 rounded-[1px] bg-white" />
                     </span>
-                    <div>
-                      <p className="text-[13px] font-semibold text-white">Tecnico · WhatsApp</p>
-                      <p className="font-mono text-[10px] text-slate-500">Intervento MX-450 · Cliente Rossi SpA</p>
-                    </div>
+                    <p className="text-[13px] font-semibold text-white">aestima · Chatbot customer care</p>
                   </div>
+                  <span className="flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[9px] text-emerald-300">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+                    online
+                  </span>
                 </div>
 
                 <div className="space-y-3 p-4">
-                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-emerald-600/25 px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-200">
-                    Sostituito kit guarnizioni VP-204, test ok. Foto allegata.
+                  <div className="ml-auto max-w-[88%] rounded-2xl rounded-tr-sm border border-blue-400/20 bg-blue-600/20 px-3 py-2.5">
+                    <p className="text-[12.5px] leading-relaxed text-slate-200">
+                      La pressa PH-200 va in errore E-04 dopo l&apos;accensione. Come si risolve?
+                    </p>
+                    <p className="mt-1 text-right font-mono text-[10px] text-slate-500">18:02</p>
                   </div>
-                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-emerald-600/25 px-3 py-2.5 text-[12.5px] text-slate-400">
-                    🎤 Nota vocale · 0:42
+                  <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5">
+                    <p className="text-[12.5px] leading-relaxed text-slate-300">
+                      Trovata soluzione già validata per E-04: resettare il pressostato e verificare
+                      il filo di terra del quadro.
+                    </p>
+                    <p className="mt-1 font-mono text-[10px] text-slate-500">18:02</p>
                   </div>
-                  <div className="ml-auto max-w-[85%] rounded-2xl rounded-tr-sm bg-emerald-600/25 px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-200">
-                    Cliente chiede anche preventivo per valvola VP-204 — stessa macchina.
+                  <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5">
+                    <p className="text-[12.5px] leading-relaxed text-slate-300">
+                      Soluzione confermata efficace ✅ aggiunta alla knowledge base per le prossime
+                      richieste su E-04.
+                    </p>
+                    <p className="mt-1 font-mono text-[10px] text-slate-500">18:05</p>
                   </div>
-                  <div className="flex items-center gap-2 rounded-lg border border-cyan-400/20 bg-cyan-500/[0.06] px-3 py-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-glow-sm" />
-                    <span className="text-[11.5px] text-cyan-200">
-                      Rapportino + offerta generate · in attesa di approvazione
-                    </span>
-                  </div>
-                </div>
-
-                <div className="border-t border-white/[0.06] bg-white/[0.02] px-4 py-3">
-                  <p className="font-mono text-[10px] uppercase tracking-wider text-slate-500">Output</p>
-                  <p className="mt-1 text-[13px] font-medium text-white">Rapportino INT-2026-0847</p>
-                  <p className="text-[11.5px] text-slate-400">
-                    Attività, materiali, tempi — pronto per il gestionale
-                  </p>
-                  <p className="mt-2 text-[13px] font-medium text-white">Offerta PRV-2026-0413</p>
-                  <p className="text-[11.5px] text-slate-400">
-                    Ricambio identificato, giacenza verificata, prezzo su carta intestata
-                  </p>
                 </div>
               </GlassCard>
+            </div>
+
+            <div className="flex flex-col gap-4">
+              {[
+                {
+                  title: "Richieste automatizzate",
+                  text: "Il chatbot risponde subito alle richieste di customer care, senza attese in coda.",
+                  highlight: false,
+                },
+                {
+                  title: "Impara dalle soluzioni efficaci",
+                  text: "Ogni soluzione che funziona viene registrata e diventa parte della knowledge base.",
+                  highlight: false,
+                },
+                {
+                  tag: "Si migliora da solo",
+                  title: "Knowledge base riusabile",
+                  text: "Più richieste risolve, più veloce diventa sulle prossime.",
+                  highlight: true,
+                },
+              ].map((card) => (
+                <GlassCard
+                  key={card.title}
+                  className={`p-6 sm:p-7 ${card.highlight ? "border-blue-400/30 bg-blue-500/[0.06]" : "border-white/[0.08]"}`}
+                >
+                  {card.tag && (
+                    <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
+                      {card.tag}
+                    </p>
+                  )}
+                  <div className="flex items-start gap-3">
+                    {card.highlight && (
+                      <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600 shadow-glow-sm">
+                        <span className="h-2.5 w-2.5 rotate-45 rounded-[1px] bg-white" />
+                      </span>
+                    )}
+                    <div>
+                      <h3 className="text-[18px] font-semibold tracking-tight text-white">{card.title}</h3>
+                      <p className="mt-2 text-[15px] leading-relaxed text-slate-400">{card.text}</p>
+                    </div>
+                  </div>
+                </GlassCard>
+              ))}
             </div>
           </div>
         </div>
