@@ -2,151 +2,7 @@
 
 import { useState } from "react";
 import { BackgroundGlow, SiteFooter, SiteHeader } from "@/components/SiteChrome";
-import { CALENDLY_URL } from "@/lib/site";
-
-const ACCENT = {
-  text: "text-blue-300",
-  badge: "border border-blue-400/25 bg-blue-500/10 text-blue-200 backdrop-blur-sm",
-};
-
-/* Statistiche della sezione problema — icona + numero + didascalia */
-const svgProps = {
-  width: 30,
-  height: 30,
-  viewBox: "0 0 24 24",
-  fill: "none",
-  stroke: "currentColor",
-  strokeWidth: 1.6,
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  "aria-hidden": true,
-};
-
-const PROBLEM_STATS = [
-  {
-    stat: "1+ ora",
-    caption:
-      "per identificare il pezzo e ricostruire il prezzo, a ogni richiesta",
-    icon: (
-      <svg {...svgProps}>
-        <rect x="3" y="3" width="12" height="13" rx="1.5" />
-        <path d="M6 7h6M6 10h4" />
-        <circle cx="15.5" cy="15" r="4" />
-        <path d="M18.5 18l2.5 2.5" />
-      </svg>
-    ),
-  },
-  {
-    stat: "50% del tempo",
-    caption: "a saltare tra gestionale, magazzino e fornitori",
-    icon: (
-      <svg {...svgProps}>
-        <path d="M4 7h11M4 7l3-3M4 7l3 3" />
-        <path d="M20 17H9M20 17l-3-3M20 17l-3 3" />
-      </svg>
-    ),
-  },
-  {
-    stat: "Ordini persi",
-    caption: "quando l'offerta arriva troppo tardi",
-    icon: (
-      <svg {...svgProps}>
-        <circle cx="12" cy="12" r="9" />
-        <path d="M12 7v5l3 2" />
-      </svg>
-    ),
-  },
-];
-
-/* Agenti AI della suite post-vendita */
-const AGENTS = [
-  {
-    tag: "TICKETING",
-    title: "Ticketing AI",
-    lead: "Riceve e smista ogni richiesta in arrivo.",
-    points: [
-      "Trasforma mail, form e telefonate in ticket strutturati.",
-      "Classifica per macchina, cliente, urgenza e tipo di intervento.",
-      "Instrada la richiesta alla persona giusta — niente si perde per strada.",
-    ],
-    icon: (
-      <svg {...svgProps}>
-        <path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2a2 2 0 0 0 0-4z" />
-        <path d="M12 8v8" strokeDasharray="1.5 2.5" />
-      </svg>
-    ),
-  },
-  {
-    tag: "OFFERTE",
-    title: "Agente offerte",
-    lead: "Dalla richiesta di ricambio all'offerta pronta.",
-    points: [
-      "Identifica il pezzo anche senza codice, da descrizione o numero di serie.",
-      "Verifica la giacenza e, se manca, prepara la bozza di richiesta al fornitore.",
-      "Genera il preventivo su carta intestata — l'approvazione resta al tecnico.",
-    ],
-    icon: (
-      <svg {...svgProps}>
-        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
-        <path d="M14 3v5h5M9 13h6M9 17h4" />
-      </svg>
-    ),
-  },
-  {
-    tag: "PROATTIVO",
-    title: "Agente sul parco installato",
-    lead: "Suggerisce le azioni giuste sul parco macchine del cliente.",
-    points: [
-      "Analizza lo storico del cliente e delle macchine installate.",
-      "Segnala ricambi da proporre: usura, manutenzione programmata, revisioni.",
-      "Trasforma il post-vendita da reattivo a proattivo.",
-    ],
-    icon: (
-      <svg {...svgProps}>
-        <circle cx="12" cy="12" r="2.5" />
-        <path d="M12 3v3M12 18v3M3 12h3M18 12h3" />
-        <path d="M7 7l1.8 1.8M15.2 15.2L17 17M17 7l-1.8 1.8M8.8 15.2L7 17" />
-      </svg>
-    ),
-  },
-  {
-    tag: "PRICING",
-    title: "Ottimizzazione del pricing",
-    lead: "Il prezzo giusto, su ogni offerta.",
-    points: [
-      "Suggerisce il prezzo in base a storico, marginalità e condizioni cliente.",
-      "Tiene conto di disponibilità, urgenza e valore del ricambio.",
-      "Protegge il margine senza far perdere l'ordine.",
-    ],
-    icon: (
-      <svg {...svgProps}>
-        <path d="M4 12l8-8 8 8-8 8z" />
-        <path d="M10 10l4 4M14 10l-4 4" />
-      </svg>
-    ),
-  },
-];
-
-/* Statistiche risultati — numero grande + titolo + didascalia */
-const RESULTS_STATS = [
-  {
-    stat: "+30%",
-    title: "Ordini ricambi",
-    caption:
-      "più ordini chiusi: rispondi in tempo e proponi in modo proattivo sul parco cliente",
-  },
-  {
-    stat: "−80%",
-    title: "Ordini persi",
-    caption:
-      "meno occasioni perse per offerte arrivate troppo tardi o dimenticate",
-  },
-  {
-    stat: "fino al 90%",
-    title: "Tempi di risposta",
-    caption: "dalla richiesta all'offerta pronta, grazie all'automazione",
-  },
-];
+import { CALENDLY_URL, COMPANY } from "@/lib/site";
 
 const PARTNER_LOGOS = [
   { src: "/logos/tsg.png", alt: "TSG" },
@@ -157,7 +13,6 @@ const PARTNER_LOGOS = [
   { src: "/logos/toptaglio.png", alt: "Toptaglio" },
 ];
 
-/* Gestionali / ERP più diffusi nelle PMI manifatturiere italiane */
 const ERP_INTEGRATIONS = [
   "TeamSystem",
   "Zucchetti",
@@ -173,6 +28,31 @@ const ERP_INTEGRATIONS = [
   "Oracle NetSuite",
 ];
 
+const TICKET_CHANNELS = [
+  { label: "Email", icon: "✉" },
+  { label: "WhatsApp", icon: "💬" },
+  { label: "Chat sul sito", icon: "🌐" },
+  { label: "Telefono", icon: "📞" },
+];
+
+function Eyebrow({ children }) {
+  return <div className="pill-eyebrow">{children}</div>;
+}
+
+function Bullet() {
+  return (
+    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
+  );
+}
+
+function GlassCard({ children, className = "" }) {
+  return (
+    <div className={`glass glass-hover rounded-2xl ${className}`}>
+      {children}
+    </div>
+  );
+}
+
 function PartnerLogoBand() {
   return (
     <section
@@ -180,8 +60,11 @@ function PartnerLogoBand() {
       className="section-divider relative border-t border-white/[0.06] bg-navy-950/50 py-10 sm:py-12"
     >
       <div className="mx-auto max-w-[1140px] px-5 sm:px-8 lg:px-12">
-        <p className="mb-8 text-center font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
+        <p className="mb-2 text-center font-mono text-[11px] font-medium uppercase tracking-[0.16em] text-slate-500">
           Lavoriamo con
+        </p>
+        <p className="mb-8 text-center text-[15px] text-slate-400">
+          Chi si affida ad aestima — costruttori e distributori che gestiscono richieste ricambi ogni giorno.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-8 sm:gap-x-14 lg:gap-x-16">
           {PARTNER_LOGOS.map((logo) => (
@@ -199,226 +82,305 @@ function PartnerLogoBand() {
   );
 }
 
-function Eyebrow({ children }) {
-  return <div className="pill-eyebrow">{children}</div>;
-}
-
-function Bullet() {
+function ServiceChatMockup() {
   return (
-    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
-  );
-}
-
-
-function GlassCard({ children, className = "" }) {
-  return (
-    <div className={`glass glass-hover rounded-2xl ${className}`}>
-      {children}
-    </div>
-  );
-}
-
-function FileChip({ type, name, meta, accent }) {
-  return (
-    <div className="flex items-center gap-3 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
-      <div className={`flex h-10 w-10 flex-none items-center justify-center rounded-lg ${accent}`}>
-        {type === "mail" ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-white">
-            <path d="M4 6h16v12H4z" />
-            <path d="M4 7l8 6 8-6" />
-          </svg>
-        ) : type === "photo" ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-white">
-            <rect x="3" y="5" width="18" height="14" rx="2" />
-            <circle cx="9" cy="11" r="2" />
-            <path d="M21 15l-5-4-4 3-3-2-6 5" />
-          </svg>
-        ) : (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="text-white">
-            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-            <path d="M14 2v6h6M10 13h4M10 17h4M10 9h1" />
-          </svg>
-        )}
-      </div>
-      <div className="min-w-0">
-        <p className="truncate text-[13px] font-medium text-white">{name}</p>
-        <p className="font-mono text-[10.5px] text-slate-500">{meta}</p>
-      </div>
-    </div>
-  );
-}
-
-function HeroSoftwareMockup() {
-  return (
-    <div className="relative mx-auto w-full max-w-[560px]">
-      <div aria-hidden className="absolute -inset-8 rounded-[32px] bg-gradient-to-br from-blue-600/25 to-cyan-500/10 blur-3xl" />
-
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-navy-900/90 shadow-glass-lg backdrop-blur-2xl">
-        {/* Title bar */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.03] px-4 py-3">
-          <div className="flex items-center gap-3">
-            <div className="flex gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
-              <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80" />
+    <div className="relative">
+      <div aria-hidden className="absolute -inset-6 rounded-[28px] bg-gradient-to-br from-blue-600/15 to-cyan-500/10 blur-2xl" />
+      <GlassCard className="relative overflow-hidden border-blue-400/15 p-0">
+        <div className="flex items-center justify-between border-b border-white/[0.06] bg-blue-500/[0.08] px-4 py-3">
+          <div className="flex items-center gap-2">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-600">
+              <span className="h-2 w-2 rotate-45 rounded-[1px] bg-white" />
+            </span>
+            <div>
+              <p className="text-[13px] font-semibold text-white">Assistente aestima</p>
+              <p className="font-mono text-[10px] text-slate-500">Assistenza service · nuova conversazione</p>
             </div>
-            <span className="font-mono text-[11px] text-slate-500">aestima — agente offerte · post-vendita</span>
           </div>
-          <span className={`rounded-full px-2 py-0.5 font-mono text-[10px] ${ACCENT.badge}`}>
-            Elaborazione completata
+          <span className="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[9px] text-emerald-300">
+            Online
           </span>
         </div>
 
-        <div className="grid grid-cols-1 gap-0 lg:grid-cols-[1fr_auto_1.15fr]">
-          {/* Input panel */}
-          <div className="border-b border-white/[0.06] p-4 lg:border-b-0 lg:border-r">
-            <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
-              Input
+        <div className="space-y-3 p-4">
+          <div className="max-w-[92%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-300">
+            Buongiorno, posso aiutarti a identificare ricambi nella distinta della tua macchina o a
+            trovare soluzioni a malfunzionamenti già risolti in passato.
+          </div>
+          <div className="ml-auto max-w-[70%] rounded-2xl rounded-tr-sm border border-blue-400/20 bg-blue-600/20 px-3 py-2.5 text-[12.5px] text-slate-200">
+            Cerco un ricambio
+          </div>
+          <div className="max-w-[92%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-300">
+            Perfetto! Seleziona il modello dall&apos;elenco oppure indica tu stesso il modello o la matricola:
+          </div>
+          <div className="ml-auto max-w-[55%] rounded-2xl rounded-tr-sm border border-blue-400/20 bg-blue-600/20 px-3 py-2.5 font-mono text-[12.5px] text-slate-200">
+            IDC-114-084
+          </div>
+          <div className="max-w-[95%] rounded-2xl rounded-tl-sm border border-cyan-400/15 bg-blue-500/10 px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-200">
+            <p className="mb-1.5 font-medium text-cyan-200">
+              Macchina identificata: Impianto IDC 114 TCZ
             </p>
-            <div className="space-y-2.5">
-              <div className="rounded-xl border border-cyan-400/20 bg-cyan-500/[0.06] p-3">
-                <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-blue-300/80">Richiesta cliente</p>
-                <p className="text-[12px] leading-relaxed text-slate-300">
-                  &ldquo;Si è rotto il componente X della macchina, n. serie 12345&rdquo;
-                </p>
-              </div>
-              <FileChip
-                type="photo"
-                name="foto_componente.jpg"
-                meta="Allegato · foto del pezzo danneggiato"
-                accent="bg-gradient-to-br from-blue-600 to-cyan-600 ring-1 ring-cyan-400/30"
-              />
-              <FileChip
-                type="mail"
-                name="richiesta@cliente.it"
-                meta="Email · via assistenza post-vendita"
-                accent="bg-gradient-to-br from-slate-600/90 to-slate-700/80"
-              />
-            </div>
-
-            <div className="mt-4 rounded-xl border border-dashed border-cyan-400/20 bg-cyan-500/[0.04] px-3 py-3 text-center">
-              <p className="text-[11.5px] text-slate-400">Descrizione, numero di serie o foto</p>
-              <p className="mt-0.5 font-mono text-[10px] text-slate-500">mail · form · allegati</p>
-            </div>
-
-            <div className="mt-4 flex items-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/10 px-3 py-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-              <span className="text-[11.5px] text-emerald-300">
-                Ricambio identificato · giacenza verificata · prezzo calcolato
-              </span>
-            </div>
-          </div>
-
-          {/* Flow arrow */}
-          <div className="hidden items-center justify-center px-2 lg:flex">
-            <div className="flex flex-col items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full border border-blue-400/25 bg-blue-500/10 shadow-glow-sm">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyan-300">
-                  <path d="M5 12h14M13 6l6 6-6 6" />
-                </svg>
-              </div>
-              <span className="font-mono text-[9px] uppercase tracking-wider text-slate-500">AI</span>
-            </div>
-          </div>
-
-          {/* Flow arrow — mobile */}
-          <div className="flex items-center justify-center border-b border-white/[0.06] py-3 lg:hidden">
-            <div className="flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-3 py-1">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-cyan-300">
-                <path d="M12 5v14M5 12l7 7 7-7" />
-              </svg>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-blue-300">Elaborazione AI</span>
-            </div>
-          </div>
-
-          {/* Output — carta intestata */}
-          <div className="relative bg-white/[0.02] p-4">
-            <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
-              Output · carta intestata
+            <p className="font-mono text-[11px] text-slate-400">
+              Matricola IDC-114-084 · anno 2018 · variante RTP
             </p>
-
-            <div className="overflow-hidden rounded-xl border border-white/10 bg-white shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]">
-              {/* Intestazione aziendale */}
-              <div className="border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white px-4 py-3">
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-blue-600 to-cyan-600">
-                        <span className="h-2 w-2 rotate-45 rounded-[1px] bg-white" />
-                      </span>
-                      <span className="text-[13px] font-bold tracking-tight text-slate-900">Macchine Industriali SpA</span>
-                    </div>
-                    <p className="mt-1 text-[9px] leading-relaxed text-slate-500">
-                      Via Industria 12 · 20100 Milano · P.IVA 01234567890
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono text-[8px] uppercase tracking-wider text-slate-400">Preventivo</p>
-                    <p className="font-mono text-[11px] font-semibold text-slate-800">PRV-2026-0412</p>
-                    <p className="text-[9px] text-slate-500">26/06/2026</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Corpo documento */}
-              <div className="px-4 py-3 text-slate-800">
-                <p className="text-[10px] font-semibold uppercase tracking-wide text-slate-500">Ricambio identificato</p>
-                <p className="text-[11px] font-medium text-slate-900">Assy. valvola VP-204 · cod. RIC-88412</p>
-                <p className="mt-1 font-mono text-[9px] text-slate-500">Macchina MX-450 · n. serie 12345 · distinta rev. C</p>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[8px] font-semibold text-emerald-800">
-                    Disponibile a magazzino · 2 pz
+            <p className="mt-2 text-slate-300">
+              Che ricambio stai cercando? Ecco alcuni componenti della distinta base:
+            </p>
+            <div className="mt-2 flex flex-wrap gap-1.5">
+              {["Perno curva", "Cuscinetto 6005 2RS", "Corona ruota traino", "Cavo ferro zincato D.6"].map(
+                (part) => (
+                  <span
+                    key={part}
+                    className="rounded-md border border-white/10 bg-white/[0.05] px-2 py-1 text-[10.5px] text-slate-300"
+                  >
+                    {part}
                   </span>
-                  <span className="rounded-full bg-amber-100 px-2 py-0.5 text-[8px] font-semibold text-amber-800">
-                    Da ordinare · GS-18
-                  </span>
-                </div>
-
-                <div className="my-3 h-px bg-slate-200" />
-
-                <div className="space-y-1.5">
-                  {[
-                    ["Valvola VP-204 (assiemato)", "€ 1.240,00"],
-                    ["Guarnizione kit GS-18", "€ 86,00"],
-                    ["Condizioni cliente · sconto 8%", "− € 106,00"],
-                  ].map(([label, price]) => (
-                    <div key={label} className="flex items-center justify-between gap-2 text-[10px]">
-                      <span className="truncate text-slate-600">{label}</span>
-                      <span className="font-mono font-medium text-slate-800">{price}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="my-3 h-px bg-slate-200" />
-
-                <p className="mb-2 text-[9px] leading-relaxed text-amber-700">
-                  Bozza richiesta fornitore pronta per GS-18 — l&apos;operatore decide e invia.
-                </p>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-semibold text-slate-900">Totale offerta</span>
-                  <span className="font-mono text-[13px] font-bold text-blue-700">€ 1.220,00</span>
-                </div>
-
-                <div className="mt-3 flex gap-2">
-                  <span className="flex-1 rounded-md bg-gradient-to-r from-blue-600 to-cyan-600 py-1.5 text-center text-[10px] font-semibold text-white">
-                    Approva
-                  </span>
-                  <span className="flex-1 rounded-md border border-slate-200 py-1.5 text-center text-[10px] font-semibold text-slate-700">
-                    Esporta PDF
-                  </span>
-                </div>
-              </div>
-
-              <div className="border-t border-slate-100 bg-slate-50 px-4 py-2">
-                <p className="font-mono text-[8.5px] text-slate-400">
-                  Documento generato da aestima · calcolo interno allegato
-                </p>
-              </div>
+                )
+              )}
             </div>
           </div>
         </div>
+
+        <div className="border-t border-white/[0.06] px-4 py-3">
+          <div className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2">
+            <span className="text-[12px] text-slate-500">Descrivi il problema o allega un file…</span>
+          </div>
+        </div>
+      </GlassCard>
+    </div>
+  );
+}
+
+function KnowledgeBaseMockup() {
+  return (
+    <GlassCard className="overflow-hidden border-blue-400/15 p-0">
+      <div className="border-b border-white/[0.06] bg-blue-500/[0.08] px-4 py-3">
+        <p className="text-[13px] font-semibold text-white">Impianto IDC 114 TCZ</p>
+        <p className="font-mono text-[10px] text-slate-500">Knowledge base · troubleshooting</p>
       </div>
+      <div className="space-y-3 p-4">
+        <div className="rounded-xl border border-emerald-400/20 bg-emerald-500/[0.08] p-3">
+          <div className="mb-2 flex flex-wrap items-center gap-2">
+            <span className="rounded-md bg-emerald-500/20 px-2 py-0.5 font-mono text-[10px] font-medium text-emerald-300">
+              KB-107
+            </span>
+            <span className="rounded-md border border-amber-400/25 bg-amber-500/10 px-2 py-0.5 font-mono text-[10px] text-amber-200">
+              RICORRENTE · 6×
+            </span>
+            <span className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-0.5 font-mono text-[10px] text-slate-400">
+              Consolidata
+            </span>
+          </div>
+          <p className="text-[12px] font-medium text-slate-200">
+            Richiesta sostituzione cavo fune D.6 — matricola IDC-114-084
+          </p>
+          <p className="mt-2 text-[11.5px] leading-relaxed text-slate-400">
+            <span className="font-mono text-[10px] uppercase tracking-wider text-cyan-300/80">
+              Soluzione
+            </span>
+            <br />
+            Ordinare cavo ferro zincato mm 6 (1023021), smontare semidisco giunzione, sostituire
+            cavo e ritarare a 180 Nm.
+          </p>
+        </div>
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.03] p-3">
+          <p className="mb-1 font-mono text-[10px] uppercase tracking-wider text-slate-500">
+            Caso risolto → registrato
+          </p>
+          <p className="text-[12.5px] leading-relaxed text-slate-300">
+            Errore E-04 su pressa PH-200 → sensore pressione P-3, cablaggio danneggiato.
+          </p>
+          <p className="mt-2 text-[11.5px] text-emerald-300">✓ Soluzione confermata dal tecnico</p>
+        </div>
+      </div>
+    </GlassCard>
+  );
+}
+
+function TicketingMockup() {
+  const tickets = [
+    {
+      id: "#2041",
+      title: "Fermo macchina · errore E-04 pressa PH-200",
+      meta: "via WhatsApp · Automotive Components · matricola PH-200-112",
+      badge: "URGENTE",
+      badgeClass: "border-red-400/30 bg-red-500/15 text-red-300",
+      assignee: "→ M. Bianchi",
+    },
+    {
+      id: "#2042",
+      title: "Richiesta ricambio · cavo fune D.6 IDC 114 TCZ",
+      meta: "via email · matricola IDC-114-084 · manutenzione programmata",
+      badge: "MEDIA",
+      badgeClass: "border-amber-400/30 bg-amber-500/15 text-amber-200",
+      assignee: "→ Ufficio ricambi",
+    },
+    {
+      id: "#2043",
+      title: "Info revisione annuale · linea taglio",
+      meta: "via chat sito · risposta automatica inviata · in attesa conferma",
+      badge: "RISOLTO AI",
+      badgeClass: "border-emerald-400/30 bg-emerald-500/15 text-emerald-300",
+      assignee: "✓ chiuso",
+    },
+  ];
+
+  return (
+    <GlassCard className="overflow-hidden border-blue-400/15 p-0">
+      <div className="flex items-center justify-between border-b border-white/[0.06] bg-blue-500/[0.08] px-4 py-3">
+        <p className="text-[13px] font-semibold text-white">Coda ticket · oggi</p>
+        <span className="flex items-center gap-1.5 font-mono text-[11px] text-slate-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+          14 aperti · 3 urgenti
+        </span>
+      </div>
+      <div className="divide-y divide-white/[0.06]">
+        {tickets.map((t) => (
+          <div key={t.id} className="px-4 py-3.5">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="font-mono text-[11px] text-cyan-300/90">{t.id}</span>
+              <span className={`rounded-md border px-2 py-0.5 font-mono text-[9.5px] ${t.badgeClass}`}>
+                {t.badge}
+              </span>
+            </div>
+            <p className="mt-1.5 text-[13.5px] font-medium text-white">{t.title}</p>
+            <p className="mt-1 text-[11.5px] text-slate-500">{t.meta}</p>
+            <p className="mt-1.5 text-[12px] text-slate-400">{t.assignee}</p>
+          </div>
+        ))}
+      </div>
+    </GlassCard>
+  );
+}
+
+function PartsSearchMockup() {
+  const matches = [
+    {
+      pct: "96%",
+      name: "Cuscinetto albero",
+      code: "cod. RX-4471 · distinta A-12",
+      stock: "3 pz a magazzino · € 480,00",
+      accent: "border-emerald-400/25 bg-emerald-500/[0.08]",
+      pctClass: "text-emerald-300",
+    },
+    {
+      pct: "74%",
+      name: "Guarnizione tenuta",
+      code: "cod. GT-118 · distinta A-12",
+      stock: "12 pz a magazzino · € 64,00",
+      accent: "border-white/[0.08] bg-white/[0.03]",
+      pctClass: "text-cyan-300",
+    },
+    {
+      pct: "61%",
+      name: "Kit anelli tenuta",
+      code: "cod. KT-902 · distinta A-14",
+      stock: "0 pz a magazzino · da ordinare",
+      accent: "border-white/[0.08] bg-white/[0.03]",
+      pctClass: "text-amber-200",
+    },
+  ];
+
+  return (
+    <GlassCard className="overflow-hidden border-blue-400/15 p-0">
+      <div className="border-b border-white/[0.06] bg-blue-500/[0.08] px-4 py-3">
+        <p className="font-mono text-[10px] uppercase tracking-wider text-blue-300/80">Ricerca</p>
+        <p className="mt-1 text-[13px] text-slate-200">
+          &ldquo;cuscinetto che perde olio, pressa PH-200, macchina n. serie 12345&rdquo;
+        </p>
+      </div>
+      <div className="space-y-2.5 p-4">
+        {matches.map((m) => (
+          <div key={m.name} className={`rounded-xl border p-3 ${m.accent}`}>
+            <div className="flex items-start justify-between gap-3">
+              <div>
+                <p className="text-[13.5px] font-semibold text-white">{m.name}</p>
+                <p className="mt-0.5 font-mono text-[11px] text-slate-500">{m.code}</p>
+                <p className="mt-1.5 text-[12px] text-slate-400">{m.stock}</p>
+              </div>
+              <span className={`font-mono text-[12px] font-semibold ${m.pctClass}`}>
+                MATCH {m.pct}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </GlassCard>
+  );
+}
+
+function DataQualityMockup() {
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center">
+      <GlassCard className="border-red-400/15 p-5">
+        <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-red-300/80">
+          Prima · dati rotti
+        </p>
+        <ul className="space-y-2.5 text-[13px] leading-relaxed text-slate-400">
+          <li>RX-4471 / rx4471 / RX 4471-A → 3 codici, 1 pezzo</li>
+          <li>&ldquo;guarnizione ten.&rdquo; · &ldquo;GUARN.TENUTA&rdquo; · &ldquo;gt-tenuta&rdquo;</li>
+          <li>Distinta A-12 → 2 righe senza quantità</li>
+        </ul>
+      </GlassCard>
+      <div className="flex justify-center font-mono text-[12px] text-cyan-300">→</div>
+      <GlassCard className="border-emerald-400/20 p-5">
+        <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-emerald-300/80">
+          Dopo · archivio ordinato
+        </p>
+        <ul className="space-y-2.5 text-[13px] leading-relaxed text-slate-300">
+          <li>RX-4471 → Cuscinetto albero, unico codice</li>
+          <li>GT-118 → Guarnizione di tenuta, unica voce</li>
+          <li>Distinta A-12 → completa, quantità verificate</li>
+        </ul>
+      </GlassCard>
+    </div>
+  );
+}
+
+function OffersMockup() {
+  return (
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <GlassCard className="border-emerald-400/20 p-5">
+        <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-emerald-300/80">
+          Pezzo disponibile
+        </p>
+        <h3 className="text-[16px] font-semibold text-white">Offerta pronta in automatico</h3>
+        <div className="mt-4 space-y-2 text-[13px]">
+          <div className="flex justify-between gap-2 text-slate-300">
+            <span>Cuscinetto albero · RX-4471</span>
+            <span className="font-mono">€ 480,00</span>
+          </div>
+          <div className="flex justify-between gap-2 text-slate-300">
+            <span>Manodopera montaggio</span>
+            <span className="font-mono">€ 180,00</span>
+          </div>
+          <div className="my-2 h-px bg-white/[0.08]" />
+          <div className="flex justify-between gap-2 font-semibold text-white">
+            <span>Totale</span>
+            <span className="font-mono text-cyan-300">€ 660,00</span>
+          </div>
+        </div>
+        <p className="mt-3 text-[12.5px] leading-relaxed text-slate-500">
+          Preventivo su carta intestata, pronto per l&apos;approvazione del tecnico.
+        </p>
+      </GlassCard>
+
+      <GlassCard className="border-amber-400/20 p-5">
+        <p className="mb-3 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-amber-200/80">
+          Pezzo non a magazzino
+        </p>
+        <h3 className="text-[16px] font-semibold text-white">Richiesta al fornitore in automatico</h3>
+        <div className="mt-4 rounded-xl border border-white/[0.08] bg-white/[0.03] p-3 text-[12.5px]">
+          <p className="text-slate-500">A: fornitore.ricambi@metaltek.it</p>
+          <p className="mt-1 text-slate-300">Ogg: Richiesta quotazione kit anelli KT-902</p>
+          <p className="mt-2 leading-relaxed text-slate-400">
+            &ldquo;Serve disponibilità e prezzo per 1 pz, urgenza alta.&rdquo;
+          </p>
+        </div>
+        <p className="mt-3 text-[12.5px] leading-relaxed text-slate-500">
+          L&apos;agente sceglie il fornitore giusto e invia la richiesta, senza passare dal telefono.
+        </p>
+      </GlassCard>
     </div>
   );
 }
@@ -494,164 +456,83 @@ export default function AestimaLanding() {
 
       {/* HERO */}
       <section className="section-divider relative">
-        <div className="mx-auto grid max-w-[1140px] grid-cols-1 items-center gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 md:gap-16 lg:px-12 lg:py-28">
-          <div className="relative z-10">
-            <Eyebrow>Piattaforma AI · Post-vendita</Eyebrow>
+        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <div className="mx-auto max-w-[40em] text-center">
+            <Eyebrow>Agente AI per il service</Eyebrow>
             <h1 className="text-[34px] font-semibold leading-[1.05] tracking-tight sm:text-5xl lg:text-[58px]">
-              <span className="gradient-text">Agenti AI</span>
+              <span className="gradient-text">Un agente AI</span>
               <br />
-              <span className="text-white">per il tuo post-vendita</span>
+              <span className="text-white">per tutto il service</span>
             </h1>
-            <p className="mt-6 max-w-[30em] text-[17px] leading-relaxed text-slate-400 sm:text-lg lg:text-xl">
-              Dai ticket in arrivo alle offerte pronte, dalle azioni proattive sul parco
-              installato all&apos;ottimizzazione del pricing — con chatbot di assistenza sui
-              ricambi. Una squadra di agenti che lavora sui tuoi dati; l&apos;approvazione resta
-              sempre alle tue persone.
+            <p className="mx-auto mt-6 max-w-[34em] text-[17px] leading-relaxed text-slate-400 sm:text-lg lg:text-xl">
+              Risponde ai clienti, aiuta i tecnici a trovare soluzioni, impara da ogni caso
+              risolto, trova i ricambi giusti e prepara offerte o richieste ai fornitori — in
+              automatico.
             </p>
-
-            <div className="mt-6 flex flex-col gap-3">
-            <div className="flex items-start gap-3 rounded-xl border border-blue-400/20 bg-blue-500/[0.07] px-4 py-3.5">
-              <div className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-blue-500/15 text-cyan-300">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                  <path d="M8 10h.01M12 10h.01M16 10h.01" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[14.5px] font-semibold text-blue-200">
-                  Chatbot assistenza ricambi
-                </p>
-                <p className="mt-1 text-[14px] leading-relaxed text-slate-300">
-                  Il team e i clienti chiedono un pezzo in linguaggio naturale: il chatbot
-                  interroga distinte, listini e giacenze e risponde con codice, disponibilità e prezzo.
-                </p>
-                <a
-                  href="#chatbot-ricambi"
-                  className="mt-2 inline-flex text-[13.5px] font-medium text-cyan-300 transition hover:text-cyan-200"
-                >
-                  Chatbot sui tuoi dati →
-                </a>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-3 rounded-xl border border-cyan-400/20 bg-cyan-500/[0.07] px-4 py-3.5">
-              <div className="mt-0.5 flex h-9 w-9 flex-none items-center justify-center rounded-lg bg-cyan-500/15 text-cyan-300">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M12 3a7 7 0 0 0-4 12.7V21l3.6-1.8A7 7 0 1 0 12 3z" />
-                  <path d="M9 10h.01M12 10h.01M15 10h.01" />
-                </svg>
-              </div>
-              <div>
-                <p className="text-[14.5px] font-semibold text-cyan-200">
-                  Chatbot customer care
-                </p>
-                <p className="mt-1 text-[14px] leading-relaxed text-slate-300">
-                  Automatizza le richieste di assistenza e impara dalle soluzioni efficaci,
-                  costruendo una knowledge base che migliora ad ogni interazione.
-                </p>
-                <a
-                  href="#chatbot-customer-care"
-                  className="mt-2 inline-flex text-[13.5px] font-medium text-cyan-300 transition hover:text-cyan-200"
-                >
-                  Customer care che impara →
-                </a>
-              </div>
-            </div>
-            </div>
-
-            <div className="mt-9 flex flex-wrap gap-3">
+            <div className="mt-9 flex flex-wrap justify-center gap-3">
               <a href={CALENDLY_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">
                 Richiedi una demo
               </a>
-              <a href="#agenti" className="btn-ghost">
-                Gli agenti
+              <a href="#assistenza" className="btn-ghost">
+                Scopri le funzioni
               </a>
             </div>
-          </div>
-
-          <div className="relative z-10">
-            <HeroSoftwareMockup />
-          </div>
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-[1140px] px-5 pb-14 sm:px-8 lg:px-12 lg:pb-20">
-          <div className="glass-strong flex flex-col items-center justify-center gap-1 rounded-2xl border-cyan-400/15 bg-gradient-to-r from-blue-950/40 via-navy-900/60 to-cyan-950/30 px-6 py-5 text-center sm:flex-row sm:gap-3 sm:py-6">
-            <p className="text-[16px] font-medium leading-snug text-slate-300 sm:text-lg">
-              Più ordini chiusi e meno occasioni perse, con il post-vendita automatizzato
-            </p>
           </div>
         </div>
       </section>
 
-      <PartnerLogoBand />
-
-      {/* CHATBOT ASSISTENZA RICAMBI */}
-      <section id="chatbot-ricambi" className="section-divider relative bg-navy-900/40">
+      {/* ASSISTENZA SERVICE */}
+      <section id="assistenza" className="section-divider relative bg-navy-900/40">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/15 via-transparent to-transparent" aria-hidden />
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            <div className="relative order-2 lg:order-1">
-              <div aria-hidden className="absolute -inset-6 rounded-[28px] bg-gradient-to-br from-blue-600/15 to-cyan-500/10 blur-2xl" />
-              <GlassCard className="relative overflow-hidden border-blue-400/15 p-0">
-                <div className="flex items-center justify-between border-b border-white/[0.06] bg-blue-500/[0.08] px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-600">
-                      <span className="h-2 w-2 rotate-45 rounded-[1px] bg-white" />
-                    </span>
-                    <div>
-                      <p className="text-[13px] font-semibold text-white">aestima · assistenza ricambi</p>
-                      <p className="font-mono text-[10px] text-slate-500">Connesso a distinte · listini · magazzino</p>
-                    </div>
-                  </div>
-                  <span className="rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[9px] text-emerald-300">
-                    Online
-                  </span>
-                </div>
-
-                <div className="space-y-3 p-4">
-                  <div className="max-w-[88%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-300">
-                    Ciao, mi serve la valvola per la macchina MX-450 serie 12345 — quella montata sulla linea 2.
-                  </div>
-                  <div className="ml-auto max-w-[90%] rounded-2xl rounded-tr-sm border border-cyan-400/15 bg-blue-500/10 px-3 py-2.5 text-[12.5px] leading-relaxed text-slate-200">
-                    <p className="mb-1.5 font-medium text-cyan-200">Trovato nella distinta MX-450 rev. C</p>
-                    <p>Assy. valvola VP-204 · cod. <span className="font-mono text-white">RIC-88412</span></p>
-                    <p className="mt-1.5 text-emerald-300">Disponibile a magazzino · 2 pz</p>
-                    <p className="mt-1 text-slate-400">Listino € 1.240,00 · condizioni cliente applicate</p>
-                  </div>
-                  <div className="max-w-[88%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5 text-[12.5px] text-slate-300">
-                    Ok, prepara l&apos;offerta per il cliente Rossi.
-                  </div>
-                  <div className="flex items-center gap-2 rounded-lg border border-cyan-400/20 bg-cyan-500/[0.06] px-3 py-2">
-                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-glow-sm" />
-                    <span className="text-[11.5px] text-cyan-200">Offerta PRV-2026-0418 pronta · in attesa di approvazione</span>
-                  </div>
-                </div>
-
-                <div className="border-t border-white/[0.06] px-4 py-3">
-                  <div className="flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2">
-                    <span className="text-[12px] text-slate-500">Chiedi un ricambio, un codice, una giacenza…</span>
-                  </div>
-                </div>
-              </GlassCard>
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <Eyebrow>Chatbot · Assistenza ricambi</Eyebrow>
+            <div>
+              <Eyebrow>Assistenza service</Eyebrow>
               <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-                Risposte immediate interrogando i tuoi dati
+                Una chat che identifica ricambi e trova soluzioni
               </h2>
               <p className="mt-4 max-w-[38em] text-base leading-relaxed text-slate-400 sm:text-lg">
-                Ufficio ricambi, assistenza e clienti fanno le stesse domande ogni giorno: quale
-                pezzo, se c&apos;è a magazzino, a che prezzo. Il chatbot interroga il database
-                con distinte, configurazioni macchina, listini e giacenze — e risponde in
-                linguaggio naturale, senza aprire il gestionale.
+                La chat è collegata all&apos;archivio documentale dell&apos;azienda: consulta
+                distinte, manuali e schede tecniche per rispondere con informazioni sempre
+                aggiornate.
               </p>
               <div className="mt-8 flex flex-col gap-3.5">
                 {[
-                  "Domande in italiano, anche senza codice articolo: descrizione, serie, contesto macchina.",
-                  "Interroga distinte, anagrafica clienti, listini ricambi e stock in tempo reale.",
-                  "Propone il componente corretto, la disponibilità e il prezzo — può preparare anche l'offerta.",
-                  "Disponibile per il team interno e, se serve, per i clienti sul portale o via widget.",
+                  "Collegata all'archivio documentale: distinte, manuali e schede tecniche.",
+                  "Importa i tuoi documenti: foto, PDF, Excel e altri file — l'agente li legge e li usa per rispondere.",
+                ].map((t) => (
+                  <div key={t} className="flex gap-3">
+                    <Bullet />
+                    <p className="text-[15px] leading-relaxed text-slate-300">{t}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <ServiceChatMockup />
+          </div>
+        </div>
+      </section>
+
+      {/* KNOWLEDGE BASE */}
+      <section id="knowledge" className="section-divider relative">
+        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div className="order-2 lg:order-1">
+              <KnowledgeBaseMockup />
+            </div>
+            <div className="order-1 lg:order-2">
+              <Eyebrow>Knowledge base</Eyebrow>
+              <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+                Impara dai casi risolti, scrive il manuale di troubleshooting
+              </h2>
+              <p className="mt-4 max-w-[38em] text-base leading-relaxed text-slate-400 sm:text-lg">
+                Ogni soluzione confermata efficace viene registrata: l&apos;agente costruisce e
+                aggiorna, impianto per impianto, un manuale di troubleshooting sempre più completo.
+              </p>
+              <div className="mt-8 flex flex-col gap-3.5">
+                {[
+                  "Ogni intervento chiuso con successo diventa una voce nella knowledge base, associata a impianto, sintomo e causa.",
+                  "Il manuale cresce impianto per impianto: più interventi si chiudono, più diventa preciso per i prossimi.",
                 ].map((t) => (
                   <div key={t} className="flex gap-3">
                     <Bullet />
@@ -664,301 +545,104 @@ export default function AestimaLanding() {
         </div>
       </section>
 
-      {/* CHATBOT CUSTOMER CARE */}
-      <section id="chatbot-customer-care" className="section-divider relative">
+      {/* TICKETING AI */}
+      <section id="ticketing" className="section-divider relative bg-navy-900/40">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/15 via-transparent to-transparent" aria-hidden />
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <div className="mb-12 lg:mb-16">
-            <Eyebrow>Chatbot customer care</Eyebrow>
-            <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-              Un chatbot che risponde, e impara mentre lo fa
+          <div className="mb-10 max-w-[42em]">
+            <Eyebrow>Ticketing AI</Eyebrow>
+            <h2 className="max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+              Ogni richiesta diventa un ticket, da qualsiasi canale
             </h2>
-            <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
-              Automatizza le richieste di customer care e impara dalle soluzioni efficaci
-              proposte, costruendo una knowledge base che riusa per rispondere sempre più
-              velocemente alle richieste future.
+            <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+              Mail, WhatsApp, chat o telefono: l&apos;agente trasforma tutto in ticket strutturati,
+              li classifica per macchina, cliente e urgenza e li assegna alla persona giusta.
+              Niente si perde per strada.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-2 lg:gap-10">
-            <div className="relative">
-              <div aria-hidden className="absolute -inset-6 rounded-[28px] bg-gradient-to-br from-blue-600/15 to-cyan-500/10 blur-2xl" />
-              <GlassCard className="relative overflow-hidden border-blue-400/15 p-0">
-                <div className="flex items-center justify-between border-b border-white/[0.06] bg-blue-500/[0.08] px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-600">
-                      <span className="h-2 w-2 rotate-45 rounded-[1px] bg-white" />
-                    </span>
-                    <p className="text-[13px] font-semibold text-white">aestima · Chatbot customer care</p>
-                  </div>
-                  <span className="flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 font-mono text-[9px] text-emerald-300">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-                    online
-                  </span>
-                </div>
-
-                <div className="space-y-3 p-4">
-                  <div className="ml-auto max-w-[88%] rounded-2xl rounded-tr-sm border border-blue-400/20 bg-blue-600/20 px-3 py-2.5">
-                    <p className="text-[12.5px] leading-relaxed text-slate-200">
-                      La pressa PH-200 va in errore E-04 dopo l&apos;accensione. Come si risolve?
-                    </p>
-                    <p className="mt-1 text-right font-mono text-[10px] text-slate-500">18:02</p>
-                  </div>
-                  <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5">
-                    <p className="text-[12.5px] leading-relaxed text-slate-300">
-                      Trovata soluzione già validata per E-04: resettare il pressostato e verificare
-                      il filo di terra del quadro.
-                    </p>
-                    <p className="mt-1 font-mono text-[10px] text-slate-500">18:02</p>
-                  </div>
-                  <div className="max-w-[90%] rounded-2xl rounded-tl-sm border border-white/[0.06] bg-white/[0.04] px-3 py-2.5">
-                    <p className="text-[12.5px] leading-relaxed text-slate-300">
-                      Soluzione confermata efficace ✅ aggiunta alla knowledge base per le prossime
-                      richieste su E-04.
-                    </p>
-                    <p className="mt-1 font-mono text-[10px] text-slate-500">18:05</p>
-                  </div>
-                </div>
-              </GlassCard>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              {[
-                {
-                  title: "Richieste automatizzate",
-                  text: "Il chatbot risponde subito alle richieste di customer care, senza attese in coda.",
-                  highlight: false,
-                },
-                {
-                  title: "Impara dalle soluzioni efficaci",
-                  text: "Ogni soluzione che funziona viene registrata e diventa parte della knowledge base.",
-                  highlight: false,
-                },
-                {
-                  tag: "Si migliora da solo",
-                  title: "Knowledge base riusabile",
-                  text: "Più richieste risolve, più veloce diventa sulle prossime.",
-                  highlight: true,
-                },
-              ].map((card) => (
-                <GlassCard
-                  key={card.title}
-                  className={`p-6 sm:p-7 ${card.highlight ? "border-blue-400/30 bg-blue-500/[0.06]" : "border-white/[0.08]"}`}
-                >
-                  {card.tag && (
-                    <p className="mb-2 font-mono text-[10px] font-medium uppercase tracking-[0.14em] text-blue-300/80">
-                      {card.tag}
-                    </p>
-                  )}
-                  <div className="flex items-start gap-3">
-                    {card.highlight && (
-                      <span className="mt-0.5 flex h-8 w-8 flex-none items-center justify-center rounded-lg bg-gradient-to-br from-blue-600 to-cyan-600 shadow-glow-sm">
-                        <span className="h-2.5 w-2.5 rotate-45 rounded-[1px] bg-white" />
-                      </span>
-                    )}
-                    <div>
-                      <h3 className="text-[18px] font-semibold tracking-tight text-white">{card.title}</h3>
-                      <p className="mt-2 text-[15px] leading-relaxed text-slate-400">{card.text}</p>
-                    </div>
-                  </div>
-                </GlassCard>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* IL PROBLEMA */}
-      <section id="problema" className="section-divider relative bg-navy-900/40">
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 to-transparent" aria-hidden />
-        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <div className="mx-auto max-w-[46em] text-center">
-            <div className="flex justify-center">
-              <Eyebrow>Il problema</Eyebrow>
-            </div>
-            <h2 className="mx-auto max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-              Il post-vendita ruba ore — e le occasioni si perdono
-            </h2>
-            <p className="mx-auto mt-4 max-w-[40em] text-base leading-relaxed text-slate-400 sm:text-lg">
-              Tra richieste da smistare, ricambi da identificare e prezzi da decidere, il team
-              perde gran parte del tempo così:
-            </p>
-          </div>
-
-          <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-6">
-            {PROBLEM_STATS.map((stat) => (
-              <div
-                key={stat.stat}
-                className="flex flex-col items-center px-2 text-center"
+          <div className="mb-8 flex flex-wrap gap-3">
+            {TICKET_CHANNELS.map((ch) => (
+              <span
+                key={ch.label}
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[14px] font-medium text-slate-200"
               >
-                <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-blue-400/20 bg-blue-500/10 text-cyan-300 shadow-glow-sm">
-                  {stat.icon}
-                </div>
-                <p className="text-[26px] font-semibold leading-tight tracking-tight text-white sm:text-[28px]">
-                  {stat.stat}
-                </p>
-                <p className="mt-2 max-w-[16em] text-[15px] leading-relaxed text-slate-400">
-                  {stat.caption}
-                </p>
-              </div>
+                <span aria-hidden>{ch.icon}</span>
+                {ch.label}
+              </span>
             ))}
           </div>
+
+          <TicketingMockup />
         </div>
       </section>
 
-      {/* GLI AGENTI AI */}
-      <section id="agenti" className="section-divider relative">
+      {/* RICERCA RICAMBI */}
+      <section id="ricambi" className="section-divider relative">
         <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow>Gli agenti AI</Eyebrow>
-          <h2 className="mb-4 max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Una squadra di agenti per l&apos;after-sales
-          </h2>
-          <p className="mb-10 max-w-[44em] text-base leading-relaxed text-slate-400 sm:text-lg">
-            Ogni agente presidia un pezzo del processo post-vendita e lavora insieme agli altri
-            sui tuoi dati. Le tue persone restano al centro: decidono e approvano.
-          </p>
-
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {AGENTS.map((a) => (
-              <GlassCard key={a.tag} className="border-cyan-400/15 p-6 sm:p-8">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-12 w-12 flex-none items-center justify-center rounded-xl border border-blue-400/20 bg-blue-500/10 text-cyan-300 shadow-glow-sm">
-                    {a.icon}
-                  </div>
-                  <div>
-                    <span className="inline-block rounded-md bg-gradient-to-r from-blue-600 to-cyan-600 px-2.5 py-1 font-mono text-[11px] tracking-wide text-white shadow-glow-sm">
-                      {a.tag}
-                    </span>
-                    <h3 className="mt-1.5 text-[21px] font-semibold tracking-tight">{a.title}</h3>
-                  </div>
-                </div>
-                <p className="mt-4 text-[15.5px] font-medium leading-relaxed text-slate-200">
-                  {a.lead}
-                </p>
-                <div className="mt-4 flex flex-col gap-3">
-                  {a.points.map((p) => (
-                    <div key={p} className="flex gap-3">
-                      <Bullet />
-                      <p className="text-[15px] leading-relaxed text-slate-400">{p}</p>
-                    </div>
-                  ))}
-                </div>
-              </GlassCard>
-            ))}
-          </div>
-
-          <div className="glass-strong mt-5 flex flex-wrap items-center gap-3.5 rounded-2xl border-blue-400/20 bg-gradient-to-r from-blue-950/50 to-cyan-950/30 p-6 sm:p-7">
-            <span className="h-2.5 w-2.5 flex-none rounded-full bg-gradient-to-br from-blue-400 to-cyan-400 shadow-glow-sm" />
-            <p className="text-base font-medium leading-snug sm:text-lg">
-              Dai ticket in arrivo all&apos;offerta approvata, fino alle azioni proattive sul
-              parco cliente — un&apos;unica piattaforma, sempre con il controllo delle tue persone.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* COME FUNZIONA */}
-      <section id="funziona" className="section-divider relative bg-navy-900/40">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-950/10 to-transparent" aria-hidden />
-        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow>Come funziona</Eyebrow>
-          <h2 className="mb-10 max-w-[14em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Gli agenti lavorano insieme, in cinque passaggi
-          </h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              ["STEP 01", "Arriva la richiesta", "Il Ticketing AI trasforma mail, form e telefonate in ticket strutturati e li smista."],
-              ["STEP 02", "Identifica il ricambio", "L'agente offerte risale alla macchina, propone il componente dalla distinta e verifica la giacenza."],
-              ["STEP 03", "Ottimizza il prezzo", "L'ottimizzazione pricing propone il prezzo migliore su storico, margini e condizioni cliente."],
-              ["STEP 04", "Offerta pronta", "Preventivo su carta intestata + calcolo interno. Il tecnico approva e invia."],
-              ["STEP 05", "Azioni proattive", "L'agente sul parco installato suggerisce i prossimi ricambi e interventi da proporre al cliente."],
-            ].map(([step, title, desc]) => (
-              <GlassCard key={step} className="p-6">
-                <div className={`mb-4 font-mono text-[13px] font-medium ${ACCENT.text}`}>{step}</div>
-                <h3 className="mb-2 text-lg font-semibold tracking-tight">{title}</h3>
-                <p className="text-[15px] leading-relaxed text-slate-400">{desc}</p>
-              </GlassCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* I RISULTATI */}
-      <section className="section-divider relative">
-        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
-          <div className="mx-auto max-w-[42em] text-center">
-            <div className="flex justify-center">
-              <Eyebrow>I risultati</Eyebrow>
+          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <Eyebrow>Ricerca ricambi</Eyebrow>
+              <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+                Trova il ricambio giusto nel database, anche senza codice
+              </h2>
+              <p className="mt-4 max-w-[38em] text-base leading-relaxed text-slate-400 sm:text-lg">
+                Basta una descrizione, un numero di serie o una foto: l&apos;agente interroga il
+                database ricambi e restituisce il pezzo corretto con disponibilità e prezzo.
+              </p>
             </div>
-            <h2 className="mx-auto max-w-[15em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-              Più ordini, meno occasioni perse
+            <PartsSearchMockup />
+          </div>
+        </div>
+      </section>
+
+      {/* QUALITÀ DEI DATI */}
+      <section id="dati" className="section-divider relative bg-navy-900/40">
+        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/15 via-transparent to-transparent" aria-hidden />
+        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <div className="mb-10 max-w-[42em]">
+            <Eyebrow>Qualità dei dati</Eyebrow>
+            <h2 className="max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+              Organizza l&apos;archivio ricambi, anche quando i dati sono disordinati
             </h2>
-            <p className="mx-auto mt-4 max-w-[38em] text-base leading-relaxed text-slate-400 sm:text-lg">
-              Con il post-vendita automatizzato rispondi più in fretta, non lasci scappare
-              richieste e proponi al momento giusto.
+            <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+              Codici duplicati, descrizioni incoerenti, distinte incomplete: l&apos;agente pulisce e
+              riordina l&apos;archivio ricambi così le ricerche future partono da dati solidi.
             </p>
           </div>
-          <div className="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-3 sm:gap-0">
-            {RESULTS_STATS.map((r, i) => (
-              <div
-                key={r.stat}
-                className={`flex flex-col items-center px-4 text-center sm:px-8 ${
-                  i > 0 ? "sm:border-l sm:border-white/[0.08]" : ""
-                }`}
-              >
-                <p className="gradient-text-accent text-[38px] font-semibold leading-none tracking-tight sm:text-[46px] lg:text-[52px]">
-                  {r.stat}
-                </p>
-                <p className="mt-5 text-[13px] font-semibold uppercase tracking-[0.14em] text-slate-200">
-                  {r.title}
-                </p>
-                <p className="mt-2.5 max-w-[18em] text-[15px] leading-relaxed text-slate-400">
-                  {r.caption}
-                </p>
-              </div>
-            ))}
-          </div>
+          <DataQualityMockup />
         </div>
       </section>
 
-      {/* COSTRUITO SUI TUOI DATI */}
-      <section className="section-divider relative overflow-hidden">
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-navy-800 via-navy-900 to-blue-950" />
-        <div aria-hidden className="absolute -right-20 top-0 h-80 w-80 rounded-full bg-blue-600/15 blur-[100px]" />
-        <div aria-hidden className="absolute -left-10 bottom-0 h-64 w-64 rounded-full bg-cyan-500/10 blur-[80px]" />
-        <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
-          <Eyebrow>Costruito sui tuoi dati</Eyebrow>
-          <h2 className="mb-11 max-w-[17em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Lavora sui tuoi numeri, dentro la tua infrastruttura
-          </h2>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {[
-              ["Integrazione", "Si collega al gestionale o a un DB con distinte e configurazioni macchina, anagrafica clienti, listini ricambi, giacenze di magazzino e anagrafica fornitori."],
-              ["On-premise", "Possibilità di installazione sui tuoi server, dentro il perimetro aziendale."],
-              ["Riservatezza", "Nessun dato viene usato per addestrare modelli esterni."],
-            ].map(([title, desc]) => (
-              <div key={title} className="glass glass-hover rounded-2xl p-6">
-                <div className="mb-4 h-px bg-gradient-to-r from-blue-400/40 to-transparent" />
-                <h3 className="mb-2.5 text-lg font-semibold">{title}</h3>
-                <p className="text-[15px] leading-relaxed text-slate-400">{desc}</p>
-              </div>
-            ))}
+      {/* OFFERTE E FORNITORI */}
+      <section id="offerte" className="section-divider relative">
+        <div className="mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-28">
+          <div className="mb-10 max-w-[42em]">
+            <Eyebrow>Offerte e fornitori</Eyebrow>
+            <h2 className="max-w-[18em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
+              Prepara l&apos;offerta, o contatta il fornitore se il pezzo non c&apos;è
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-slate-400 sm:text-lg">
+              Dal ricambio identificato, l&apos;agente decide da solo il passo successivo: offerta
+              pronta se il pezzo è disponibile, richiesta al fornitore se manca.
+            </p>
           </div>
+          <OffersMockup />
         </div>
       </section>
 
-      {/* INTEGRAZIONI GESTIONALI */}
+      {/* INTEGRAZIONI */}
       <section id="integrazioni" className="section-divider relative bg-navy-900/40">
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/20 to-transparent" aria-hidden />
         <div className="relative mx-auto max-w-[1140px] px-5 py-16 sm:px-8 lg:px-12 lg:py-24">
           <Eyebrow>Integrazioni</Eyebrow>
           <h2 className="max-w-[16em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
-            Si collega ai gestionali che usi già
+            Si collega ai principali ERP che usi già
           </h2>
           <p className="mt-4 max-w-[42em] text-base leading-relaxed text-slate-400 sm:text-lg">
-            L&apos;agente legge distinte, listini, giacenze e anagrafiche direttamente dal tuo
-            ERP o da un database alimentato dai tuoi dati — senza cambiare i tuoi processi.
-            Tra i gestionali più diffusi nel manifatturiero italiano:
+            Gli agenti leggono distinte, listini, giacenze e anagrafiche direttamente dal tuo ERP
+            o da un database alimentato dai tuoi dati — senza cambiare i tuoi processi. Tra i
+            gestionali più diffusi nel manifatturiero italiano:
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             {ERP_INTEGRATIONS.map((name) => (
@@ -977,6 +661,8 @@ export default function AestimaLanding() {
         </div>
       </section>
 
+      <PartnerLogoBand />
+
       {/* FORM DEMO */}
       <section id="demo" className="section-divider relative">
         <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-blue-400/30 to-transparent" />
@@ -986,13 +672,13 @@ export default function AestimaLanding() {
             <h2 className="mb-5 max-w-[13em] text-[27px] font-semibold leading-tight tracking-tight sm:text-4xl lg:text-[42px]">
               <span className="gradient-text-accent">Vediamo aestima</span>
               <br />
-              <span className="text-white">sul vostro post-vendita</span>
+              <span className="text-white">sul vostro service</span>
             </h2>
             <div className="flex max-w-[30em] flex-col gap-3.5">
               {[
-                "30 minuti, sui vostri casi reali di after-sales.",
-                "Vi mostriamo gli agenti al lavoro: dal ticket all'offerta, fino alle azioni sul parco cliente.",
-                "Nessun impegno. L'approvazione resta sempre alle vostre persone.",
+                "30 minuti, sui vostri casi reali di service e post-vendita.",
+                "Vi mostriamo l'agente al lavoro: dalla richiesta alla soluzione, fino all'offerta o al fornitore.",
+                "Nessun impegno — l'approvazione resta sempre alle vostre persone.",
               ].map((t) => (
                 <div key={t} className="flex gap-3">
                   <Bullet />
@@ -1000,6 +686,12 @@ export default function AestimaLanding() {
                 </div>
               ))}
             </div>
+            <a
+              href={COMPANY.phoneHref}
+              className="mt-8 inline-flex items-center gap-2 text-[16px] font-medium text-cyan-300 transition hover:text-cyan-200"
+            >
+              {COMPANY.phone}
+            </a>
           </div>
 
           <div className="relative">
