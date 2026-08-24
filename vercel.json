@@ -5,13 +5,11 @@
     {
       "source": "/",
       "destination": "https://aftercore.ai/",
-      "permanent": true,
       "statusCode": 301
     },
     {
       "source": "/:path*",
       "destination": "https://aftercore.ai/:path*",
-      "permanent": true,
       "statusCode": 301
     }
   ]
